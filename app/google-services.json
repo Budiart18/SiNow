@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "362321643356",
+    "project_id": "sinow-d7f86",
+    "storage_bucket": "sinow-d7f86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362321643356:android:d7d6b2c8a287fbfa6da399",
+        "android_client_info": {
+          "package_name": "com.group2.sinow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMMGiOTYY0qb2mOdoGxcT5hESoA_9c7ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
