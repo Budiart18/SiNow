@@ -126,4 +126,6 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
     testImplementation("app.cash.turbine:turbine:1.0.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
+    // viewpager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
