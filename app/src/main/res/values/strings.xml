@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SiNow</string>
+    <string name="text_highlight_login_here">Masuk disini</string>
 </resources>
