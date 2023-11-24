@@ -14,6 +14,12 @@
         android:theme="@style/Theme.SiNow"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.homepage.allpopularcourse.AllPopularCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.homepage.allcategories.AllCategoriesActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
