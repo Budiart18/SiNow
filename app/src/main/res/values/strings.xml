@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">SiNow</string>
     <string name="text_highlight_login_here">Masuk disini</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_oopps">Oopps!</string>
+    <string name="tv_user_must_login_first">Maaf, Anda harus login terlebih dahulu!</string>
+    <string name="tv_login">Masuk</string>
+    <string name="text_category">Kategori</string>
+    <string name="text_see_all">Lihat Semua</string>
+    <string name="text_popular_course">Kursus Populer</string>
+    <string name="text_search_best_course">Cari Kursus terbaik...</string>
+    <string name="text_notification">Notifikasi</string>
 </resources>
