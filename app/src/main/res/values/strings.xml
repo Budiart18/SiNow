@@ -10,4 +10,5 @@
     <string name="text_see_all">Lihat Semua</string>
     <string name="text_popular_course">Kursus Populer</string>
     <string name="text_search_best_course">Cari Kursus terbaik...</string>
+    <string name="text_notification">Notifikasi</string>
 </resources>

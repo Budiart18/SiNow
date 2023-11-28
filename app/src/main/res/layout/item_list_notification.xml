@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_color_primary_container"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp">
+
+    <ImageView
+        android:id="@+id/ic_notification"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_notification_read"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_notification_category"
+        style="@style/TextAppearance.Material3.TitleMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/app_color_primary"
+        app:layout_constraintStart_toEndOf="@id/ic_notification"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Promosi" />
+
+    <TextView
+        android:id="@+id/tv_notification_time"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tv_notification_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_notification_category"
+        tools:text="2 Maret, 12:00" />
+
+    <TextView
+        android:id="@+id/tv_notification_title"
+        style="@style/TextAppearance.Material3.TitleMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ic_notification"
+        app:layout_constraintTop_toBottomOf="@id/tv_notification_category"
+        tools:text="Dapatkan Potongan 50% selama Bulan Maret! Maret maretdsbhjab" />
+
+    <TextView
+        android:id="@+id/tv_notification_desc"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ic_notification"
+        app:layout_constraintTop_toBottomOf="@id/tv_notification_title"
+        tools:text="Syarat dan ketentuan berlaku dnjwb siucvuwue sibudcbw sndcsn" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/grey"
+        app:layout_constraintTop_toBottomOf="@id/tv_notification_desc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
