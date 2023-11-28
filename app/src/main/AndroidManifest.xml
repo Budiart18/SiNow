@@ -16,6 +16,9 @@
         <activity
             android:name=".presentation.notification.NotificationDetailActivity"
             android:exported="false" />
+      <activity
+            android:name=".presentation.change_password.ChangePasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.notification.NotificationActivity"
             android:exported="false" />

@@ -28,4 +28,6 @@
     <color name="app_color_on_error">#FFFFFF</color>
     <color name="app_color_error_container">#f2e8cf</color>
     <color name="app_color_on_error_container">#bc4749</color>
+    
+    <color name="button_color">#6148FF</color>
 </resources>
