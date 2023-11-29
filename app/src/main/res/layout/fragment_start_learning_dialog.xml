@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_bottom_dialog"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="24dp"
-    tools:context=".presentation.homepage.NonLoginUserDialogFragment">
+    tools:context=".presentation.bottom_dialog.StartLearningDialogFragment">
 
     <ImageView
         android:id="@+id/iv_close"
@@ -17,54 +17,64 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_oopps"
+        android:id="@+id/tv_onboarding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tv_oopps"
+        android:layout_marginTop="32dp"
+        android:text="Onboarding..."
         android:textColor="@color/app_color_primary"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/iv_protect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/iv_close" />
 
     <ImageView
-        android:id="@+id/iv_protect"
+        android:id="@+id/iv_onboarding"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/sinow_protect"
-        app:layout_constraintBottom_toTopOf="@id/tv_login_first"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/iv_onboarding"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_oopps" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding" />
 
     <TextView
-        android:id="@+id/tv_login_first"
+        android:id="@+id/tv_preparation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tv_user_must_login_first"
+        android:layout_marginTop="24dp"
+        android:text="Persiapkan hal berikut untuk belajar maksimal:"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_protect" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_onboarding" />
+
+    <TextView
+        android:id="@+id/tv_preparation_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Mempunyai akun Figma atau install Adobe XD, Menggunakan Internet minimal kecepatan 2Mbps, Belajar di tempat yang nyaman"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_preparation_title" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_join_class"
         style="@style/Widget.Material3.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/app_color_primary"
-        android:text="@string/tv_login"
+        android:text="Ikuti Kelas"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_first"
+        app:layout_constraintTop_toBottomOf="@id/tv_preparation_description"
         app:layout_constraintWidth_percent="0.7" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

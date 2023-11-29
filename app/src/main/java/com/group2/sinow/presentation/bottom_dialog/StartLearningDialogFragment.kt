@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.homepage
+package com.group2.sinow.presentation.bottom_dialog
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,20 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.group2.sinow.MainActivity
-import com.group2.sinow.databinding.FragmentNonLoginUserDialogBinding
+import com.group2.sinow.databinding.FragmentStartLearningDialogBinding
 
-class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
+class StartLearningDialogFragment : SuperBottomSheetFragment() {
 
-    private lateinit var binding: FragmentNonLoginUserDialogBinding
+    private lateinit var binding: FragmentStartLearningDialogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentNonLoginUserDialogBinding.inflate(inflater, container, false)
+        binding = FragmentStartLearningDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,7 +39,7 @@ class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
     }
 
     private fun setClickListener() {
-        binding.btnLogin.setOnClickListener {
+        binding.btnJoinClass.setOnClickListener {
             navigateToLogin()
         }
         binding.ivClose.setOnClickListener {

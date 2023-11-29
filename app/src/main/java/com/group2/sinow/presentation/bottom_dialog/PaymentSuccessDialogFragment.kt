@@ -1,26 +1,27 @@
-package com.group2.sinow.presentation.homepage
+package com.group2.sinow.presentation.bottom_dialog
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.group2.sinow.MainActivity
-import com.group2.sinow.databinding.FragmentNonLoginUserDialogBinding
+import com.group2.sinow.R
+import com.group2.sinow.databinding.FragmentPaymentSuccessDialogBinding
 
-class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
+class PaymentSuccessDialogFragment : SuperBottomSheetFragment() {
 
-    private lateinit var binding: FragmentNonLoginUserDialogBinding
+    private lateinit var binding: FragmentPaymentSuccessDialogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentNonLoginUserDialogBinding.inflate(inflater, container, false)
+        binding = FragmentPaymentSuccessDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,7 +41,10 @@ class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
     }
 
     private fun setClickListener() {
-        binding.btnLogin.setOnClickListener {
+        binding.btnStartLearning.setOnClickListener {
+            navigateToLogin()
+        }
+        binding.btnBackToHome.setOnClickListener {
             navigateToLogin()
         }
         binding.ivClose.setOnClickListener {

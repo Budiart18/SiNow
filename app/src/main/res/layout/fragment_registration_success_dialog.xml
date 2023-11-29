@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_bottom_dialog"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="24dp"
-    tools:context=".presentation.homepage.NonLoginUserDialogFragment">
+    tools:context=".presentation.bottom_dialog.RegistrationSuccessDialogFragment">
 
     <ImageView
         android:id="@+id/iv_close"
@@ -17,53 +16,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_oopps"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_registration_success"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tv_oopps"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Registrasi Berhasil !"
+        android:textAlignment="center"
         android:textColor="@color/app_color_primary"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/iv_protect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/iv_close" />
 
     <ImageView
-        android:id="@+id/iv_protect"
+        android:id="@+id/iv_registration_success"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/sinow_protect"
-        app:layout_constraintBottom_toTopOf="@id/tv_login_first"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_registration_success"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_oopps" />
-
-    <TextView
-        android:id="@+id/tv_login_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_user_must_login_first"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/btn_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_protect" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_registration_success"
+        app:layout_constraintWidth_percent="0.4" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_go_to_home"
         style="@style/Widget.Material3.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/app_color_primary"
-        android:text="@string/tv_login"
+        android:text="Beranda"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_first"
+        app:layout_constraintTop_toBottomOf="@id/iv_registration_success"
         app:layout_constraintWidth_percent="0.7" />
 
 
