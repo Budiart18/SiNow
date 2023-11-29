@@ -130,4 +130,6 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     // viewpager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    // super bottom sheet
+    implementation ("com.github.andrefrsousa:SuperBottomSheet:2.0.0")
 }
