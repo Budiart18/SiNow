@@ -90,6 +90,8 @@ dependencies {
     implementation("io.coil-kt:coil:2.4.0")
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+    // circle crop image
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     // fragment ktx
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     // coroutine
