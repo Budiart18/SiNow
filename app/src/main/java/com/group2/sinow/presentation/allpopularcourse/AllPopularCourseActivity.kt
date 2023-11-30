@@ -1,12 +1,12 @@
-package com.group2.sinow.presentation.homepage.allcategories
+package com.group2.sinow.presentation.allpopularcourse
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.group2.sinow.R
 
-class AllCategoriesActivity : AppCompatActivity() {
+class AllPopularCourseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_categories)
+        setContentView(R.layout.activity_all_popular_course)
     }
 }

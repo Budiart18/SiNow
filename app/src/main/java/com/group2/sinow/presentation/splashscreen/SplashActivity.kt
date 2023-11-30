@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.group2.sinow.MainActivity
+import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.databinding.ActivitySplashBinding
 import com.group2.sinow.presentation.introslider.IntroSliderActivity
 import kotlinx.coroutines.delay
