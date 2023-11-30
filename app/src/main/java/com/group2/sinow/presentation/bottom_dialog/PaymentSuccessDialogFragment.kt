@@ -3,13 +3,11 @@ package com.group2.sinow.presentation.bottom_dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.group2.sinow.MainActivity
-import com.group2.sinow.R
+import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.databinding.FragmentPaymentSuccessDialogBinding
 
 class PaymentSuccessDialogFragment : SuperBottomSheetFragment() {

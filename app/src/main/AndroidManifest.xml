@@ -35,10 +35,10 @@
             android:name=".presentation.notification.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.homepage.allpopularcourse.AllPopularCourseActivity"
+            android:name=".presentation.allpopularcourse.AllPopularCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.homepage.allcategories.AllCategoriesActivity"
+            android:name=".presentation.allcategories.AllCategoriesActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.auth.register.RegisterActivity"
@@ -59,7 +59,7 @@
             android:name=".presentation.introslider.IntroSliderActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true" />
     </application>
 

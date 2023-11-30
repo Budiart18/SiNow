@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.group2.sinow.MainActivity
+import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.databinding.FragmentNonLoginUserDialogBinding
 
 class NonLoginUserDialogFragment : SuperBottomSheetFragment() {

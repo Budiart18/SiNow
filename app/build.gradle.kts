@@ -35,13 +35,13 @@ android {
     flavorDimensions += "env"
     productFlavors {
         create("production") {
-            buildConfigField("String", "BASE_URl", "\"https://1b8fa109-bcdb-4807-89b0-6fbe0d6086f6.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URl", "\"https://sinow-production.up.railway.app/api/v1/\"")
         }
         create("integration") {
-            buildConfigField("String", "BASE_URl", "\"https://1b8fa109-bcdb-4807-89b0-6fbe0d6086f6.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URl", "\"https://sinow-production.up.railway.app/api/v1/\"")
         }
         create("mock") {
-            buildConfigField("String", "BASE_URl", "\"https://1b8fa109-bcdb-4807-89b0-6fbe0d6086f6.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URl", "\"https://sinow-production.up.railway.app/api/v1/\"")
         }
     }
     compileOptions {
@@ -133,4 +133,14 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     // super bottom sheet
     implementation ("com.github.andrefrsousa:SuperBottomSheet:2.0.0")
+    // Smooth Bottom Bar
+    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+    // Groupie
+    implementation ("com.github.lisawray.groupie:groupie:2.10.1")
+    implementation ("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
+    //Media3 Exoplayer
+    implementation ("androidx.media3:media3-exoplayer:1.2.0")
+    implementation ("androidx.media3:media3-exoplayer-dash:1.2.0")
+    implementation ("androidx.media3:media3-ui:1.2.0")
+
 }

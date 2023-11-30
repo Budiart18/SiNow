@@ -11,4 +11,8 @@
     <string name="text_popular_course">Kursus Populer</string>
     <string name="text_search_best_course">Cari Kursus terbaik...</string>
     <string name="text_notification">Notifikasi</string>
+    <string name="format_course_by">by %s</string>
+    <string name="format_course_module">%d Modul</string>
+    <string name="format_btn_buy">Beli %s</string>
+    <string name="format_course_duration">%d Menit</string>
 </resources>

@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
-import com.group2.sinow.MainActivity
+import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityIntroSliderBinding
 import com.group2.sinow.model.IntroSliderItem
