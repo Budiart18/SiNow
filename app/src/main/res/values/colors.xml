@@ -30,4 +30,6 @@
     <color name="app_color_on_error_container">#bc4749</color>
     
     <color name="button_color">#6148FF</color>
+    <color name="version_color">#8A8A8A</color>
+    <color name="background_divider_profile">#E5E5E5</color>
 </resources>
