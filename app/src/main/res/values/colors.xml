@@ -6,6 +6,7 @@
 
     <color name="color_background_light_mode">#EBF3FC</color>
     <color name="color_background_dark_mode">#111111</color>
+    <color name="color_rounded">#D2E0FB</color>
     <color name="color_success">#73CA5C</color>
     <color name="color_warning">#FF0000</color>
 
