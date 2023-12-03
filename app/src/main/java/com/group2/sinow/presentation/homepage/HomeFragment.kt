@@ -1,15 +1,22 @@
 package com.group2.sinow.presentation.homepage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.faltenreich.skeletonlayout.applySkeleton
+import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentHomeBinding
+import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseActivity
 import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
-import com.group2.sinow.presentation.homepage.adapter.CourseCategoryAdapter
+import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.CourseAdapter
+import com.group2.sinow.presentation.notification.NotificationActivity
+import com.group2.sinow.presentation.profile.ProfileActivity
+import com.group2.sinow.utils.SkeletonConfigWrapper
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,20 +25,20 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter() {
+        CategoryAdapter {
             navigateToCourseByCategory()
         }
     }
 
-    private val courseCategoryAdapter: CourseCategoryAdapter by lazy {
-        CourseCategoryAdapter() {
-            viewModel.getCourses(it.id)
-            viewModel.changeSelectedCategory(it)
+    private val popularCourseCategoryAdapter: PopularCourseCategoryAdapter by lazy {
+        PopularCourseCategoryAdapter { category ->
+            viewModel.getCourses(category.id)
+            viewModel.changeSelectedCategory(category)
         }
     }
 
     private val courseAdapter: CourseAdapter by lazy {
-        CourseAdapter(){
+        CourseAdapter {
             //navigateToDetailCourse()
             openNonLoginUserDialog()
         }
@@ -51,14 +58,15 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getData()
         setClickListener()
-        observeCategoryList()
-        observeCourseList()
-        observePopularCourseCategoryList()
+        observeCategoryData()
+        observeCourseData()
+        observePopularCourseCategoryData()
         observeSelectedCategory()
     }
 
     private fun getData() {
         viewModel.getCategories()
+        viewModel.getPopularCourseCategories()
         viewModel.getCourses()
     }
 
@@ -70,7 +78,7 @@ class HomeFragment : Fragment() {
             navigateToNotification()
         }
         binding.tvSeeAllCourse.setOnClickListener {
-            navigateToAllCourse()
+            navigateToAllPopularCourse()
         }
     }
 
@@ -83,24 +91,27 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToProfile() {
-        TODO("Not yet implemented")
+        val intent = Intent(requireContext(), ProfileActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToNotification() {
-        TODO("Not yet implemented")
+        val intent = Intent(requireContext(), NotificationActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun navigateToAllCourse() {
-        TODO("Not yet implemented")
+    private fun navigateToAllPopularCourse() {
+        val intent = Intent(requireContext(), AllPopularCourseActivity::class.java)
+        startActivity(intent)
     }
 
     private fun openNonLoginUserDialog() {
         NonLoginUserDialogFragment().show(childFragmentManager, null)
     }
 
-    private fun observeCategoryList() {
-        viewModel.categories.observe(viewLifecycleOwner) {
-            it.proceedWhen(
+    private fun observeCategoryData() {
+        viewModel.categories.observe(viewLifecycleOwner) { resultWrapper ->
+            resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStateCategories.root.isVisible = false
                     binding.layoutStateCategories.loadingAnimation.isVisible = false
@@ -112,10 +123,15 @@ class HomeFragment : Fragment() {
                     it.payload?.let { data -> categoryAdapter.submitData(data) }
                 },
                 doOnLoading = {
-                    binding.layoutStateCategories.root.isVisible = true
-                    binding.layoutStateCategories.loadingAnimation.isVisible = true
+                    binding.layoutStateCategories.root.isVisible = false
+                    binding.layoutStateCategories.loadingAnimation.isVisible = false
                     binding.layoutStateCategories.tvError.isVisible = false
-                    binding.rvListCategories.isVisible = false
+                    binding.rvListCategories.isVisible = true
+                    binding.rvListCategories.applySkeleton(
+                        R.layout.item_grid_categories,
+                        itemCount = 8,
+                        SkeletonConfigWrapper(requireContext()).customSkeletonConfig()
+                    ).showSkeleton()
                 },
                 doOnError = {
                     binding.layoutStateCategories.root.isVisible = true
@@ -128,24 +144,29 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun observePopularCourseCategoryList() {
-        viewModel.categories.observe(viewLifecycleOwner) {
-            it.proceedWhen(
+    private fun observePopularCourseCategoryData() {
+        viewModel.popularCourseCategories.observe(viewLifecycleOwner) { resultWrapper ->
+            resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStatePopularCategories.root.isVisible = false
                     binding.layoutStatePopularCategories.loadingAnimation.isVisible = false
                     binding.layoutStatePopularCategories.tvError.isVisible = false
                     binding.rvCategoryPopularCourse.apply {
                         isVisible = true
-                        adapter = courseCategoryAdapter
+                        adapter = popularCourseCategoryAdapter
                     }
-                    it.payload?.let { data -> courseCategoryAdapter.submitData(data) }
+                    it.payload?.let { data -> popularCourseCategoryAdapter.submitData(data) }
                 },
                 doOnLoading = {
-                    binding.layoutStatePopularCategories.root.isVisible = true
-                    binding.layoutStatePopularCategories.loadingAnimation.isVisible = true
+                    binding.layoutStatePopularCategories.root.isVisible = false
+                    binding.layoutStatePopularCategories.loadingAnimation.isVisible = false
                     binding.layoutStatePopularCategories.tvError.isVisible = false
-                    binding.rvCategoryPopularCourse.isVisible = false
+                    binding.rvCategoryPopularCourse.isVisible = true
+                    binding.rvCategoryPopularCourse.applySkeleton(
+                        R.layout.item_list_category,
+                        itemCount = 8,
+                        SkeletonConfigWrapper(requireContext()).customSkeletonConfig()
+                    ).showSkeleton()
                 },
                 doOnError = {
                     binding.layoutStatePopularCategories.root.isVisible = true
@@ -158,9 +179,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun observeCourseList() {
-        viewModel.courses.observe(viewLifecycleOwner) {
-            it.proceedWhen(
+    private fun observeCourseData() {
+        viewModel.courses.observe(viewLifecycleOwner) { resultWrapper ->
+            resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStatePopularCourse.root.isVisible = false
                     binding.layoutStatePopularCourse.loadingAnimation.isVisible = false
@@ -188,7 +209,8 @@ class HomeFragment : Fragment() {
                     binding.layoutStatePopularCourse.root.isVisible = true
                     binding.layoutStatePopularCourse.loadingAnimation.isVisible = false
                     binding.layoutStatePopularCourse.tvError.isVisible = true
-                    binding.layoutStatePopularCourse.tvError.text = "Product not found"
+                    binding.layoutStatePopularCourse.tvError.text =
+                        getString(R.string.text_course_not_found)
                     binding.rvListCourse.isVisible = false
                 }
             )
@@ -197,7 +219,7 @@ class HomeFragment : Fragment() {
 
     private fun observeSelectedCategory() {
         viewModel.selectedCategory.observe(viewLifecycleOwner) {
-            courseCategoryAdapter.setSelectedCategory(it)
+            popularCourseCategoryAdapter.setSelectedCategory(it)
         }
     }
 

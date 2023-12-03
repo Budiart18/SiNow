@@ -13,7 +13,13 @@ interface CourseRepository {
 
     fun getCategories(): Flow<ResultWrapper<List<Category>>>
 
-    fun getCourses(category: Int? = null): Flow<ResultWrapper<List<Course>>>
+    fun getCourses(
+        search: String? = null,
+        type: String? = null,
+        category: Int? = null,
+        level: String? = null,
+        sortBy: String? = null
+    ): Flow<ResultWrapper<List<Course>>>
 
 }
 
@@ -27,9 +33,15 @@ class CourseRepositoryImpl(
         }
     }
 
-    override fun getCourses(category: Int?): Flow<ResultWrapper<List<Course>>> {
+    override fun getCourses(
+        search: String?,
+        type: String?,
+        category: Int?,
+        level: String?,
+        sortBy: String?
+    ): Flow<ResultWrapper<List<Course>>> {
         return proceedFlow {
-            dataSource.getCourses(category).data?.toCourseList() ?: emptyList()
+            dataSource.getCourses(search, type, category, level, sortBy).data?.toCourseList() ?: emptyList()
         }
     }
 

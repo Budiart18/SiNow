@@ -30,7 +30,7 @@
                 tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:id="@+id/tv_course_name"
+                android:id="@+id/tv_course_category"
                 style="@style/TextAppearance.Material3.TitleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,13 +63,13 @@
                 tools:text="4.7" />
 
             <TextView
-                android:id="@+id/tv_title_course"
+                android:id="@+id/tv_course_name"
                 style="@style/TextAppearance.Material3.TitleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:maxLines="2"
-                app:layout_constraintTop_toBottomOf="@id/tv_course_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_course_category"
                 tools:text="Belajar data cleaning dan sorting dengan Phyton" />
 
             <TextView
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_course"
+                app:layout_constraintTop_toBottomOf="@id/tv_course_name"
                 tools:text="by John Doe" />
 
             <LinearLayout

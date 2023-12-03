@@ -142,5 +142,7 @@ dependencies {
     implementation ("androidx.media3:media3-exoplayer:1.2.0")
     implementation ("androidx.media3:media3-exoplayer-dash:1.2.0")
     implementation ("androidx.media3:media3-ui:1.2.0")
+    // Skeleton layout
+    implementation ("com.faltenreich:skeletonlayout:5.0.0")
 
 }
