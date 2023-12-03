@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.group2.sinow.R
-import com.group2.sinow.databinding.ItemCategoryTextBinding
+import com.group2.sinow.databinding.ItemListCategoryBinding
 import com.group2.sinow.model.category.Category
-import com.group2.sinow.presentation.homepage.viewholder.ItemTextCategoryViewHolder
+import com.group2.sinow.presentation.homepage.viewholder.ItemListCategoryViewHolder
 
-class CourseCategoryAdapter(private val itemClick: (Category) -> Unit) :
-    RecyclerView.Adapter<ItemTextCategoryViewHolder>() {
+class PopularCourseCategoryAdapter(private val itemClick: (Category) -> Unit) :
+    RecyclerView.Adapter<ItemListCategoryViewHolder>() {
 
-    private var selectedCategory: Category? = null
+    private var selectedPosition: Int? = 0
 
     private val dataDiffer =
         AsyncListDiffer(
@@ -35,21 +35,21 @@ class CourseCategoryAdapter(private val itemClick: (Category) -> Unit) :
             }
         )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTextCategoryViewHolder {
-        val binding = ItemCategoryTextBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ItemTextCategoryViewHolder(binding, itemClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListCategoryViewHolder {
+        val binding = ItemListCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemListCategoryViewHolder(binding, itemClick)
     }
 
     override fun getItemCount(): Int = dataDiffer.currentList.size
 
-    override fun onBindViewHolder(holder: ItemTextCategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemListCategoryViewHolder, position: Int) {
         val category = dataDiffer.currentList[position]
         holder.bind(category)
         holder.itemView.setOnClickListener {
             itemClick(category)
         }
         holder.itemView.setBackgroundResource(
-            if (category == selectedCategory) R.drawable.bg_primary_rounded else android.R.color.transparent
+            if (category.id == selectedPosition) R.drawable.bg_primary_rounded else android.R.color.transparent
         )
     }
 
@@ -58,7 +58,7 @@ class CourseCategoryAdapter(private val itemClick: (Category) -> Unit) :
     }
 
     fun setSelectedCategory(selectedCategory: Category?) {
-        this.selectedCategory = selectedCategory
+        this.selectedPosition = selectedCategory?.id
         notifyDataSetChanged()
     }
 

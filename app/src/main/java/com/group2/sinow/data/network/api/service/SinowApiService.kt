@@ -17,7 +17,13 @@ interface SinowApiService {
     suspend fun getCategories(): CategoriesResponse
 
     @GET("courses")
-    suspend fun getCourses(@Query("category") category: Int? = null): CoursesResponse
+    suspend fun getCourses(
+        @Query("search") search: String? = null,
+        @Query("type") type: String? = null,
+        @Query("category") category: Int? = null,
+        @Query("level") level: String? = null,
+        @Query("sortBy") sortBy: String? = null
+    ): CoursesResponse
 
     companion object {
         @JvmStatic

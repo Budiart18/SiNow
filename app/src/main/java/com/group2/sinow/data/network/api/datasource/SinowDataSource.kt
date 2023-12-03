@@ -6,7 +6,13 @@ import com.group2.sinow.data.network.api.service.SinowApiService
 
 interface SinowDataSource {
     suspend fun getCategories(): CategoriesResponse
-    suspend fun getCourses(category: Int? = null): CoursesResponse
+    suspend fun getCourses(
+        search: String? = null,
+        type: String? = null,
+        category: Int? = null,
+        level: String? = null,
+        sortBy: String? = null
+    ): CoursesResponse
     //suspend fun createOrder(orderRequest: OrderRequest): OrderResponse
 }
 
@@ -16,10 +22,15 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.getCategories()
     }
 
-    override suspend fun getCourses(category: Int?): CoursesResponse {
-        return service.getCourses(category)
+    override suspend fun getCourses(
+        search: String?,
+        type: String?,
+        category: Int?,
+        level: String?,
+        sortBy: String?
+    ): CoursesResponse {
+        return service.getCourses(search, type, category, level, sortBy)
     }
-
 /*    override suspend fun createOrder(orderRequest: OrderRequest): OrderResponse {
         return service.createOrder(orderRequest)
     }*/

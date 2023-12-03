@@ -6,6 +6,7 @@ import com.group2.sinow.data.network.api.datasource.SinowDataSource
 import com.group2.sinow.data.network.api.service.SinowApiService
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.data.repository.CourseRepositoryImpl
+import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
 import com.group2.sinow.presentation.splashscreen.SplashViewModel
 import org.koin.android.ext.koin.androidContext
@@ -36,6 +37,7 @@ object AppModules {
     private val viewModels = module {
         viewModelOf(::SplashViewModel)
         viewModel { HomeViewModel(get()) }
+        viewModel { AllPopularCourseViewModel(get()) }
     }
 
 }

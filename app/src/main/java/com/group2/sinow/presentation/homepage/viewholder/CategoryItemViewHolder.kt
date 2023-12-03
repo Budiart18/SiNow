@@ -2,8 +2,8 @@ package com.group2.sinow.presentation.homepage.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.group2.sinow.databinding.ItemCategoryTextBinding
 import com.group2.sinow.databinding.ItemGridCategoriesBinding
+import com.group2.sinow.databinding.ItemListCategoryBinding
 import com.group2.sinow.model.category.Category
 
 class ItemGridCategoryViewHolder(
@@ -23,8 +23,8 @@ class ItemGridCategoryViewHolder(
 
 }
 
-class ItemTextCategoryViewHolder(
-    private val binding: ItemCategoryTextBinding,
+class ItemListCategoryViewHolder(
+    private val binding: ItemListCategoryBinding,
     val itemClick: (Category) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 

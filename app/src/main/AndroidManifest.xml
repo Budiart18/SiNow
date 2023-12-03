@@ -38,9 +38,6 @@
             android:name=".presentation.allpopularcourse.AllPopularCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.allcategories.AllCategoriesActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
@@ -49,18 +46,19 @@
         <activity
             android:name=".presentation.splashscreen.SplashActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.introslider.IntroSliderActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
