@@ -1,4 +1,4 @@
-package com.group2.sinow.model
+package com.group2.sinow.model.introslider
 
 data class IntroSliderItem(
     val title: String,

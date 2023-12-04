@@ -4,10 +4,13 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.group2.sinow.BuildConfig
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
+import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
+import com.group2.sinow.data.network.api.model.notification.NotificationResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -24,6 +27,12 @@ interface SinowApiService {
         @Query("level") level: String? = null,
         @Query("sortBy") sortBy: String? = null
     ): CoursesResponse
+
+    @GET("user/notifications")
+    suspend fun getNotifications() : NotificationResponse
+
+    @GET("user/notifications/{id}")
+    suspend fun getNotificationDetail(@Path("id") id : Int) : NotificationDetailResponse
 
     companion object {
         @JvmStatic
