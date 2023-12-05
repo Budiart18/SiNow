@@ -20,7 +20,6 @@ interface SinowDataSource {
 
     suspend fun getNotificationDetail(id: Int): NotificationDetailResponse
 
-    //suspend fun createOrder(orderRequest: OrderRequest): OrderResponse
 }
 
 class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource {
@@ -47,7 +46,4 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.getNotificationDetail(id)
     }
 
-    /*    override suspend fun createOrder(orderRequest: OrderRequest): OrderResponse {
-            return service.createOrder(orderRequest)
-        }*/
 }
