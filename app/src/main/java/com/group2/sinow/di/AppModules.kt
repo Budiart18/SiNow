@@ -12,13 +12,13 @@ import com.group2.sinow.data.repository.NotificationRepository
 import com.group2.sinow.data.repository.NotificationRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
-import com.group2.sinow.presentation.notification.NotificationViewModel
+import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailViewModel
+import com.group2.sinow.presentation.notification.notificationlist.NotificationViewModel
 import com.group2.sinow.presentation.splashscreen.SplashViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
-import org.koin.core.scope.get
 import org.koin.dsl.module
 
 object AppModules {
@@ -47,6 +47,7 @@ object AppModules {
         viewModel { HomeViewModel(get()) }
         viewModel { AllPopularCourseViewModel(get()) }
         viewModel { NotificationViewModel(get()) }
+        viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
     }
 
 }

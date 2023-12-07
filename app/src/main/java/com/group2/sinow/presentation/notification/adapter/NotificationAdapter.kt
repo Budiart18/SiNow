@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ItemListNotificationBinding
 import com.group2.sinow.model.notification.Notification
+import com.group2.sinow.utils.changeFormatTime
 
 class NotificationAdapter(private val itemClick: (Notification) -> Unit) :
     RecyclerView.Adapter<ItemNotificationViewHolder>() {
@@ -62,7 +63,7 @@ class ItemNotificationViewHolder(
         binding.icNotification.setImageResource(
             if (item.isRead == true) R.drawable.ic_notification_read else R.drawable.ic_notification_unread
         )
-        binding.tvNotificationTime.text = item.createdAt
+        binding.tvNotificationTime.text = changeFormatTime(item.createdAt.toString())
         binding.root.setBackgroundResource(
             if (item.isRead == true) android.R.color.transparent else R.color.app_color_primary_container
         )

@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.notification
+package com.group2.sinow.presentation.notification.notificationdetail
 
 import android.os.Bundle
 import androidx.lifecycle.LiveData
@@ -22,10 +22,22 @@ class NotificationDetailViewModel(
     val notificationData: LiveData<ResultWrapper<Notification>>
         get() = _notification
 
+    private val _deleteNotificationResult = MutableLiveData<ResultWrapper<Boolean>>()
+    val deleteNotificationResult: LiveData<ResultWrapper<Boolean>>
+        get() = _deleteNotificationResult
+
     fun getNotification() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getNotificationDetail(notification?.id ?: 0).collect{
                 _notification.postValue(it)
+            }
+        }
+    }
+
+    fun deleteNotification() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteNotification(notification?.id ?: 0).collect{
+                _deleteNotificationResult.postValue(it)
             }
         }
     }

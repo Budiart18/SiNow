@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.notification
+package com.group2.sinow.presentation.notification.notificationlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

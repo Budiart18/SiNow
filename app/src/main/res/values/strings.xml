@@ -16,4 +16,7 @@
     <string name="format_btn_buy">Beli %s</string>
     <string name="format_course_duration">%d Menit</string>
     <string name="text_course_not_found">Course not found</string>
+    <string name="text_delete_notification_confirmation">Apakah kamu yakin akan menghapus pemberitahuan ini ?</string>
+    <string name="text_yes">Ya</string>
+    <string name="text_no">Tidak</string>
 </resources>

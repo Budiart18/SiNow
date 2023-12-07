@@ -1,14 +1,14 @@
-package com.group2.sinow.presentation.notification
+package com.group2.sinow.presentation.notification.notificationlist
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
 import com.group2.sinow.R
-import com.group2.sinow.data.dummy.DummyNotificationDataSourceImpl
 import com.group2.sinow.databinding.ActivityNotificationBinding
 import com.group2.sinow.model.notification.Notification
+import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
 import com.group2.sinow.presentation.notification.adapter.NotificationAdapter
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -69,20 +69,18 @@ class NotificationActivity : AppCompatActivity() {
                     binding.layoutNotificationEmpty.root.isVisible = false
                     binding.rvNotificationList.isVisible = false
                 },
-                doOnEmpty = {
-                    binding.layoutStateNotification.root.isVisible = false
-                    binding.layoutStateNotification.loadingAnimation.isVisible = false
-                    binding.layoutStateNotification.tvError.isVisible = false
-                    binding.layoutNotificationEmpty.root.isVisible = true
-                    binding.rvNotificationList.isVisible = false
-                },
                 doOnError = {
                     binding.layoutStateNotification.root.isVisible = true
                     binding.layoutStateNotification.loadingAnimation.isVisible = false
-                    binding.layoutStateNotification.tvError.isVisible = true
-                    binding.layoutStateNotification.tvError.text = it.exception?.message.orEmpty()
-                    binding.layoutNotificationEmpty.root.isVisible = false
                     binding.rvNotificationList.isVisible = false
+                    if(it.exception is ApiException){
+                        if(it.exception.httpCode == 401){
+                            binding.layoutNotificationEmpty.root.isVisible = true
+                            binding.layoutNotificationEmpty.tvNotificationEmpty.text = getString(R.string.tv_user_must_login_first)
+                        }else{
+                            binding.layoutNotificationEmpty.root.isVisible = true
+                        }
+                    }
                 }
             )
         }

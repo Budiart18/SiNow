@@ -26,13 +26,13 @@
             android:name=".presentation.profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.notification.NotificationDetailActivity"
+            android:name=".presentation.notification.notificationdetail.NotificationDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.change_password.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.notification.NotificationActivity"
+            android:name=".presentation.notification.notificationlist.NotificationActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.allpopularcourse.AllPopularCourseActivity"
