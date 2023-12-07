@@ -14,7 +14,7 @@ import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseActivity
 import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.CourseAdapter
-import com.group2.sinow.presentation.notification.NotificationActivity
+import com.group2.sinow.presentation.notification.notificationlist.NotificationActivity
 import com.group2.sinow.presentation.profile.ProfileActivity
 import com.group2.sinow.utils.SkeletonConfigWrapper
 import com.group2.sinow.utils.proceedWhen

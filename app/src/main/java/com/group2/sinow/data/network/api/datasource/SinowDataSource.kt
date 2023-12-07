@@ -2,6 +2,9 @@ package com.group2.sinow.data.network.api.datasource
 
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
+import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
+import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
+import com.group2.sinow.data.network.api.model.notification.NotificationResponse
 import com.group2.sinow.data.network.api.service.SinowApiService
 
 interface SinowDataSource {
@@ -13,7 +16,13 @@ interface SinowDataSource {
         level: String? = null,
         sortBy: String? = null
     ): CoursesResponse
-    //suspend fun createOrder(orderRequest: OrderRequest): OrderResponse
+
+    suspend fun getNotification(): NotificationResponse
+
+    suspend fun getNotificationDetail(id: Int): NotificationDetailResponse
+
+    suspend fun deleteNotification(id: Int): DeleteNotificationResponse
+
 }
 
 class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource {
@@ -31,7 +40,17 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
     ): CoursesResponse {
         return service.getCourses(search, type, category, level, sortBy)
     }
-/*    override suspend fun createOrder(orderRequest: OrderRequest): OrderResponse {
-        return service.createOrder(orderRequest)
-    }*/
+
+    override suspend fun getNotification(): NotificationResponse {
+        return service.getNotifications()
+    }
+
+    override suspend fun getNotificationDetail(id: Int): NotificationDetailResponse {
+        return service.getNotificationDetail(id)
+    }
+
+    override suspend fun deleteNotification(id: Int): DeleteNotificationResponse {
+        return service.deleteNotification(id)
+    }
+
 }

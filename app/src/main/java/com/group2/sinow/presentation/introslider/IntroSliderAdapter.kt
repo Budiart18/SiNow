@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.group2.sinow.databinding.IntroSliderItemBinding
-import com.group2.sinow.model.IntroSliderItem
+import com.group2.sinow.model.introslider.IntroSliderItem
 
 class IntroSliderAdapter(
     private val introSlide: List<IntroSliderItem>

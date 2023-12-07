@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityIntroSliderBinding
-import com.group2.sinow.model.IntroSliderItem
+import com.group2.sinow.model.introslider.IntroSliderItem
 import com.group2.sinow.utils.highLightWord
 
 class IntroSliderActivity : AppCompatActivity() {
