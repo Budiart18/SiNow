@@ -12,6 +12,7 @@ import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentHomeBinding
 import com.group2.sinow.presentation.account.AccountFeatureActivity
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseActivity
+import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.CourseAdapter
@@ -120,8 +121,10 @@ class HomeFragment : Fragment() {
         TODO("Not yet implemented")
     }
 
-    private fun navigateToDetailCourse(courseId: Int?) {
-        TODO("Not yet implemented")
+    private fun navigateToDetailCourse(courseId: Int) {
+        val intent = Intent(requireContext(), DetailCourseActivity::class.java)
+        intent.putExtra("COURSE_ID", courseId)
+        startActivity(intent)
     }
 
     private fun navigateToProfile() {

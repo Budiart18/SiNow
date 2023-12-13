@@ -20,6 +20,7 @@
         tools:text="Materi Belajar" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_user_module"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

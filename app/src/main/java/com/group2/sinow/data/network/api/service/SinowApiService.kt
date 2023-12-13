@@ -13,6 +13,7 @@ import com.group2.sinow.data.network.api.model.register.RegisterResponse
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
+import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
@@ -20,10 +21,10 @@ import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
+import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
 import okhttp3.MultipartBody
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import retrofit2.Retrofit
@@ -83,13 +84,13 @@ interface SinowApiService {
     ): CoursesResponse
 
     @GET("user/notifications")
-    suspend fun getNotifications() : NotificationResponse
+    suspend fun getNotifications(): NotificationResponse
 
     @GET("user/notifications/{id}")
-    suspend fun getNotificationDetail(@Path("id") id : Int) : NotificationDetailResponse
+    suspend fun getNotificationDetail(@Path("id") id: Int): NotificationDetailResponse
 
     @DELETE("user/notifications/{id}")
-    suspend fun deleteNotification(@Path("id") id : Int) : DeleteNotificationResponse
+    suspend fun deleteNotification(@Path("id") id: Int): DeleteNotificationResponse
 
     @GET("user")
     suspend fun getUserData() : ProfileResponse
@@ -107,6 +108,15 @@ interface SinowApiService {
 
     @PATCH("user/change-password")
     suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest) : ChangePasswordResponse
+
+    @GET("user/my-courses/{courseId}")
+    suspend fun getCourseDetail(@Path("courseId") id: Int): DataResponse
+
+    @GET("user/my-courses/{courseId}/modules/{userModuleId}")
+    suspend fun getUserModuleData(
+        @Path("courseId") courseId: Int?,
+        @Path("userModuleId") userModuleId: Int?
+    ): UserModuleDataResponse
 
     companion object {
 
