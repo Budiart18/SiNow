@@ -3,6 +3,8 @@ package com.group2.sinow.data.network.api.service
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.group2.sinow.BuildConfig
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
+import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
+import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.login.LoginRequest
 import com.group2.sinow.data.network.api.model.login.LoginResponse
@@ -101,6 +103,9 @@ interface SinowApiService {
         @Part("city") city: RequestBody?,
         @Part image: MultipartBody.Part?
     ) : UpdateUserDataResponse
+
+    @PATCH("user/change-password")
+    suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest) : ChangePasswordResponse
 
     companion object {
 

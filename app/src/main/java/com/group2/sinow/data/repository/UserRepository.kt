@@ -1,6 +1,8 @@
 package com.group2.sinow.data.repository
 
 import com.group2.sinow.data.network.api.datasource.SinowDataSource
+import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
+import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.profile.toProfileData
 import com.group2.sinow.model.profile.ProfileData
 import com.group2.sinow.utils.ResultWrapper
@@ -20,6 +22,12 @@ interface UserRepository {
         country: RequestBody?,
         city: RequestBody?,
         image: MultipartBody.Part?
+    ) : Flow<ResultWrapper<Boolean>>
+
+    fun changePassword(
+        oldPassword: String?,
+        newPassword: String?,
+        confirmNewPassword: String?
     ) : Flow<ResultWrapper<Boolean>>
 
 }
@@ -45,6 +53,17 @@ class UserRepositoryImpl(
         return proceedFlow {
             val token = dataSource.updateUserData(name, email, phoneNumber, country, city, image).data?.token
             token != null
+        }
+    }
+
+    override fun changePassword(
+        oldPassword: String?,
+        newPassword: String?,
+        confirmNewPassword: String?
+    ): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow {
+            val request = ChangePasswordRequest(oldPassword, newPassword, confirmNewPassword)
+            dataSource.changePassword(request).message != null
         }
     }
 
