@@ -7,6 +7,8 @@ import com.group2.sinow.data.network.api.model.register.RegisterRequest
 import com.group2.sinow.data.network.api.model.register.RegisterResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
+import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
+import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.utils.ResultWrapper
@@ -23,6 +25,8 @@ interface AuthRepository {
     fun verifyEmail(otpRequest: VerifyEmailRequest): Flow<ResultWrapper<VerifyEmailResponse>>
 
     fun resendOtp(email: String): Flow<ResultWrapper<ResendOtpResponse>>
+
+    fun resetPassword(email: String): Flow<ResultWrapper<ResetPasswordResponse>>
 }
 
 class AuthRepositoryImpl(private val dataSource: SinowDataSource
@@ -51,6 +55,12 @@ class AuthRepositoryImpl(private val dataSource: SinowDataSource
     override fun resendOtp(email: String): Flow<ResultWrapper<ResendOtpResponse>> {
         return proceedFlow {
             dataSource.resendOtp(ResendOtpRequest(email))
+        }
+    }
+
+    override fun resetPassword(email: String): Flow<ResultWrapper<ResetPasswordResponse>> {
+        return proceedFlow {
+            dataSource.resetPassword(ResetPasswordRequest(email))
         }
     }
 

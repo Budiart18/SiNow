@@ -13,10 +13,9 @@ import com.group2.sinow.data.network.api.model.notification.NotificationDetailRe
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
+import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
+import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.service.SinowApiService
-import com.group2.sinow.utils.ResultWrapper
-import com.group2.sinow.utils.proceedFlow
-import kotlinx.coroutines.flow.Flow
 
 interface SinowDataSource {
 
@@ -29,6 +28,8 @@ interface SinowDataSource {
     suspend fun verifyEmail(otpRequest: VerifyEmailRequest): VerifyEmailResponse
 
     suspend fun resendOtp(resendOtpRequest: ResendOtpRequest): ResendOtpResponse
+
+    suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse
 
     suspend fun getCategories(): CategoriesResponse
     suspend fun getCourses(
@@ -63,6 +64,10 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
 
     override suspend fun resendOtp(resendOtpRequest: ResendOtpRequest): ResendOtpResponse {
         return service.resendOtp(resendOtpRequest)
+    }
+
+    override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse {
+        return service.resetPassword(resetPasswordRequest)
     }
 
 
