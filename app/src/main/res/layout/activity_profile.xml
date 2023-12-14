@@ -4,207 +4,239 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EBF3FC"
+    android:paddingHorizontal="24dp"
     tools:context=".presentation.profile.ProfileActivity">
 
-    <ImageButton
-        android:id="@+id/id_BackButton"
+    <ImageView
+        android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="14dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <TextView
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Profile"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_edit_mode_disable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/profile"
         app:civ_border_color="#6148FF"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id_BackButton" />
+        app:layout_constraintTop_toBottomOf="@id/iv_back" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_name_profile"
+    <ImageView
+        android:id="@+id/iv_edit_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppins"
-        android:textColor="@color/black"
-        android:layout_marginStart="24dp"
+        android:background="@drawable/bg_primary_rounded"
+        android:padding="4dp"
+        android:src="@drawable/ic_edit_mode_enabled"
+        app:layout_constraintBottom_toBottomOf="@id/profile_image"
+        app:layout_constraintEnd_toEndOf="@id/profile_image" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins"
+        android:text="Nama"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image"/>
+        app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_name_profile"
+        android:id="@+id/til_profile_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_name_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_name_profile">
+        app:layout_constraintStart_toStartOf="@id/tv_profile_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_enter_your_name"
+            android:id="@+id/et_profile_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
-            android:hint="Masukkan Nama Anda"/>
+            android:hint="Masukkan Nama Anda" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_email_profile"
+        android:id="@+id/tv_profile_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
         android:text="Email"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_name_profile"/>
+        app:layout_constraintTop_toBottomOf="@id/til_profile_name" />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_email_profile"
+        android:id="@+id/til_profile_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_email_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_email_profile">
+        app:layout_constraintStart_toStartOf="@id/tv_profile_email"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_email">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_enter_your_email"
+            android:id="@+id/et_profile_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
-            android:hint="Masukkan Email Anda"/>
+            android:hint="Masukkan Email Anda" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_number_phone"
+        android:id="@+id/tv_profile_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
         android:text="Nomor Telepon"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_email_profile"/>
+        app:layout_constraintTop_toBottomOf="@id/til_profile_email" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_number_phone"
+        android:id="@+id/til_profile_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_number_phone"
-        app:layout_constraintTop_toBottomOf="@id/tv_number_phone">
+        app:layout_constraintStart_toStartOf="@id/tv_profile_phone"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_phone">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_enter_your_number_phone"
+            android:id="@+id/et_profile_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
-            android:hint="Masukkan Nomor Telepon Anda"/>
+            android:hint="Masukkan Nomor Telepon Anda" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_country_profile"
+        android:id="@+id/tv_profile_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
         android:text="Negara"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppins"
         android:textColor="@color/black"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_number_phone"/>
+        app:layout_constraintTop_toBottomOf="@id/til_profile_phone" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_country_profile"
+        android:id="@+id/til_profile_country"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_name_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_country_profile">
+        app:layout_constraintStart_toStartOf="@id/tv_profile_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_country">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_enter_your_country"
+            android:id="@+id/et_profile_country"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
-            android:hint="Masukkan Negara Tempat Tinggal"/>
+            android:hint="Masukkan Negara Tempat Tinggal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_city_profile"
+        android:id="@+id/tv_profile_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kota"
-        android:textSize="14sp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/poppins"
+        android:text="Kota"
         android:textColor="@color/black"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_country_profile"/>
+        app:layout_constraintTop_toBottomOf="@id/til_profile_country" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_city_profile"
+        android:id="@+id/til_profile_city"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_name_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_city_profile">
+        app:layout_constraintStart_toStartOf="@id/tv_profile_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_city">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_enter_your_city"
+            android:id="@+id/et_profile_city"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
-            android:hint="Masukkan Kota Tempat Tinggal"/>
+            android:hint="Masukkan Kota Tempat Tinggal" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_save_profile"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="39dp"
-        android:layout_marginTop="42dp"
-        android:background="@drawable/bg_rounded_corners_color"
-        app:backgroundTint="@null"
-        android:text="Simpan Profile Saya"
-        android:textSize="16sp"
-        android:fontFamily="@font/montserrat_bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/til_city_profile"
-        app:layout_constraintStart_toStartOf="@id/til_city_profile"/>
+        app:layout_constraintTop_toBottomOf="@id/til_profile_city">
+
+        <Button
+            android:id="@+id/btn_save_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_corners_color"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Simpan Profile Saya"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/til_profile_city"
+            app:layout_constraintStart_toStartOf="@id/til_profile_city" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/pb_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

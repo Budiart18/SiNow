@@ -7,13 +7,19 @@ import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
-import kotlinx.coroutines.runBlocking
+import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
 import okhttp3.Interceptor
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
@@ -41,12 +47,26 @@ interface SinowApiService {
     @DELETE("user/notifications/{id}")
     suspend fun deleteNotification(@Path("id") id : Int) : DeleteNotificationResponse
 
+    @GET("user")
+    suspend fun getUserData() : ProfileResponse
+
+    @Multipart
+    @PATCH("user/update")
+    suspend fun updateUserData(
+        @Part("name") name: RequestBody?,
+        @Part("email") email: RequestBody?,
+        @Part("phoneNumber") phoneNumber: RequestBody?,
+        @Part("country") country: RequestBody?,
+        @Part("city") city: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ) : UpdateUserDataResponse
+
     companion object {
         @JvmStatic
         operator fun invoke(chucker: ChuckerInterceptor): SinowApiService {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(chucker)
-                .addInterceptor(createAuthorizationInterceptor("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsIm5hbWUiOiJSYWdpbCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAxODMxODE2LCJleHAiOjE3MDE5MTgyMTYsImlzcyI6IlNpTm93X1NlY3VyaXR5In0.xfMsZiXjAvu1h2gfCbv1IaTIP9JeR88PhszUGuDXRX8"))
+                .addInterceptor(createAuthorizationInterceptor("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsIm5hbWUiOiJSYWdpbCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAyNDgxMzk0LCJleHAiOjE3MDI1Njc3OTQsImlzcyI6IlNpTm93X1NlY3VyaXR5In0.QfnuJoB62-ut_9sdnNFFoN8X_Vq8liRH5I5td7h7JvU"))
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
                 .build()

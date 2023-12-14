@@ -10,10 +10,13 @@ import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.data.repository.CourseRepositoryImpl
 import com.group2.sinow.data.repository.NotificationRepository
 import com.group2.sinow.data.repository.NotificationRepositoryImpl
+import com.group2.sinow.data.repository.UserRepository
+import com.group2.sinow.data.repository.UserRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
 import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailViewModel
 import com.group2.sinow.presentation.notification.notificationlist.NotificationViewModel
+import com.group2.sinow.presentation.profile.ProfileViewModel
 import com.group2.sinow.presentation.splashscreen.SplashViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -40,6 +43,7 @@ object AppModules {
     private val repository = module {
         single<CourseRepository> { CourseRepositoryImpl(get()) }
         single<NotificationRepository> { NotificationRepositoryImpl(get()) }
+        single<UserRepository> { UserRepositoryImpl(get()) }
     }
 
     private val viewModels = module {
@@ -47,6 +51,7 @@ object AppModules {
         viewModel { HomeViewModel(get()) }
         viewModel { AllPopularCourseViewModel(get()) }
         viewModel { NotificationViewModel(get()) }
+        viewModel { ProfileViewModel(get()) }
         viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
     }
 

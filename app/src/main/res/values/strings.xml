@@ -19,4 +19,6 @@
     <string name="text_delete_notification_confirmation">Apakah kamu yakin akan menghapus pemberitahuan ini ?</string>
     <string name="text_yes">Ya</string>
     <string name="text_no">Tidak</string>
+    <string name="home">Home</string>
+    <string name="sd_card">SD Card</string>
 </resources>

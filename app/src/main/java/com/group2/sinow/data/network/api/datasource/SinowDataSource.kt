@@ -5,7 +5,11 @@ import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
+import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
 import com.group2.sinow.data.network.api.service.SinowApiService
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface SinowDataSource {
     suspend fun getCategories(): CategoriesResponse
@@ -22,6 +26,17 @@ interface SinowDataSource {
     suspend fun getNotificationDetail(id: Int): NotificationDetailResponse
 
     suspend fun deleteNotification(id: Int): DeleteNotificationResponse
+
+    suspend fun getUserData(): ProfileResponse
+
+    suspend fun updateUserData(
+        name: RequestBody?,
+        email: RequestBody?,
+        phoneNumber: RequestBody?,
+        country: RequestBody?,
+        city: RequestBody?,
+        image: MultipartBody.Part?
+    ): UpdateUserDataResponse
 
 }
 
@@ -51,6 +66,21 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
 
     override suspend fun deleteNotification(id: Int): DeleteNotificationResponse {
         return service.deleteNotification(id)
+    }
+
+    override suspend fun getUserData(): ProfileResponse {
+        return service.getUserData()
+    }
+
+    override suspend fun updateUserData(
+        name: RequestBody?,
+        email: RequestBody?,
+        phoneNumber: RequestBody?,
+        country: RequestBody?,
+        city: RequestBody?,
+        image: MultipartBody.Part?
+    ): UpdateUserDataResponse {
+        return service.updateUserData(name, email, phoneNumber, country, city, image)
     }
 
 }
