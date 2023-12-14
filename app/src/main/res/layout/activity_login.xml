@@ -7,6 +7,8 @@
     tools:context=".presentation.auth.login.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
+
         android:id="@+id/login_form_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,12 +21,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <include
+            android:id="@+id/layout_state_login"
+            layout="@layout/common_layout_content_state"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="28dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tv_navigate_to_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
 
         <TextView
             android:id="@+id/tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Masuk"
+            android:text="@string/text_login"
             android:textColor="#6148FF"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -38,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Email / Nomor Telepon"
+            android:text="@string/text_email_or_phone_number"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login"
@@ -50,6 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email">
@@ -57,9 +73,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:background="@drawable/rounded_corners"
                 android:layout_height="wrap_content"
-                android:hint="Contoh: johndoe@gmail.com"
+                android:background="@drawable/rounded_corners"
+                android:hint="@string/text_hint_email"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,21 +84,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/text_password"
             android:textStyle="bold"
-            android:text="Password"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etl_email" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lupa Kata Sandi"
-            app:layout_constraintTop_toBottomOf="@id/etl_email"
             android:layout_marginTop="15dp"
+            android:text="@string/text_forgot_password"
             android:textColor="#6148FF"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/etl_email" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etl_password"
@@ -90,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:endIconMode="password_toggle"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password">
@@ -97,9 +113,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:background="@drawable/rounded_corners"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Password"
+                android:background="@drawable/rounded_corners"
+                android:hint="@string/text_enter_password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,33 +124,50 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
-            android:text="Masuk"
             android:background="@drawable/bg_rounded_corners_color"
+            android:text="@string/text_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etl_password" />
 
         <TextView
-            android:id="@+id/tv_dont_have_acc"
+            android:id="@+id/tv_navigate_to_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
-            android:text="Belum punya akun? Daftar di sini"
+            android:text="@string/text_dont_have_an_acc_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
         <TextView
+            android:id="@+id/tv_login_without_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Masuk Tanpa Login"
+            android:layout_marginTop="4dp"
+            android:text="@string/text_login_without_login"
             android:textColor="#6148FF"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dont_have_acc" />
+            app:layout_constraintTop_toBottomOf="@id/tv_navigate_to_register" />
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_corners_color_red"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_login_without_login"
+            tools:ignore="Pesan error"
+
+
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

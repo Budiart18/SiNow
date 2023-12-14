@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_register"
@@ -22,30 +22,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Daftar"
+        android:text="@string/text_register"
         android:textColor="#6148FF"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_back"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_back" />
 
     <LinearLayout
+        android:id="@+id/ll_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_register"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tv_register">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama"
+            android:text="@string/text_name"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -53,14 +54,15 @@
             android:id="@+id/etl_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
-                android:hint="Nama Lengkap"
+                android:hint="@string/text_full_name"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,21 +71,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Email"
+            android:text="@string/text_email"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etl_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
-                android:hint="Contoh: johndoe@gmail.com"
+                android:hint="@string/text_hint_email"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,12 +95,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Nomor Telepon"
+            android:text="@string/text_phone_number"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etl_no_telp"
             android:layout_width="match_parent"
+            app:hintEnabled="false"
+            app:counterMaxLength="13"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp">
 
@@ -106,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
-                android:hint="+62"
+                android:hint="@string/text_hint_phone_numbeer"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Buat Password"
+            android:text="@string/text_create_password"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -123,6 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            app:hintEnabled="false"
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -130,28 +136,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
-                android:hint="Buat Password"
+                android:hint="@string/text_create_password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_register"
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_rounded_corners_color"
-            android:text="Daftar"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            >
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_corners_color"
+                android:text="@string/text_register"
+                android:visibility="visible"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
+
 
         <TextView
-            android:id="@+id/tv_already_have_account"
+            android:id="@+id/tv_navigate_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Sudah punya akun? Masuk di sini"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="#6148FF" />
+            android:text="@string/text_have_an_acc_login"
+            android:textColor="#6148FF"
+            android:textStyle="bold" />
+
+
+
+
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_rounded_corners_color_red"
+        tools:ignore="Pesan error"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="32dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/ll_register"
+
+
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

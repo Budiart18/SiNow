@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.databinding.FragmentNonLoginUserDialogBinding
+import com.group2.sinow.presentation.auth.login.LoginActivity
 
 class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
 
@@ -48,7 +49,7 @@ class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
     }
 
     private fun navigateToLogin() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
+        val intent = Intent(requireContext(), LoginActivity::class.java)
         startActivity(intent)
     }
 
