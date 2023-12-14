@@ -23,6 +23,7 @@ import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRespon
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
 import okhttp3.MultipartBody
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import retrofit2.Retrofit

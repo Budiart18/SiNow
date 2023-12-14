@@ -29,7 +29,6 @@ interface UserRepository {
         newPassword: String?,
         confirmNewPassword: String?
     ) : Flow<ResultWrapper<Boolean>>
-
 }
 
 class UserRepositoryImpl(
