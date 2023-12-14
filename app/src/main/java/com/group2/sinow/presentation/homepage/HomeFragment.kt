@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentHomeBinding
+import com.group2.sinow.presentation.account.AccountFeatureActivity
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseActivity
 import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
@@ -91,7 +92,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToProfile() {
-        val intent = Intent(requireContext(), ProfileActivity::class.java)
+        val intent = Intent(requireContext(), AccountFeatureActivity::class.java)
         startActivity(intent)
     }
 

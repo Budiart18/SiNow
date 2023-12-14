@@ -14,13 +14,13 @@
         android:theme="@style/Theme.SiNow"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.account.account_feature"
+            android:name=".presentation.account.AccountFeatureActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.payment_history.Item_Payment_Course"
             android:exported="false" />
         <activity
-            android:name=".presentation.payment_history.payment_history"
+            android:name=".presentation.payment_history.PaymentHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.profile.ProfileActivity"
