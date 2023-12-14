@@ -1,6 +1,8 @@
 package com.group2.sinow.data.network.api.datasource
 
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
+import com.group2.sinow.data.network.api.model.changepassword.ChangePassword
+import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
@@ -37,6 +39,10 @@ interface SinowDataSource {
         city: RequestBody?,
         image: MultipartBody.Part?
     ): UpdateUserDataResponse
+
+    suspend fun changePassword(
+        changePassword: ChangePassword
+    ) : ChangePasswordResponse
 
 }
 
@@ -81,6 +87,10 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         image: MultipartBody.Part?
     ): UpdateUserDataResponse {
         return service.updateUserData(name, email, phoneNumber, country, city, image)
+    }
+
+    override suspend fun changePassword(changePassword: ChangePassword): ChangePasswordResponse {
+        return service.changeUserPassword(changePassword)
     }
 
 }

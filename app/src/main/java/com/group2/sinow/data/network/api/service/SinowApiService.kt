@@ -3,6 +3,7 @@ package com.group2.sinow.data.network.api.service
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.group2.sinow.BuildConfig
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
+import com.group2.sinow.data.network.api.model.changepassword.ChangePassword
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
@@ -16,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -53,7 +55,7 @@ interface SinowApiService {
 
     @PATCH("user/change-password")
     suspend fun changeUserPassword(
-
+        @Body() changePassword: ChangePassword
     ) : ChangePasswordResponse
 
     @Multipart

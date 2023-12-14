@@ -1,6 +1,7 @@
 package com.group2.sinow.data.repository
 
 import com.group2.sinow.data.network.api.datasource.SinowDataSource
+import com.group2.sinow.data.network.api.model.changepassword.ChangePassword
 import com.group2.sinow.data.network.api.model.profile.toProfileData
 import com.group2.sinow.model.profile.ProfileData
 import com.group2.sinow.utils.ResultWrapper
@@ -22,6 +23,9 @@ interface UserRepository {
         image: MultipartBody.Part?
     ) : Flow<ResultWrapper<Boolean>>
 
+    suspend fun changePassword(
+        changePassword: ChangePassword
+    ) : Flow<ResultWrapper<Boolean>>
 }
 
 class UserRepositoryImpl(
@@ -45,6 +49,12 @@ class UserRepositoryImpl(
         return proceedFlow {
             val token = dataSource.updateUserData(name, email, phoneNumber, country, city, image).data?.token
             token != null
+        }
+    }
+
+    override suspend fun changePassword(changePassword: ChangePassword): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow {
+            dataSource.changePassword(changePassword).status == "Success"
         }
     }
 

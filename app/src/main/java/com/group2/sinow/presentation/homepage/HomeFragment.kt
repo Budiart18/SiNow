@@ -10,13 +10,11 @@ import androidx.fragment.app.Fragment
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentHomeBinding
-import com.group2.sinow.presentation.account.AccountFeatureActivity
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseActivity
 import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
-import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.CourseAdapter
+import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.notification.notificationlist.NotificationActivity
-import com.group2.sinow.presentation.profile.ProfileActivity
 import com.group2.sinow.utils.SkeletonConfigWrapper
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -91,9 +89,10 @@ class HomeFragment : Fragment() {
         TODO("Not yet implemented")
     }
 
+    // comment the intent because it's already used navController
     private fun navigateToProfile() {
-        val intent = Intent(requireContext(), AccountFeatureActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(requireContext(), AccountFeatureActivity::class.java)
+//        startActivity(intent)
     }
 
     private fun navigateToNotification() {
@@ -173,7 +172,8 @@ class HomeFragment : Fragment() {
                     binding.layoutStatePopularCategories.root.isVisible = true
                     binding.layoutStatePopularCategories.loadingAnimation.isVisible = false
                     binding.layoutStatePopularCategories.tvError.isVisible = true
-                    binding.layoutStatePopularCategories.tvError.text = it.exception?.message.orEmpty()
+                    binding.layoutStatePopularCategories.tvError.text =
+                        it.exception?.message.orEmpty()
                     binding.rvCategoryPopularCourse.isVisible = false
                 }
             )
