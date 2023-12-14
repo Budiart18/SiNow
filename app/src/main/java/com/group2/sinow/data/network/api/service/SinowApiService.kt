@@ -4,21 +4,56 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.group2.sinow.BuildConfig
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
+import com.group2.sinow.data.network.api.model.login.LoginRequest
+import com.group2.sinow.data.network.api.model.login.LoginResponse
+import com.group2.sinow.data.network.api.model.register.RegisterRequest
+import com.group2.sinow.data.network.api.model.register.RegisterResponse
+import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
+import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
+import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
+import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
+import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface SinowApiService {
+
+
+    // Login
+    @POST("auth/login")
+    suspend fun doLogin(@Body loginRequest: LoginRequest) : LoginResponse
+
+    // Token
+    @GET("auth/check-token")
+    suspend fun checkToken(@Header("Authorization") token: String) : LoginResponse
+
+
+    // Register
+    @POST("auth/register")
+    suspend fun registerUser(@Body registerRequest: RegisterRequest): RegisterResponse
+
+    // Verify Email / OTP
+    @POST("auth/verify-email")
+    suspend fun verifyEmail(@Body otpRequest: VerifyEmailRequest): VerifyEmailResponse
+
+    // Resend OTP
+    @POST("auth/resend-otp")
+    suspend fun resendOtp(@Body resendOtpRequest: ResendOtpRequest): ResendOtpResponse
+
 
     @GET("category")
     suspend fun getCategories(): CategoriesResponse
@@ -42,11 +77,12 @@ interface SinowApiService {
     suspend fun deleteNotification(@Path("id") id : Int) : DeleteNotificationResponse
 
     companion object {
+
         @JvmStatic
-        operator fun invoke(chucker: ChuckerInterceptor): SinowApiService {
+        operator fun invoke(chucker: ChuckerInterceptor, userPreferenceDataSource: UserPreferenceDataSource): SinowApiService {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(chucker)
-                .addInterceptor(createAuthorizationInterceptor("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsIm5hbWUiOiJSYWdpbCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAxODMxODE2LCJleHAiOjE3MDE5MTgyMTYsImlzcyI6IlNpTm93X1NlY3VyaXR5In0.xfMsZiXjAvu1h2gfCbv1IaTIP9JeR88PhszUGuDXRX8"))
+                .addInterceptor(AuthInterceptor(userPreferenceDataSource))
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
                 .build()
@@ -58,15 +94,6 @@ interface SinowApiService {
             return retrofit.create(SinowApiService::class.java)
         }
 
-        private fun createAuthorizationInterceptor(token: String?): Interceptor {
-            return Interceptor { chain ->
-                val original = chain.request()
-                val requestBuilder = original.newBuilder()
-                    .header("Authorization", "Bearer $token")
-                val request = requestBuilder.build()
-                chain.proceed(request)
-            }
-        }
     }
 
 }

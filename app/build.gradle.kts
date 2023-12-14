@@ -145,4 +145,7 @@ dependencies {
     // Skeleton layout
     implementation ("com.faltenreich:skeletonlayout:5.0.0")
 
+    // OTP View
+    implementation ("io.github.chaosleung:pinview:1.4.4")
+
 }
