@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBF3FC"
-    tools:context=".presentation.payment_history.payment_history">
+    tools:context=".presentation.payment_history.PaymentHistoryActivity">
 
     <ImageButton
         android:id="@+id/id_BackButton"

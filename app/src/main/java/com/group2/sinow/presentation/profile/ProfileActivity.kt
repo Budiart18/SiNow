@@ -52,6 +52,7 @@ class ProfileActivity : AppCompatActivity() {
                     binding.pbLoading.isVisible = false
                     binding.btnSaveProfile.isVisible = true
                     selectedImageInputStream = null
+                    viewModel.toggleEditMode()
                     Toast.makeText(this, "Change Profile Data Success !", Toast.LENGTH_SHORT).show()
                 },
                 doOnError = {
