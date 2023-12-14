@@ -18,7 +18,11 @@ import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
+import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -26,6 +30,9 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
@@ -80,6 +87,20 @@ interface SinowApiService {
 
     @DELETE("user/notifications/{id}")
     suspend fun deleteNotification(@Path("id") id : Int) : DeleteNotificationResponse
+
+    @GET("user")
+    suspend fun getUserData() : ProfileResponse
+
+    @Multipart
+    @PATCH("user/update")
+    suspend fun updateUserData(
+        @Part("name") name: RequestBody?,
+        @Part("email") email: RequestBody?,
+        @Part("phoneNumber") phoneNumber: RequestBody?,
+        @Part("country") country: RequestBody?,
+        @Part("city") city: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ) : UpdateUserDataResponse
 
     companion object {
 
