@@ -17,13 +17,16 @@
             android:name=".presentation.auth.otp.OTPActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.account.account_feature"
+            android:name=".presentation.change_password.ChangePasswordUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.account.AccountFeatureActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.payment_history.Item_Payment_Course"
             android:exported="false" />
         <activity
-            android:name=".presentation.payment_history.payment_history"
+            android:name=".presentation.payment_history.PaymentHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.profile.ProfileActivity"
@@ -32,7 +35,7 @@
             android:name=".presentation.notification.notificationdetail.NotificationDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.auth.changepassword.ChangePasswordActivity"
+            android:name=".presentation.auth.forgotpassword.ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.notification.notificationlist.NotificationActivity"

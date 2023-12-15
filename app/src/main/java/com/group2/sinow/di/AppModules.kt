@@ -11,7 +11,6 @@ import com.group2.sinow.data.repository.AuthRepository
 import com.group2.sinow.data.repository.AuthRepositoryImpl
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.data.repository.CourseRepositoryImpl
-import com.group2.sinow.model.register.Register
 import com.group2.sinow.presentation.auth.login.LoginViewModel
 import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
 import com.group2.sinow.presentation.auth.login.UserPreferenceDataSourceImpl
@@ -19,11 +18,15 @@ import com.group2.sinow.presentation.auth.otp.OTPViewModel
 import com.group2.sinow.presentation.auth.register.RegisterViewModel
 import com.group2.sinow.data.repository.NotificationRepository
 import com.group2.sinow.data.repository.NotificationRepositoryImpl
+import com.group2.sinow.data.repository.UserRepository
+import com.group2.sinow.data.repository.UserRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
-import com.group2.sinow.presentation.auth.changepassword.ChangePasswordViewModel
+import com.group2.sinow.presentation.auth.forgotpassword.ForgotPasswordViewModel
+import com.group2.sinow.presentation.change_password.ChangePasswordUserViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
 import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailViewModel
 import com.group2.sinow.presentation.notification.notificationlist.NotificationViewModel
+import com.group2.sinow.presentation.profile.ProfileViewModel
 import com.group2.sinow.presentation.splashscreen.SplashViewModel
 import com.group2.sinow.utils.PreferenceDataStoreHelper
 import com.group2.sinow.utils.PreferenceDataStoreHelperImpl
@@ -57,6 +60,7 @@ object AppModules {
         single<CourseRepository> { CourseRepositoryImpl(get()) }
         single<NotificationRepository> { NotificationRepositoryImpl(get()) }
         single<AuthRepository> { AuthRepositoryImpl(get()) }
+        single<UserRepository> { UserRepositoryImpl(get()) }
     }
 
     private val viewModels = module {
@@ -67,8 +71,10 @@ object AppModules {
         viewModel { LoginViewModel(get(), get()) }
         viewModel { AllPopularCourseViewModel(get()) }
         viewModel { NotificationViewModel(get()) }
+        viewModel { ProfileViewModel(get(), get()) }
+        viewModel { ChangePasswordUserViewModel(get()) }
         viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
-        viewModel {ChangePasswordViewModel(get())}
+        viewModel {ForgotPasswordViewModel(get())}
     }
 
 }

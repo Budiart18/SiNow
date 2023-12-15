@@ -1,20 +1,20 @@
-package com.group2.sinow.presentation.auth.changepassword
+package com.group2.sinow.presentation.auth.forgotpassword
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.group2.sinow.databinding.ActivityChangePasswordBinding
+import com.group2.sinow.databinding.ActivityForgotPasswordBinding
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 
-class ChangePasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : AppCompatActivity() {
 
-    private val binding: ActivityChangePasswordBinding by lazy {
-        ActivityChangePasswordBinding.inflate(layoutInflater)
+    private val binding: ActivityForgotPasswordBinding by lazy {
+        ActivityForgotPasswordBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: ChangePasswordViewModel by viewModel()
+    private val viewModel: ForgotPasswordViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

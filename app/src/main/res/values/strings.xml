@@ -50,4 +50,6 @@
     <string name="text_error_password_less_than_8_char">Password minimal 8 karakter!</string>
     <string name="text_email_not_registered">Email tidak terdaftar!</string>
     <string name="text_error_phone_cannot_empty">Nomor telepon tidak boleh kosong!</string>
+    <string name="text_hi_user">Hi, %s</string>
+    <string name="text_sizian">Sizian</string>
 </resources>
