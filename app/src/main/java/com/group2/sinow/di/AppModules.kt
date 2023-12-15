@@ -11,7 +11,6 @@ import com.group2.sinow.data.repository.AuthRepository
 import com.group2.sinow.data.repository.AuthRepositoryImpl
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.data.repository.CourseRepositoryImpl
-import com.group2.sinow.model.register.Register
 import com.group2.sinow.presentation.auth.login.LoginViewModel
 import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
 import com.group2.sinow.presentation.auth.login.UserPreferenceDataSourceImpl
@@ -72,6 +71,7 @@ object AppModules {
         viewModel { AllPopularCourseViewModel(get()) }
         viewModel { NotificationViewModel(get()) }
         viewModel { ProfileViewModel(get()) }
+        viewModel { ChangePasswordUserViewModel(get()) }
         viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
         viewModel {ChangePasswordViewModel(get())}
     }

@@ -9,7 +9,7 @@ import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChangePasswordViewModel(private val repository: UserRepository) : ViewModel() {
+class ChangePasswordUserViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _changePasswordResult = MutableLiveData<ResultWrapper<Boolean>>()
     val changePasswordResult: LiveData<ResultWrapper<Boolean>>

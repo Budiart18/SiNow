@@ -4,11 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
-import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityAccountFeatureBinding
 import com.group2.sinow.presentation.auth.login.LoginActivity
 import com.group2.sinow.presentation.auth.register.RegisterActivity
-import com.group2.sinow.presentation.change_password.ChangePasswordActivity
+import com.group2.sinow.presentation.change_password.ChangePasswordUserActivity
 import com.group2.sinow.presentation.payment_history.PaymentHistoryActivity
 import com.group2.sinow.presentation.profile.ProfileActivity
 import com.group2.sinow.presentation.profile.ProfileViewModel
@@ -51,7 +50,7 @@ class AccountFeatureActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
         binding.tvChangePasswordTitle.setOnClickListener {
-            startActivity(Intent(this, ChangePasswordActivity::class.java))
+            startActivity(Intent(this, ChangePasswordUserActivity::class.java))
         }
         binding.tvPaymentHistoryTitle.setOnClickListener {
             startActivity(Intent(this, PaymentHistoryActivity::class.java))
