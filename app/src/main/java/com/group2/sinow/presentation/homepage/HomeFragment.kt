@@ -16,9 +16,10 @@ import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.CourseAdapter
 import com.group2.sinow.presentation.notification.notificationlist.NotificationActivity
-import com.group2.sinow.presentation.profile.ProfileActivity
+import com.group2.sinow.presentation.profile.ProfileViewModel
 import com.group2.sinow.utils.SkeletonConfigWrapper
 import com.group2.sinow.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -33,19 +34,30 @@ class HomeFragment : Fragment() {
 
     private val popularCourseCategoryAdapter: PopularCourseCategoryAdapter by lazy {
         PopularCourseCategoryAdapter { category ->
-            viewModel.getCourses(category.id)
-            viewModel.changeSelectedCategory(category)
+            homeViewModel.getCourses(category.id)
+            homeViewModel.changeSelectedCategory(category)
         }
     }
 
     private val courseAdapter: CourseAdapter by lazy {
         CourseAdapter {
-            //navigateToDetailCourse()
-            openNonLoginUserDialog()
+            itemCourseListener(it.id)
         }
     }
 
-    private val viewModel: HomeViewModel by viewModel()
+    private fun itemCourseListener(courseId: Int?) {
+        profileViewModel.userData.observe(viewLifecycleOwner){resultWrapper ->
+            if (resultWrapper.payload != null) {
+                navigateToDetailCourse(courseId)
+            } else {
+                openNonLoginUserDialog()
+            }
+        }
+    }
+
+    private val homeViewModel: HomeViewModel by viewModel()
+
+    private val profileViewModel: ProfileViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,12 +75,33 @@ class HomeFragment : Fragment() {
         observeCourseData()
         observePopularCourseCategoryData()
         observeSelectedCategory()
+        observeProfileData()
+    }
+
+    private fun observeProfileData() {
+        profileViewModel.userData.observe(viewLifecycleOwner){ resultWrapper ->
+            if (resultWrapper.payload != null) {
+                binding.icNotification.isVisible = true
+                binding.tvGreetingUser.text = getString(
+                    R.string.text_hi_user,
+                    resultWrapper.payload.name
+                )
+            } else {
+                binding.icNotification.isVisible = false
+                binding.tvGreetingUser.text = getString(
+                    R.string.text_hi_user,
+                    getString(R.string.text_sizian),
+                )
+            }
+
+        }
     }
 
     private fun getData() {
-        viewModel.getCategories()
-        viewModel.getPopularCourseCategories()
-        viewModel.getCourses()
+        homeViewModel.getCategories()
+        homeViewModel.getPopularCourseCategories()
+        homeViewModel.getCourses()
+        profileViewModel.getUserData()
     }
 
     private fun setClickListener() {
@@ -87,7 +120,7 @@ class HomeFragment : Fragment() {
         TODO("Not yet implemented")
     }
 
-    private fun navigateToDetailCourse() {
+    private fun navigateToDetailCourse(courseId: Int?) {
         TODO("Not yet implemented")
     }
 
@@ -111,7 +144,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeCategoryData() {
-        viewModel.categories.observe(viewLifecycleOwner) { resultWrapper ->
+        homeViewModel.categories.observe(viewLifecycleOwner) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStateCategories.root.isVisible = false
@@ -146,7 +179,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularCourseCategoryData() {
-        viewModel.popularCourseCategories.observe(viewLifecycleOwner) { resultWrapper ->
+        homeViewModel.popularCourseCategories.observe(viewLifecycleOwner) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStatePopularCategories.root.isVisible = false
@@ -181,7 +214,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeCourseData() {
-        viewModel.courses.observe(viewLifecycleOwner) { resultWrapper ->
+        homeViewModel.courses.observe(viewLifecycleOwner) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStatePopularCourse.root.isVisible = false
@@ -219,7 +252,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeSelectedCategory() {
-        viewModel.selectedCategory.observe(viewLifecycleOwner) {
+        homeViewModel.selectedCategory.observe(viewLifecycleOwner) {
             popularCourseCategoryAdapter.setSelectedCategory(it)
         }
     }

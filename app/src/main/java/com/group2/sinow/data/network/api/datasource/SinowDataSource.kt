@@ -4,6 +4,8 @@ import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
+import com.group2.sinow.data.network.api.model.login.LoginRequest
+import com.group2.sinow.data.network.api.model.login.LoginResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
@@ -12,7 +14,11 @@ import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.register.RegisterRequest
+import com.group2.sinow.data.network.api.model.register.RegisterResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
+import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
+import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.data.network.api.service.SinowApiService
 import com.group2.sinow.utils.ResultWrapper
 import com.group2.sinow.utils.proceedFlow

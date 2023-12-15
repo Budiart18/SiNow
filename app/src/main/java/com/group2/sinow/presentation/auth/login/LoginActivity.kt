@@ -4,18 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.group2.sinow.R
-import com.group2.sinow.data.network.api.model.login.LoginRequest
 import com.group2.sinow.databinding.ActivityLoginBinding
-import com.group2.sinow.presentation.auth.changepassword.ChangePasswordActivity
-import com.group2.sinow.presentation.auth.otp.OTPActivity
+import com.group2.sinow.presentation.auth.forgotpassword.ForgotPasswordActivity
 import com.group2.sinow.presentation.auth.register.RegisterActivity
-import com.group2.sinow.presentation.homepage.HomeFragment
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.highLightWord
@@ -87,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToChangePassword() {
-        val intent = Intent(this, ChangePasswordActivity::class.java).apply {
+        val intent = Intent(this, ForgotPasswordActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         startActivity(intent)

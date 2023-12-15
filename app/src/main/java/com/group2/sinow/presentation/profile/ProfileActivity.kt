@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityProfileBinding
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -54,7 +54,9 @@ class ProfileActivity : AppCompatActivity() {
                     binding.btnSaveProfile.isVisible = true
                     selectedImageInputStream = null
                     viewModel.toggleEditMode()
-                    Toast.makeText(this, "Change Profile Data Success !", Toast.LENGTH_SHORT).show()
+                    if (it.exception is ApiException) {
+                        Toast.makeText(this, it.exception.getParsedError()?.message.orEmpty(), Toast.LENGTH_SHORT).show()
+                    }
                 },
                 doOnError = {
                     binding.pbLoading.isVisible = false
@@ -146,6 +148,7 @@ class ProfileActivity : AppCompatActivity() {
                         binding.profileImage.load(profileData.photoProfileUrl) {
                             crossfade(true)
                             placeholder(R.drawable.profile)
+                            error(R.drawable.profile)
                             transformations(CircleCropTransformation())
                         }
                     }

@@ -4,15 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.group2.sinow.databinding.ActivityChangePasswordBinding
+import com.group2.sinow.databinding.ActivityChangePasswordUserBinding
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangePasswordUserActivity : AppCompatActivity() {
 
-    private val binding: ActivityChangePasswordBinding by lazy {
-        ActivityChangePasswordBinding.inflate(layoutInflater)
+    private val binding: ActivityChangePasswordUserBinding by lazy {
+        ActivityChangePasswordUserBinding.inflate(layoutInflater)
     }
 
     private val viewModel : ChangePasswordUserViewModel by viewModel()

@@ -7,13 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
 import com.group2.sinow.data.repository.UserRepository
 import com.group2.sinow.model.profile.ProfileData
+import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
 import com.group2.sinow.utils.ResultWrapper
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.InputStream
 
-class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
+class ProfileViewModel(
+    private val repository: UserRepository,
+    private val userPreferenceDataSource: UserPreferenceDataSource
+) : ViewModel() {
 
     private val _userData = MutableLiveData<ResultWrapper<ProfileData>>()
     val userData : LiveData<ResultWrapper<ProfileData>>
@@ -51,6 +56,12 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
             repository.updateUserData(name, email, phoneNumber, country, city, image).collect{
                 _changeProfileResult.postValue(it)
             }
+        }
+    }
+
+    fun doLogout(){
+        viewModelScope.launch(Dispatchers.IO) {
+            userPreferenceDataSource.deleteToken()
         }
     }
 

@@ -3,6 +3,7 @@ package com.group2.sinow.presentation.account
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.group2.sinow.databinding.ActivityAccountFeatureBinding
 import com.group2.sinow.presentation.auth.login.LoginActivity
@@ -47,25 +48,63 @@ class AccountFeatureActivity : AppCompatActivity() {
 
     private fun setClickListener() {
         binding.tvProfileTitle.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            navigateToProfile()
         }
         binding.tvChangePasswordTitle.setOnClickListener {
-            startActivity(Intent(this, ChangePasswordUserActivity::class.java))
+            navigateToChangePassword()
         }
         binding.tvPaymentHistoryTitle.setOnClickListener {
-            startActivity(Intent(this, PaymentHistoryActivity::class.java))
+            navigateToPaymentHistory()
         }
         binding.tvLogoutTitle.setOnClickListener {
-
+            doLogout()
         }
         binding.layoutNonloginAccount.btnLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            navigateToLogin()
         }
         binding.layoutNonloginAccount.btnRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            navigateToRegister()
         }
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun doLogout() {
+        val dialog = AlertDialog.Builder(this).setMessage("Apakah kamu yakin ingin keluar akun ?")
+            .setPositiveButton(
+                "Ya"
+            ) { _, _ ->
+                viewModel.doLogout()
+                navigateToLogin()
+            }
+            .setNegativeButton(
+                "Tidak"
+            ) { _, _ ->
+                // no-op , do nothing
+            }.create()
+        dialog.show()
+    }
+
+    private fun navigateToRegister() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun navigateToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java)).apply {
+            Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+    }
+
+    private fun navigateToPaymentHistory() {
+        startActivity(Intent(this, PaymentHistoryActivity::class.java))
+    }
+
+    private fun navigateToChangePassword() {
+        startActivity(Intent(this, ChangePasswordUserActivity::class.java))
+    }
+
+    private fun navigateToProfile() {
+        startActivity(Intent(this, ProfileActivity::class.java))
     }
 }
