@@ -32,7 +32,7 @@
             android:name=".presentation.notification.notificationdetail.NotificationDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.change_password.ChangePasswordActivity"
+            android:name=".presentation.auth.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.notification.notificationlist.NotificationActivity"

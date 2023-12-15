@@ -16,8 +16,8 @@ import com.group2.sinow.data.network.api.model.notification.NotificationDetailRe
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
-import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
+import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
+import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -53,6 +53,11 @@ interface SinowApiService {
     // Resend OTP
     @POST("auth/resend-otp")
     suspend fun resendOtp(@Body resendOtpRequest: ResendOtpRequest): ResendOtpResponse
+
+    // Reset Password
+    @POST("auth/reset-password")
+    suspend fun resetPassword(@Body resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse
+
 
 
     @GET("category")

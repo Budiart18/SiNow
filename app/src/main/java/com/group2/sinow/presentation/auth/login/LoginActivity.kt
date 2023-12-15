@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.group2.sinow.R
 import com.group2.sinow.data.network.api.model.login.LoginRequest
 import com.group2.sinow.databinding.ActivityLoginBinding
+import com.group2.sinow.presentation.auth.changepassword.ChangePasswordActivity
 import com.group2.sinow.presentation.auth.otp.OTPActivity
 import com.group2.sinow.presentation.auth.register.RegisterActivity
 import com.group2.sinow.presentation.homepage.HomeFragment
@@ -85,6 +86,14 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun navigateToChangePassword() {
+        val intent = Intent(this, ChangePasswordActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        startActivity(intent)
+
+    }
+
     private fun setOnClickListener() {
         binding.btnLogin.setOnClickListener {
             doLogin()
@@ -98,7 +107,12 @@ class LoginActivity : AppCompatActivity() {
             navigateToHome()
         }
 
+        binding.tvForgotPassword.setOnClickListener {
+            navigateToChangePassword()
+        }
+
     }
+
 
 
 

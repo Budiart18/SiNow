@@ -20,6 +20,7 @@ import com.group2.sinow.presentation.auth.register.RegisterViewModel
 import com.group2.sinow.data.repository.NotificationRepository
 import com.group2.sinow.data.repository.NotificationRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
+import com.group2.sinow.presentation.auth.changepassword.ChangePasswordViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
 import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailViewModel
 import com.group2.sinow.presentation.notification.notificationlist.NotificationViewModel
@@ -67,6 +68,7 @@ object AppModules {
         viewModel { AllPopularCourseViewModel(get()) }
         viewModel { NotificationViewModel(get()) }
         viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
+        viewModel {ChangePasswordViewModel(get())}
     }
 
 }

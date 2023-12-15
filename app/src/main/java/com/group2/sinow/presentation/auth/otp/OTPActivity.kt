@@ -1,6 +1,5 @@
 package com.group2.sinow.presentation.auth.otp
 
-import android.app.ProgressDialog.show
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -13,14 +12,13 @@ import android.text.style.StyleSpan
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.databinding.ActivityOtpBinding
 import com.group2.sinow.presentation.bottom_dialog.RegistrationSuccessDialogFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OTPActivity : AppCompatActivity() {
 
