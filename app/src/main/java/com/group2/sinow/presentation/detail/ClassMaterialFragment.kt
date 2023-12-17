@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentClassMaterialBinding
 import com.group2.sinow.model.detailcourse.CourseData
-import com.group2.sinow.presentation.detail.viewitems.DataItem
-import com.group2.sinow.presentation.detail.viewitems.HeaderItem
+import com.group2.sinow.presentation.detail.viewitems.DataItemVideoChapter
+import com.group2.sinow.presentation.detail.viewitems.HeaderItemVideoChapter
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
@@ -52,10 +52,20 @@ class ClassMaterialFragment : Fragment() {
                     bindData(it.payload)
                 },
                 doOnError = { err ->
-                    Toast.makeText(
-                        requireContext(), err.message.orEmpty(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (err.exception is ApiException) {
+                        if (err.exception.httpCode == 403) {
+                            Toast.makeText(
+                                requireActivity(),
+                                "Anda harus bayar dahulu",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        Toast.makeText(
+                            requireActivity(),
+                            err.exception.getParsedError()?.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             )
         }
@@ -72,18 +82,15 @@ class ClassMaterialFragment : Fragment() {
         item?.let {
             val sections = item.course?.chapters?.map {
                 val section = Section()
-                section.setHeader(HeaderItem(it.name) { data ->
-                    Toast.makeText(requireContext(), "Header Clicked : $data", Toast.LENGTH_SHORT)
-                        .show()
+                section.setHeader(HeaderItemVideoChapter(it.name, it.totalDuration) { data ->
                 })
                 val dataSection = it.userModules?.map { userModuleData ->
-                    DataItem(userModuleData.moduleData?.name, userModuleData.status) { data ->
-                        sharedViewModel.getUserModule(item.courseId, userModuleData.moduleData?.id)
-                        Toast.makeText(
-                            requireContext(),
-                            "Item Clicked : ${userModuleData.moduleData?.id}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    DataItemVideoChapter(
+                        userModuleData.moduleData?.name,
+                        userModuleData.status,
+                        userModuleData.moduleData?.no
+                    ) { data ->
+                        sharedViewModel.getUserModule(item.courseId, userModuleData.id)
                     }
                 }
                 dataSection?.let { it1 -> section.addAll(it1) }

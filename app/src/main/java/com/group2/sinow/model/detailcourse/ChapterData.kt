@@ -8,5 +8,6 @@ data class ChapterData(
     val id: Int?,
     val no: Int?,
     val name: String?,
+    val totalDuration: Int?,
     val userModules: List<UserModuleData>?
 ) : Parcelable

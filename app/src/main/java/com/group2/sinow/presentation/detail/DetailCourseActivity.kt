@@ -15,6 +15,7 @@ import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.player.ExoPlayerManager
 import com.group2.sinow.presentation.detail.player.PlayerManager
 import com.group2.sinow.utils.SkeletonConfigWrapper
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -60,7 +61,13 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.root.isVisible = true
                     binding.layoutStateDetailCourse.loadingAnimation.isVisible = false
                     binding.layoutStateDetailCourse.tvError.isVisible = true
-                    binding.layoutStateDetailCourse.tvError.text = it.exception?.message.orEmpty()
+                    if (it.exception is ApiException) {
+                        Toast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             )
         }
@@ -73,14 +80,20 @@ class DetailCourseActivity : AppCompatActivity() {
                     it.payload?.videoUrl?.let { it1 -> playerManager.play(it1) }
                 },
                 doOnError = { err ->
-                    Toast.makeText(this, err.exception?.message, Toast.LENGTH_SHORT).show()
+                    if (err.exception is ApiException) {
+                        Toast.makeText(
+                            this,
+                            err.exception.getParsedError()?.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             )
         }
     }
 
     private fun getData() {
-        val courseId = intent.getIntExtra("COURSE_ID", 0)
+        val courseId = intent.getIntExtra(EXTRA_COURSE, 0)
         viewModel.getDetailCourse(courseId)
     }
 
@@ -131,7 +144,7 @@ class DetailCourseActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_COURSE = "EXTRA_COURSE"
 
-        fun startActivity(context: Context, courseId: Int) {
+        fun startActivity(context: Context, courseId: Int?) {
             val intent = Intent(context, DetailCourseActivity::class.java)
             intent.putExtra(EXTRA_COURSE, courseId)
             context.startActivity(intent)

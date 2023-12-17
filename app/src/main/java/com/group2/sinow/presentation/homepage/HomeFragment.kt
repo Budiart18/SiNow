@@ -121,10 +121,11 @@ class HomeFragment : Fragment() {
         TODO("Not yet implemented")
     }
 
-    private fun navigateToDetailCourse(courseId: Int) {
-        val intent = Intent(requireContext(), DetailCourseActivity::class.java)
-        intent.putExtra("COURSE_ID", courseId)
-        startActivity(intent)
+    private fun navigateToDetailCourse(courseId: Int?) {
+        DetailCourseActivity.startActivity(requireContext(), courseId)
+        //val intent = Intent(requireContext(), DetailCourseActivity::class.java)
+        //intent.putExtra("COURSE_ID", courseId)
+        //startActivity(intent)
     }
 
     private fun navigateToProfile() {

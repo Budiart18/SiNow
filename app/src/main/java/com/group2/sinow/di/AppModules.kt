@@ -21,7 +21,6 @@ import com.group2.sinow.data.repository.NotificationRepositoryImpl
 import com.group2.sinow.data.repository.UserRepository
 import com.group2.sinow.data.repository.UserRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
-import com.group2.sinow.presentation.auth.changepassword.ChangePasswordViewModel
 import com.group2.sinow.presentation.detail.DetailCourseViewModel
 import com.group2.sinow.presentation.auth.forgotpassword.ForgotPasswordViewModel
 import com.group2.sinow.presentation.change_password.ChangePasswordUserViewModel

@@ -55,7 +55,7 @@ class CourseRepositoryImpl(
 
     override fun getDetailCourse(id: Int): Flow<ResultWrapper<CourseData?>> {
         return proceedFlow {
-            dataSource.getDetailCourse(id).data?.toCourseDetail()
+            dataSource.getDetailCourse(id).data?.userCourse?.toCourseDetail()
         }
     }
 

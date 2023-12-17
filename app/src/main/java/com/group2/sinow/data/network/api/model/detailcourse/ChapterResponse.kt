@@ -12,6 +12,8 @@ data class ChapterResponse(
     val no: Int?,
     @SerializedName("name")
     val name: String?,
+    @SerializedName("totalDuration")
+    val totalDuration: Int?,
     @SerializedName("userModules")
     val userModules: List<UserModuleResponse>?
 )
@@ -19,5 +21,6 @@ fun ChapterResponse.toChapterData() = ChapterData(
     id = this.id ?: 0,
     no = this.no ?: 0,
     name = this.name.orEmpty(),
+    totalDuration = this.totalDuration ?: 0,
     userModules = this.userModules?.map { it.toUserModuleData() } ?: emptyList()
 )

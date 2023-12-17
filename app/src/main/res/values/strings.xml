@@ -52,4 +52,7 @@
     <string name="text_error_phone_cannot_empty">Nomor telepon tidak boleh kosong!</string>
     <string name="text_hi_user">Hi, %s</string>
     <string name="text_sizian">Sizian</string>
+    <string name="text_study_materials">Materi Belajar</string>
+    <string name="text_about_class">Tentang Kelas</string>
+    <string name="text_benefit_follow_this_class">Keuntungan mengikuti kelas ini :</string>
 </resources>
