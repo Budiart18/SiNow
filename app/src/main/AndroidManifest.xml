@@ -47,6 +47,9 @@
             android:name=".presentation.splashscreen.SplashActivity"
             android:exported="false" />
         <activity
+            android:name=".presentation.detail.DetailCourseActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.auth.login.LoginActivity"
             android:exported="false" />
         <activity

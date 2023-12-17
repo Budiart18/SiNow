@@ -21,6 +21,7 @@ import com.group2.sinow.data.repository.NotificationRepositoryImpl
 import com.group2.sinow.data.repository.UserRepository
 import com.group2.sinow.data.repository.UserRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
+import com.group2.sinow.presentation.detail.DetailCourseViewModel
 import com.group2.sinow.presentation.auth.forgotpassword.ForgotPasswordViewModel
 import com.group2.sinow.presentation.change_password.ChangePasswordUserViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
@@ -74,6 +75,7 @@ object AppModules {
         viewModel { ProfileViewModel(get(), get()) }
         viewModel { ChangePasswordUserViewModel(get()) }
         viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
+        viewModel { params -> DetailCourseViewModel(params.get(), get()) }
         viewModel {ForgotPasswordViewModel(get())}
     }
 
