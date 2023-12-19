@@ -13,6 +13,7 @@ import com.group2.sinow.databinding.ActivityNotificationDetailBinding
 import com.group2.sinow.model.notification.Notification
 import com.group2.sinow.presentation.notification.notificationlist.NotificationActivity
 import com.group2.sinow.utils.changeFormatTime
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -23,7 +24,7 @@ class NotificationDetailActivity : AppCompatActivity() {
         ActivityNotificationDetailBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: NotificationDetailViewModel by viewModel{
+    private val viewModel: NotificationDetailViewModel by viewModel {
         parametersOf(intent.extras ?: bundleOf())
     }
 
@@ -47,7 +48,8 @@ class NotificationDetailActivity : AppCompatActivity() {
     }
 
     private fun deleteNotification() {
-        val dialog = AlertDialog.Builder(this).setMessage(getString(R.string.text_delete_notification_confirmation))
+        val dialog = AlertDialog.Builder(this)
+            .setMessage(getString(R.string.text_delete_notification_confirmation))
             .setPositiveButton(
                 getString(R.string.text_yes)
             ) { _, _ ->
@@ -74,7 +76,7 @@ class NotificationDetailActivity : AppCompatActivity() {
 
     private fun observeData() {
         viewModel.notificationData.observe(this) { resultWrapper ->
-            resultWrapper.proceedWhen (
+            resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStateNotification.root.isVisible = false
                     binding.layoutStateNotification.loadingAnimation.isVisible = false
@@ -89,7 +91,10 @@ class NotificationDetailActivity : AppCompatActivity() {
                     binding.layoutStateNotification.root.isVisible = true
                     binding.layoutStateNotification.loadingAnimation.isVisible = false
                     binding.layoutStateNotification.tvError.isVisible = true
-                    binding.layoutStateNotification.tvError.text = it.exception?.message.orEmpty()
+                    if (it.exception is ApiException) {
+                        binding.layoutStateNotification.tvError.text =
+                            it.exception.getParsedError()?.message.orEmpty()
+                    }
                 }
             )
         }
@@ -102,7 +107,13 @@ class NotificationDetailActivity : AppCompatActivity() {
                     navigateToNotificationList()
                 },
                 doOnError = { err ->
-                    Toast.makeText(this, err.exception?.message.orEmpty(), Toast.LENGTH_SHORT).show()
+                    if (err.exception is ApiException) {
+                        Toast.makeText(
+                            this,
+                            err.exception.getParsedError()?.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             )
         }

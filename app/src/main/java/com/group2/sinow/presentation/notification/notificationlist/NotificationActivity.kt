@@ -33,14 +33,22 @@ class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        getData()
         observeNotificationData()
         setClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     private fun setClickListener() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            getData()
+            binding.swipeRefresh.isRefreshing = false
         }
     }
 
@@ -73,11 +81,12 @@ class NotificationActivity : AppCompatActivity() {
                     binding.layoutStateNotification.root.isVisible = true
                     binding.layoutStateNotification.loadingAnimation.isVisible = false
                     binding.rvNotificationList.isVisible = false
-                    if(it.exception is ApiException){
-                        if(it.exception.httpCode == 401){
+                    if (it.exception is ApiException) {
+                        if (it.exception.httpCode == 401) {
                             binding.layoutNotificationEmpty.root.isVisible = true
-                            binding.layoutNotificationEmpty.tvNotificationEmpty.text = getString(R.string.tv_user_must_login_first)
-                        }else{
+                            binding.layoutNotificationEmpty.tvNotificationEmpty.text =
+                                getString(R.string.tv_user_must_login_first)
+                        } else {
                             binding.layoutNotificationEmpty.root.isVisible = true
                         }
                     }
