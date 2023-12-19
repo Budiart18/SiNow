@@ -149,5 +149,7 @@ dependencies {
     implementation ("io.github.chaosleung:pinview:1.4.4")
     //Swipe Refresh Layout
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+    //FancyToast
+    implementation ("io.github.shashank02051997:FancyToast:2.0.2")
 
 }

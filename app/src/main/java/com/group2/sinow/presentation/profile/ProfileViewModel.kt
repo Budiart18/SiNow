@@ -46,14 +46,13 @@ class ProfileViewModel(
 
     fun updateUserData(
         name: RequestBody?,
-        email: RequestBody?,
         phoneNumber: RequestBody?,
         country: RequestBody?,
         city: RequestBody?,
         image: MultipartBody.Part?
     ) {
         viewModelScope.launch {
-            repository.updateUserData(name, email, phoneNumber, country, city, image).collect{
+            repository.updateUserData(name, phoneNumber, country, city, image).collect{
                 _changeProfileResult.postValue(it)
             }
         }

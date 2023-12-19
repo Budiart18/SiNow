@@ -1,9 +1,8 @@
 package com.group2.sinow.presentation.profile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -11,12 +10,14 @@ import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityProfileBinding
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import com.shashank.sony.fancytoastlib.FancyToast
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.InputStream
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -33,6 +34,12 @@ class ProfileActivity : AppCompatActivity() {
             uri?.let {
                 val stream = contentResolver.openInputStream(it)
                 selectedImageInputStream = stream
+                binding.profileImage.load(it) {
+                    crossfade(true)
+                    placeholder(R.drawable.profile_image)
+                    error(R.drawable.profile_image)
+                    transformations(CircleCropTransformation())
+                }
             }
         }
 
@@ -54,14 +61,26 @@ class ProfileActivity : AppCompatActivity() {
                     binding.btnSaveProfile.isVisible = true
                     selectedImageInputStream = null
                     viewModel.toggleEditMode()
-                    if (it.exception is ApiException) {
-                        Toast.makeText(this, it.exception.getParsedError()?.message.orEmpty(), Toast.LENGTH_SHORT).show()
-                    }
+                    FancyToast.makeText(
+                        this,
+                        "Berhasil mengupdate data user",
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.SUCCESS,
+                        false
+                    ).show()
                 },
                 doOnError = {
                     binding.pbLoading.isVisible = false
                     binding.btnSaveProfile.isVisible = true
-                    Toast.makeText(this, "Change Profile Data Failed !", Toast.LENGTH_SHORT).show()
+                    if (it.exception is ApiException) {
+                        FancyToast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message.orEmpty(),
+                            FancyToast.LENGTH_LONG,
+                            FancyToast.ERROR,
+                            false
+                        ).show()
+                    }
                 },
                 doOnLoading = {
                     binding.pbLoading.isVisible = true
@@ -88,7 +107,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun createImagePart(inputStream: InputStream?): MultipartBody.Part? {
         inputStream?.let {
-            val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), inputStream.readBytes())
+            val requestBody =
+                RequestBody.create("image/*".toMediaTypeOrNull(), inputStream.readBytes())
             return MultipartBody.Part.createFormData("image", "filename.jpg", requestBody)
         }
         return null
@@ -96,13 +116,11 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateUserData() {
         val name = binding.etProfileName.text.toString().trim()
-        val email = binding.etProfileEmail.text.toString().trim()
         val phoneNumber = binding.etProfilePhone.text.toString().trim()
         val country = binding.etProfileCountry.text.toString().trim()
         val city = binding.etProfileCity.text.toString().trim()
         viewModel.updateUserData(
             name.toRequestBody("text/plain".toMediaTypeOrNull()),
-            email.toRequestBody("text/plain".toMediaTypeOrNull()),
             phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull()),
             country.toRequestBody("text/plain".toMediaTypeOrNull()),
             city.toRequestBody("text/plain".toMediaTypeOrNull()),
@@ -113,9 +131,9 @@ class ProfileActivity : AppCompatActivity() {
     private fun setupForm() {
         viewModel.isEditModeEnabled.observe(this) { isEditModeEnabled ->
             if (isEditModeEnabled) {
-                binding.ivEdit.load(R.drawable.ic_edit_mode_enabled)
+                binding.ivEdit.load(R.drawable.ic_edit_mode_disable)
                 binding.etProfileName.isEnabled = true
-                binding.etProfileEmail.isEnabled = true
+                binding.etProfileEmail.isEnabled = false
                 binding.etProfilePhone.isEnabled = true
                 binding.etProfileCountry.isEnabled = true
                 binding.etProfileCity.isEnabled = true
@@ -123,7 +141,7 @@ class ProfileActivity : AppCompatActivity() {
                 binding.ivEditPhoto.isVisible = true
                 binding.ivEditPhoto.isEnabled = true
             } else {
-                binding.ivEdit.load(R.drawable.ic_edit_mode_disable)
+                binding.ivEdit.load(R.drawable.ic_edit_mode_enabled)
                 binding.etProfileName.isEnabled = false
                 binding.etProfileEmail.isEnabled = false
                 binding.etProfilePhone.isEnabled = false
@@ -147,8 +165,8 @@ class ProfileActivity : AppCompatActivity() {
                         binding.etProfileCity.setText(profileData.city)
                         binding.profileImage.load(profileData.photoProfileUrl) {
                             crossfade(true)
-                            placeholder(R.drawable.profile)
-                            error(R.drawable.profile)
+                            placeholder(R.drawable.profile_image)
+                            error(R.drawable.profile_image)
                             transformations(CircleCropTransformation())
                         }
                     }

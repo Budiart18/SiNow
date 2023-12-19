@@ -7,50 +7,60 @@
     android:background="@color/color_background_light_mode"
     tools:context=".presentation.account.AccountFeatureActivity">
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/app_color_primary"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_account_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Akun"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_back" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_account_text"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/text_account"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/layout_nonlogin_account"
         layout="@layout/layout_nonlogin_account"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/versionTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_account_title"
         android:visibility="gone"
-        tools:visibility="gone"/>
+        app:layout_constraintBottom_toTopOf="@id/versionTitle"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:visibility="gone" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_account_title"
-        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +71,7 @@
                 android:id="@+id/iv_profileIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_edit_account"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Profil Saya"
+                android:text="@string/text_my_profile"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_profileIcon"
@@ -96,7 +106,7 @@
                 android:id="@+id/iv_changePasswordIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
                 android:src="@drawable/ic_settings_account"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Ubah Password"
+                android:text="@string/text_change_password"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_changePasswordIcon"
@@ -131,7 +141,7 @@
                 android:id="@+id/iv_paymentHistoryIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
                 android:src="@drawable/ic_cart_account"
                 app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Riwayat Pembayaran"
+                android:text="@string/text_payment_history"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_paymentHistoryIcon"
@@ -166,7 +176,7 @@
                 android:id="@+id/iv_logoutIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
                 android:src="@drawable/ic_logout_account"
                 app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Keluar"
+                android:text="@string/text_logout"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_logoutIcon"
@@ -192,7 +202,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="66dp"
+                android:layout_marginBottom="24dp"
                 android:background="@color/background_divider_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -210,12 +220,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/montserrat"
-        android:text="Version 1.1.0"
+        android:text="@string/text_version"
         android:textColor="@color/version_color"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,6 @@ interface UserRepository {
 
     suspend fun updateUserData(
         name: RequestBody?,
-        email: RequestBody?,
         phoneNumber: RequestBody?,
         country: RequestBody?,
         city: RequestBody?,
@@ -43,14 +42,13 @@ class UserRepositoryImpl(
 
     override suspend fun updateUserData(
         name: RequestBody?,
-        email: RequestBody?,
         phoneNumber: RequestBody?,
         country: RequestBody?,
         city: RequestBody?,
         image: MultipartBody.Part?
     ): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
-            val token = dataSource.updateUserData(name, email, phoneNumber, country, city, image).data?.token
+            val token = dataSource.updateUserData(name, phoneNumber, country, city, image).data?.token
             token != null
         }
     }

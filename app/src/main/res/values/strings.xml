@@ -55,4 +55,18 @@
     <string name="text_study_materials">Materi Belajar</string>
     <string name="text_about_class">Tentang Kelas</string>
     <string name="text_benefit_follow_this_class">Keuntungan mengikuti kelas ini :</string>
+    <string name="text_country">Negara</string>
+    <string name="text_city">Kota</string>
+    <string name="text_enter_your_name">Masukkan Nama Anda</string>
+    <string name="text_enter_your_email">Masukkan Email Anda</string>
+    <string name="text_enter_your_phone">Masukkan Nomor Telepon Anda</string>
+    <string name="text_enter_your_country">Masukkan Negara Tempat Tinggal</string>
+    <string name="text_enter_your_city">Masukkan Kota Tempat Tinggal</string>
+    <string name="text_save_my_profile">Simpan Profile Saya</string>
+    <string name="text_account">Akun</string>
+    <string name="text_my_profile">Profil Saya</string>
+    <string name="text_change_password">Ubah Password</string>
+    <string name="text_payment_history">Riwayat Pembayaran</string>
+    <string name="text_logout">Keluar</string>
+    <string name="text_version">Version 1.1.0</string>
 </resources>
