@@ -61,7 +61,6 @@ interface SinowDataSource {
 
     suspend fun updateUserData(
         name: RequestBody?,
-        email: RequestBody?,
         phoneNumber: RequestBody?,
         country: RequestBody?,
         city: RequestBody?,
@@ -127,13 +126,12 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
 
     override suspend fun updateUserData(
         name: RequestBody?,
-        email: RequestBody?,
         phoneNumber: RequestBody?,
         country: RequestBody?,
         city: RequestBody?,
         image: MultipartBody.Part?
     ): UpdateUserDataResponse {
-        return service.updateUserData(name, email, phoneNumber, country, city, image)
+        return service.updateUserData(name, phoneNumber, country, city, image)
     }
 
     override suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): ChangePasswordResponse {

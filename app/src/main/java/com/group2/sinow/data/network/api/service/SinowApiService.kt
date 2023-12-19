@@ -99,7 +99,6 @@ interface SinowApiService {
     @PATCH("user/update")
     suspend fun updateUserData(
         @Part("name") name: RequestBody?,
-        @Part("email") email: RequestBody?,
         @Part("phoneNumber") phoneNumber: RequestBody?,
         @Part("country") country: RequestBody?,
         @Part("city") city: RequestBody?,
