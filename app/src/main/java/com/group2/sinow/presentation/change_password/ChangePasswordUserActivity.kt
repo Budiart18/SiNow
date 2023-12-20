@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.android.material.textfield.TextInputLayout
+import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityChangePasswordUserBinding
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangePasswordUserActivity : AppCompatActivity() {
@@ -15,7 +18,7 @@ class ChangePasswordUserActivity : AppCompatActivity() {
         ActivityChangePasswordUserBinding.inflate(layoutInflater)
     }
 
-    private val viewModel : ChangePasswordUserViewModel by viewModel()
+    private val viewModel: ChangePasswordUserViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,7 @@ class ChangePasswordUserActivity : AppCompatActivity() {
     }
 
     private fun setClickListener() {
-        binding.idBackButton.setOnClickListener {
+        binding.ivBack.setOnClickListener {
             onBackPressed()
         }
         binding.btnChangePassword.setOnClickListener {
@@ -34,7 +37,7 @@ class ChangePasswordUserActivity : AppCompatActivity() {
     }
 
     private fun observeResult() {
-        viewModel.changePasswordResult.observe(this){ resultWrapper ->
+        viewModel.changePasswordResult.observe(this) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.etEnterOldPassword.text?.clear()
@@ -42,7 +45,13 @@ class ChangePasswordUserActivity : AppCompatActivity() {
                     binding.etRepeatNewPassword.text?.clear()
                     binding.pbLoading.isVisible = false
                     binding.btnChangePassword.isVisible = true
-                    Toast.makeText(this, "Password Berhasil diubah", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(
+                        this,
+                        getString(R.string.text_password_successfully_changed),
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.SUCCESS,
+                        false
+                    ).show()
                 },
                 doOnLoading = {
                     binding.pbLoading.isVisible = true
@@ -52,17 +61,53 @@ class ChangePasswordUserActivity : AppCompatActivity() {
                     binding.pbLoading.isVisible = false
                     binding.btnChangePassword.isVisible = true
                     if (it.exception is ApiException) {
-                        Toast.makeText(this, it.exception.getParsedError()?.message, Toast.LENGTH_SHORT).show()
+                        FancyToast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message.orEmpty(),
+                            FancyToast.LENGTH_LONG,
+                            FancyToast.ERROR,
+                            false
+                        ).show()
                     }
                 }
             )
         }
     }
 
-    private fun changePassword() {
+    private fun isFormValid(): Boolean {
         val oldPassword = binding.etEnterOldPassword.text.toString().trim()
         val newPassword = binding.etEnterNewPassword.text.toString().trim()
         val confirmNewPassword = binding.etRepeatNewPassword.text.toString().trim()
-        viewModel.changePassword(oldPassword, newPassword, confirmNewPassword)
+        return checkPasswordValidation(
+            oldPassword,
+            binding.tilEnterOldPassword
+        ) && checkPasswordValidation(
+            newPassword,
+            binding.tilEnterNewPassword
+        ) && checkPasswordValidation(confirmNewPassword, binding.tilRepeatNewPassword)
+    }
+
+    private fun checkPasswordValidation(password: String, tilPassword: TextInputLayout): Boolean {
+        return if (password.isEmpty()) {
+            tilPassword.isErrorEnabled = true
+            tilPassword.error = getString(R.string.text_error_password_empty)
+            false
+        } else if (password.length < 8) {
+            tilPassword.isErrorEnabled = true
+            tilPassword.error = getString(R.string.text_error_password_less_than_8_char)
+            false
+        } else {
+            tilPassword.isErrorEnabled = false
+            true
+        }
+    }
+
+    private fun changePassword() {
+        if (isFormValid()) {
+            val oldPassword = binding.etEnterOldPassword.text.toString().trim()
+            val newPassword = binding.etEnterNewPassword.text.toString().trim()
+            val confirmNewPassword = binding.etRepeatNewPassword.text.toString().trim()
+            viewModel.changePassword(oldPassword, newPassword, confirmNewPassword)
+        }
     }
 }

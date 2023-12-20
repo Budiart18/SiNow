@@ -69,4 +69,11 @@
     <string name="text_payment_history">Riwayat Pembayaran</string>
     <string name="text_logout">Keluar</string>
     <string name="text_version">Version 1.1.0</string>
+    <string name="text_old_password">Password Lama</string>
+    <string name="text_new_password">Password Baru</string>
+    <string name="text_repeat_new_password">Ulangi Password Lama</string>
+    <string name="text_hint_old_password">Masukkan Password Lama Anda</string>
+    <string name="text_hint_new_password">Masukkan Password Baru Anda</string>
+    <string name="text_hint_repeat_new_password">Ulangi Password Baru Anda</string>
+    <string name="text_password_successfully_changed">Password Berhasil di Ubah</string>
 </resources>
