@@ -82,7 +82,7 @@ class ItemListCourseViewHolder(
                 R.string.format_course_module,
                 item.totalModule
             )
-            binding.btnBuy.text = itemView.rootView.context.getString(
+            binding.tvBtnBuy.text = itemView.rootView.context.getString(
                 R.string.format_btn_buy,
                 item.price?.toDouble()?.toCurrencyFormat()
             )

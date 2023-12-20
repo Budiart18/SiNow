@@ -23,7 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/text_register"
-        android:textColor="#6148FF"
+        android:textColor="@color/app_color_primary"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,7 +173,7 @@
             android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="@string/text_have_an_acc_login"
-            android:textColor="#6148FF"
+            android:textColor="@color/app_color_primary"
             android:textStyle="bold" />
 
 

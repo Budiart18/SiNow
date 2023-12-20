@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_class_topic">Topik Kelas</string>
+    <string name="text_filter">Filter</string>
+    <string name="tab_all">all</string>
+    <string name="tab_premium">premium</string>
+    <string name="tab_free">gratis</string>
+    <string name="format_course_progress">%d%%</string>
+    <string name="format_course_level">%s Level</string>
+    <string name="tv_discount_course">Diskon Kursus %d%%</string>
+    <string name="discounted_price">- %s</string>
+    <string name="waiting_for_payment">Menunggu Pembayaran</string>
+    <string name="pay_now">Bayar Sekarang</string>
+    <string name="finish">Selesai</string>
+    <string name="open_course">Buka Kelas</string>
+    <string name="failed">Gagal</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="gopay">GoPay</string>
+    <string name="qris">QRIS</string>
+    <string name="shopeepay">ShopeePay</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="e_channel">E-Channel</string>
+    <string name="pay_at_store">Bayar di Gerai</string>
+    <string name="status_success">Dibayar</string>
+    <string name="status_waiting_payment">Menunggu Pembayaran</string>
+    <string name="status_failed">Gagal</string>
+    <string name="payment_details">Rincian Pembayaran</string>
+    <string name="total_price">Total Harga</string>
+    <string name="payment_information">Informasi Pembayaran</string>
+    <string name="no_order">No. Order</string>
+    <string name="payment_method">Metode Pembayaran</string>
+    <string name="status_order">Status</string>
+    <string name="order_time">Waktu Pemesanan</string>
+    <string name="payment_time">Waktu Pembayaran</string>
+    <string name="pay_before">Bayar Sebelum</string>
+    <string name="format_tax">+ Pajak %1$d%%</string>
+</resources>

@@ -22,13 +22,17 @@ import com.group2.sinow.data.repository.UserRepository
 import com.group2.sinow.data.repository.UserRepositoryImpl
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseViewModel
 import com.group2.sinow.presentation.detail.DetailCourseViewModel
+import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.presentation.auth.forgotpassword.ForgotPasswordViewModel
 import com.group2.sinow.presentation.change_password.ChangePasswordUserViewModel
 import com.group2.sinow.presentation.homepage.HomeViewModel
 import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailViewModel
 import com.group2.sinow.presentation.notification.notificationlist.NotificationViewModel
+import com.group2.sinow.presentation.transactionhistory.TransactionHistoryViewModel
+import com.group2.sinow.presentation.transactionhistory.detailtransactionhistory.DetailTransactionHistoryViewModel
 import com.group2.sinow.presentation.profile.ProfileViewModel
 import com.group2.sinow.presentation.splashscreen.SplashViewModel
+import com.group2.sinow.presentation.userclass.UserClassViewModel
 import com.group2.sinow.utils.PreferenceDataStoreHelper
 import com.group2.sinow.utils.PreferenceDataStoreHelperImpl
 import org.koin.android.ext.koin.androidContext
@@ -67,6 +71,8 @@ object AppModules {
     private val viewModels = module {
         viewModelOf(::SplashViewModel)
         viewModel { HomeViewModel(get()) }
+        viewModel { CourseViewModel(get()) }
+        viewModel { UserClassViewModel(get()) }
         viewModel { RegisterViewModel(get()) }
         viewModel { OTPViewModel(get(), get())}
         viewModel { LoginViewModel(get(), get()) }
@@ -75,6 +81,10 @@ object AppModules {
         viewModel { ProfileViewModel(get(), get()) }
         viewModel { ChangePasswordUserViewModel(get()) }
         viewModel { params -> NotificationDetailViewModel(params.get(), get()) }
+        viewModel { params -> DetailCourseViewModel(params.get(), get()) }
+        viewModel {ForgotPasswordViewModel(get())}
+        viewModel {TransactionHistoryViewModel(get())}
+        viewModel { params -> DetailTransactionHistoryViewModel(params.get(), get()) }
         viewModel { params -> DetailCourseViewModel(params.get(), get()) }
         viewModel {ForgotPasswordViewModel(get())}
     }

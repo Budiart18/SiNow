@@ -11,5 +11,24 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" >
     </fragment>
+    <fragment
+        android:id="@+id/navigation_class"
+        android:name="com.group2.sinow.presentation.userclass.UserClassFragment"
+        android:label="fragment_user_class"
+        tools:layout="@layout/fragment_user_class" />
+    <fragment
+        android:id="@+id/navigation_course"
+        android:name="com.group2.sinow.presentation.course.CourseFragment"
+        android:label="fragment_course"
+        tools:layout="@layout/fragment_course" >
+        <action
+            android:id="@+id/action_navigation_course_to_filterDialogFragment"
+            app:destination="@id/filterDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/filterDialogFragment"
+        android:name="com.group2.sinow.presentation.course.filtercourse.FilterDialogFragment"
+        android:label="fragment_filter_dialog"
+        tools:layout="@layout/fragment_filter_dialog" />
 
 </navigation>

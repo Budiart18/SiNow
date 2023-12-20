@@ -73,6 +73,7 @@ class HomeViewModel(private val repository: CourseRepository) : ViewModel() {
         }
     }
 
+
     fun changeSelectedCategory(newCategory: Category) {
         _selectedCategory.value = newCategory
     }

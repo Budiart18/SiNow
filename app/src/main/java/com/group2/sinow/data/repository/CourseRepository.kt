@@ -25,6 +25,14 @@ interface CourseRepository {
         sortBy: String? = null
     ): Flow<ResultWrapper<List<Course>>>
 
+    fun getCoursesFilter(
+        search: String? = null,
+        type: String? = null,
+        category: List<Int>? = null,
+        level: List<String>? = null,
+        sortBy: String? = null
+    ): Flow<ResultWrapper<List<Course>>>
+
     fun getDetailCourse(id: Int): Flow<ResultWrapper<CourseData?>>
 
     fun getUserModuleData(courseId: Int?, userModuleId: Int?): Flow<ResultWrapper<ModuleData?>>
@@ -53,6 +61,18 @@ class CourseRepositoryImpl(
         }
     }
 
+    override fun getCoursesFilter(
+        search: String?,
+        type: String?,
+        category: List<Int>?,
+        level: List<String>?,
+        sortBy: String?
+    ): Flow<ResultWrapper<List<Course>>> {
+        return proceedFlow {
+            dataSource.getCoursesFilter(search, type, category, level, sortBy).data?.toCourseList() ?: emptyList()
+        }
+    }
+
     override fun getDetailCourse(id: Int): Flow<ResultWrapper<CourseData?>> {
         return proceedFlow {
             dataSource.getDetailCourse(id).data?.userCourse?.toCourseDetail()
@@ -67,5 +87,6 @@ class CourseRepositoryImpl(
             dataSource.getUserModuleData(courseId, userModuleId).data?.module?.toModuleData()
         }
     }
+
 
 }

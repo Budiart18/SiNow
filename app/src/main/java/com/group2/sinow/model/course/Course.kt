@@ -18,7 +18,7 @@ data class Course(
     val totalDuration: Int?,
     val type: String?,
     val price: Int?,
-    val promo: Int?,
+    val promoDiscountPercentage: Int?,
     val totalUser: Int?,
     val courseBy: String?,
     val createdBy: Int?,

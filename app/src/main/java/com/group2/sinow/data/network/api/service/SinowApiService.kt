@@ -14,9 +14,11 @@ import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
 import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
+import com.group2.sinow.data.network.api.model.userclass.ClassesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactionResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
@@ -24,6 +26,7 @@ import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRespon
 import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactiondDetailResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -75,6 +78,15 @@ interface SinowApiService {
     suspend fun getCategories(): CategoriesResponse
 
     @GET("courses")
+    suspend fun getCoursesFilter(
+        @Query("search") search: String? = null,
+        @Query("type") type: String? = null,
+        @Query("category") category: List<Int>? = null,
+        @Query("level") level: List<String>? = null,
+        @Query("sortBy") sortBy: String? = null
+    ): CoursesResponse
+
+    @GET("courses")
     suspend fun getCourses(
         @Query("search") search: String? = null,
         @Query("type") type: String? = null,
@@ -84,13 +96,13 @@ interface SinowApiService {
     ): CoursesResponse
 
     @GET("user/notifications")
-    suspend fun getNotifications(): NotificationResponse
+    suspend fun getNotifications() : NotificationResponse
 
     @GET("user/notifications/{id}")
-    suspend fun getNotificationDetail(@Path("id") id: Int): NotificationDetailResponse
+    suspend fun getNotificationDetail(@Path("id") id : Int) : NotificationDetailResponse
 
     @DELETE("user/notifications/{id}")
-    suspend fun deleteNotification(@Path("id") id: Int): DeleteNotificationResponse
+    suspend fun deleteNotification(@Path("id") id : Int) : DeleteNotificationResponse
 
     @GET("user")
     suspend fun getUserData() : ProfileResponse
@@ -108,6 +120,19 @@ interface SinowApiService {
     @PATCH("user/change-password")
     suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest) : ChangePasswordResponse
 
+    @GET("user/my-courses")
+    suspend fun getUserCourses(
+        @Query("search") search: String? = null,
+        @Query("progress") progress: String? = null
+    ): ClassesResponse
+
+    @GET("user/transaction")
+    suspend fun getUserTransactionHistory(): TransactionResponse
+
+    @GET("user/transaction/{transactionId}")
+    suspend fun getUserDetailTransaction(@Path("transactionId") id : String): TransactiondDetailResponse
+
+
     @GET("user/my-courses/{courseId}")
     suspend fun getCourseDetail(@Path("courseId") id: Int): DataResponse
 
@@ -120,7 +145,10 @@ interface SinowApiService {
     companion object {
 
         @JvmStatic
-        operator fun invoke(chucker: ChuckerInterceptor, userPreferenceDataSource: UserPreferenceDataSource): SinowApiService {
+        operator fun invoke(
+            chucker: ChuckerInterceptor,
+            userPreferenceDataSource: UserPreferenceDataSource
+        ): SinowApiService {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(chucker)
                 .addInterceptor(AuthInterceptor(userPreferenceDataSource))

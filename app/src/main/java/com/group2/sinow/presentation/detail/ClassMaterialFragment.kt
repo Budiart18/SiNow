@@ -45,7 +45,7 @@ class ClassMaterialFragment : Fragment() {
     }
 
     private fun observeData() {
-        sharedViewModel.detailCourseData.observe(requireActivity()) { result ->
+        sharedViewModel.detailCourseData.observe(viewLifecycleOwner) { result ->
             result.proceedWhen(
                 doOnSuccess = {
                     setRv()
