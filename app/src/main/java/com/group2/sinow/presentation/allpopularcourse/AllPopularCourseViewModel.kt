@@ -55,6 +55,7 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
         }
     }
 
+
     fun changeSelectedCategory(newCategory: Category) {
         _selectedCategory.value = newCategory
     }

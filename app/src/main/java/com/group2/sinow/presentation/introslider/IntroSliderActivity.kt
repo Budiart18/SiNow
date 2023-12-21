@@ -9,10 +9,10 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
-import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityIntroSliderBinding
 import com.group2.sinow.model.introslider.IntroSliderItem
+import com.group2.sinow.presentation.auth.login.LoginActivity
 import com.group2.sinow.utils.highLightWord
 
 class IntroSliderActivity : AppCompatActivity() {
@@ -46,12 +46,12 @@ class IntroSliderActivity : AppCompatActivity() {
             handleNextButtonClick()
         }
         binding.tvGoToLogin.highLightWord(getString(R.string.text_highlight_login_here)) {
-            navigateToMain()
+            navigateToLogin()
         }
     }
 
-    private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java).apply {
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
         startActivity(intent)
@@ -61,7 +61,7 @@ class IntroSliderActivity : AppCompatActivity() {
         if (binding.viewpagerIntroSlider.currentItem + 1 < introSliderAdapter.itemCount) {
             binding.viewpagerIntroSlider.currentItem += 1
         } else {
-            navigateToMain()
+            navigateToLogin()
         }
     }
 

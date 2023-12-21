@@ -2,9 +2,13 @@ package com.group2.sinow.data.repository
 
 import com.group2.sinow.data.network.api.datasource.SinowDataSource
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
-import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.toTransactionList
 import com.group2.sinow.data.network.api.model.profile.toProfileData
+import com.group2.sinow.data.network.api.model.transactionhistory.toItemTransaction
+import com.group2.sinow.data.network.api.model.userclass.toUserListCourseData
+import com.group2.sinow.model.paymenthistory.TransactionUser
 import com.group2.sinow.model.profile.ProfileData
+import com.group2.sinow.model.userclass.UserCourseData
 import com.group2.sinow.utils.ResultWrapper
 import com.group2.sinow.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +32,17 @@ interface UserRepository {
         newPassword: String?,
         confirmNewPassword: String?
     ) : Flow<ResultWrapper<Boolean>>
+
+    fun getUserCourses(
+        search: String? = null,
+        progress: String? = null
+    ) : Flow<ResultWrapper<List<UserCourseData>>>
+
+    fun getUserTransactionHistory() : Flow<ResultWrapper<List<TransactionUser>>>
+
+    fun getUserDetailTransaction(id: String) : Flow<ResultWrapper<TransactionUser>>
+
+
 }
 
 class UserRepositoryImpl(
@@ -61,6 +76,30 @@ class UserRepositoryImpl(
         return proceedFlow {
             val request = ChangePasswordRequest(oldPassword, newPassword, confirmNewPassword)
             dataSource.changePassword(request).message != null
+        }
+    }
+
+    override fun getUserTransactionHistory(): Flow<ResultWrapper<List<TransactionUser>>> {
+        return proceedFlow {
+            dataSource.getUserTransactionHistory().data?.transactions?.toTransactionList()
+                ?: emptyList()
+
+        }
+    }
+
+    override fun getUserDetailTransaction(id: String): Flow<ResultWrapper<TransactionUser>> {
+        return proceedFlow {
+            dataSource.getUserDetailTransaction(id).data.transaction.toItemTransaction()
+        }
+    }
+
+
+    override fun getUserCourses(
+        search: String?,
+        progress: String?
+    ): Flow<ResultWrapper<List<UserCourseData>>> {
+        return proceedFlow {
+            dataSource.getUserCourse(search, progress).data?.toUserListCourseData() ?: emptyList()
         }
     }
 

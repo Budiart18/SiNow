@@ -9,7 +9,7 @@ import com.group2.sinow.databinding.ActivityAccountFeatureBinding
 import com.group2.sinow.presentation.auth.login.LoginActivity
 import com.group2.sinow.presentation.auth.register.RegisterActivity
 import com.group2.sinow.presentation.change_password.ChangePasswordUserActivity
-import com.group2.sinow.presentation.payment_history.PaymentHistoryActivity
+import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
 import com.group2.sinow.presentation.profile.ProfileActivity
 import com.group2.sinow.presentation.profile.ProfileViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -97,7 +97,7 @@ class AccountFeatureActivity : AppCompatActivity() {
     }
 
     private fun navigateToPaymentHistory() {
-        startActivity(Intent(this, PaymentHistoryActivity::class.java))
+        startActivity(Intent(this, TransactionHistoryActivity::class.java))
     }
 
     private fun navigateToChangePassword() {

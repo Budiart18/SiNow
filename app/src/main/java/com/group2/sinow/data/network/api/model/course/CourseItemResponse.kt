@@ -33,8 +33,8 @@ data class CourseItemResponse(
     val type: String?,
     @SerializedName("price")
     val price: Int?,
-    @SerializedName("promo")
-    val promo: Int?,
+    @SerializedName("promoDiscountPercentage")
+    val promoDiscountPercentage: Int?,
     @SerializedName("totalUser")
     val totalUser: Int?,
     @SerializedName("courseBy")
@@ -67,7 +67,7 @@ fun CourseItemResponse.toCourse() = Course(
     totalDuration = this.totalDuration ?: 0,
     type = this.type.orEmpty(),
     price = this.price ?: 0,
-    promo = this.promo ?: 0,
+    promoDiscountPercentage = this.promoDiscountPercentage ?: 0,
     totalUser = this.totalUser ?: 0,
     courseBy = this.courseBy.orEmpty(),
     createdBy = this.createdBy ?: 0,

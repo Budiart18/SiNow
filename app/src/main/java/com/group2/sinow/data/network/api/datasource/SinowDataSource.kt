@@ -1,26 +1,30 @@
 package com.group2.sinow.data.network.api.datasource
 
+import com.google.android.gms.common.api.internal.DataHolderResult
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
+import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
 import com.group2.sinow.data.network.api.model.login.LoginRequest
 import com.group2.sinow.data.network.api.model.login.LoginResponse
-import com.group2.sinow.data.network.api.model.register.RegisterRequest
-import com.group2.sinow.data.network.api.model.register.RegisterResponse
-import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
-import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
-import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactionResponse
+import com.group2.sinow.data.network.api.model.register.RegisterRequest
+import com.group2.sinow.data.network.api.model.register.RegisterResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
+import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
+import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactiondDetailResponse
+import com.group2.sinow.data.network.api.model.userclass.ClassesResponse
 import com.group2.sinow.data.network.api.service.SinowApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -40,11 +44,23 @@ interface SinowDataSource {
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse
 
     suspend fun getCategories(): CategoriesResponse
+    suspend fun getUserCourse(
+        search: String? = null,
+        progress: String? = null
+    ): ClassesResponse
     suspend fun getCourses(
         search: String? = null,
         type: String? = null,
         category: Int? = null,
         level: String? = null,
+        sortBy: String? = null
+    ): CoursesResponse
+
+    suspend fun getCoursesFilter(
+        search: String? = null,
+        type: String? = null,
+        category:List<Int>? = null,
+        level: List<String>? = null,
         sortBy: String? = null
     ): CoursesResponse
 
@@ -58,6 +74,10 @@ interface SinowDataSource {
 
     suspend fun getUserModuleData(courseId: Int?, userModuleId: Int?): UserModuleDataResponse
     suspend fun getUserData(): ProfileResponse
+
+    suspend fun getUserTransactionHistory(): TransactionResponse
+
+    suspend fun getUserDetailTransaction(id: String): TransactiondDetailResponse
 
     suspend fun updateUserData(
         name: RequestBody?,
@@ -98,6 +118,22 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.getCategories()
     }
 
+
+    override suspend fun getNotification(): NotificationResponse {
+        return service.getNotifications()
+    }
+
+    override suspend fun getNotificationDetail(id: Int): NotificationDetailResponse {
+        return service.getNotificationDetail(id)
+    }
+
+    override suspend fun getUserCourse(
+        search: String?,
+        progress: String?
+    ): ClassesResponse {
+        return service.getUserCourses(search, progress)
+    }
+
     override suspend fun getCourses(
         search: String?,
         type: String?,
@@ -108,12 +144,14 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.getCourses(search, type, category, level, sortBy)
     }
 
-    override suspend fun getNotification(): NotificationResponse {
-        return service.getNotifications()
-    }
-
-    override suspend fun getNotificationDetail(id: Int): NotificationDetailResponse {
-        return service.getNotificationDetail(id)
+    override suspend fun getCoursesFilter(
+        search: String?,
+        type: String?,
+        category: List<Int>?,
+        level: List<String>?,
+        sortBy: String?
+    ): CoursesResponse {
+        return service.getCoursesFilter(search, type, category, level, sortBy)
     }
 
     override suspend fun deleteNotification(id: Int): DeleteNotificationResponse {
@@ -122,6 +160,14 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
 
     override suspend fun getUserData(): ProfileResponse {
         return service.getUserData()
+    }
+
+    override suspend fun getUserTransactionHistory(): TransactionResponse {
+        return service.getUserTransactionHistory()
+    }
+
+    override suspend fun getUserDetailTransaction(id: String): TransactiondDetailResponse {
+        return service.getUserDetailTransaction(id)
     }
 
     override suspend fun updateUserData(

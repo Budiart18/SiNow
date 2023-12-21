@@ -35,7 +35,6 @@ class OTPActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         startCountdownTimer()
         setupListeners()
         displayEmail()
@@ -118,9 +117,6 @@ class OTPActivity : AppCompatActivity() {
 
             }
         }
-
-
-
         observeViewModel()
     }
 
