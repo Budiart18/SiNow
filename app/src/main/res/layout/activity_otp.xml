@@ -4,42 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_color_primary"
     tools:context=".presentation.auth.otp.OTPActivity">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/text_enter_otp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back"
+        app:layout_constraintStart_toEndOf="@id/iv_back"
+        app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+    <TextView
+        android:id="@+id/tv_otp_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/text_verification_your_account"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_back" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:background="@drawable/bg_register_body"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.85">
 
         <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Masukkan OTP"
-            android:textColor="@color/app_color_primary"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/sinow_otp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="Ketik 6 digit kode yang dikirimkan ke"
+            android:text="@string/text_type_six_code_otp"
             android:textAlignment="center"
             android:textSize="16sp" />
 
@@ -57,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="28dp"
             android:cursorVisible="true"
             android:gravity="center"
             android:inputType="number"
@@ -69,16 +90,15 @@
             app:itemWidth="50dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_countdown_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="36dp"
-            android:text="Kirim Ulang OTP dalam 60 detik"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:text="@string/text_repeat_send_otp_code"
             android:textAlignment="center" />
 
         <TextView
@@ -89,64 +109,38 @@
             android:layout_marginTop="40dp"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="gone"
-            android:text="Minta kode baru via Email"
+            android:text="@string/text_ask_new_otp_code"
             android:textAlignment="center"
-            android:textColor="#6148FF"
-            android:textStyle="bold" />
-
+            android:textColor="@color/app_color_primary"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            >
+            android:layout_marginTop="36dp">
 
             <Button
                 android:id="@+id/btn_send_otp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="68dp"
-                android:text="Kirim"
+                android:text="@string/text_send"
                 android:textAlignment="center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pinview"/>
+                app:layout_constraintTop_toBottomOf="@+id/pinview" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
-
-
-                />
+                android:indeterminate="true"
+                android:visibility="visible" />
 
         </FrameLayout>
 
-
-
-
-
-        <TextView
-            android:id="@+id/tv_error_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/bg_rounded_corners_color_red"
-            tools:ignore="Pesan error"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:layout_marginHorizontal="32dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/ll_register"
-
-
-            />
-
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

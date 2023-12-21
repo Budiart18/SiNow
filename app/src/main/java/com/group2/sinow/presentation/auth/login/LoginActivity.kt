@@ -13,6 +13,7 @@ import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.highLightWord
 import com.group2.sinow.utils.proceedWhen
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -26,39 +27,37 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setOnClickListener()
         observeData()
     }
-
-
 
     private fun observeData() {
         viewModel.loginResult.observe(this){result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    binding.layoutStateLogin.root.isVisible = false
-                    binding.layoutStateLogin.loadingAnimation.isVisible = false
-                    binding.tvErrorMessage.isVisible = false
+                    binding.btnLogin.isVisible = true
+                    binding.pbLoading.isVisible = false
                     it.payload?.data?.token?.let { token -> viewModel.saveToken(token) }
                     navigateToHome()
                 },
 
                 doOnLoading = {
-                    binding.layoutStateLogin.root.isVisible = true
-                    binding.layoutStateLogin.loadingAnimation.isVisible = true
-                    binding.tvErrorMessage.isVisible = false
-
+                    binding.btnLogin.isVisible = false
+                    binding.pbLoading.isVisible = true
                 },
 
                 doOnError = {
-                    binding.layoutStateLogin.root.isVisible = false
-                    binding.layoutStateLogin.loadingAnimation.isVisible = false
-                    binding.tvErrorMessage.isVisible = true
+                    binding.btnLogin.isVisible = true
+                    binding.pbLoading.isVisible = false
                     if (it.exception is ApiException){
-                        binding.tvErrorMessage.text = it.exception.getParsedError()?.message
+                        FancyToast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message,
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,
+                            false
+                        ).show()
                     }
-
                 }
             )
         }
@@ -91,23 +90,16 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             doLogin()
         }
-
         binding.tvNavigateToRegister.highLightWord(getString(R.string.text_register_here)){
             navigateToRegister()
         }
-
         binding.tvLoginWithoutLogin.setOnClickListener {
             navigateToHome()
         }
-
         binding.tvForgotPassword.setOnClickListener {
             navigateToChangePassword()
         }
-
     }
-
-
-
 
     private fun doLogin() {
         if(isFormValid()){

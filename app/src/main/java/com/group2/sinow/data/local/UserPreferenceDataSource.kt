@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.auth.login
+package com.group2.sinow.data.local
 
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.group2.sinow.utils.PreferenceDataStoreHelper
@@ -11,7 +11,8 @@ interface UserPreferenceDataSource {
     suspend fun deleteToken()
 }
 
-class UserPreferenceDataSourceImpl(private val preferenceHelper: PreferenceDataStoreHelper) : UserPreferenceDataSource {
+class UserPreferenceDataSourceImpl(private val preferenceHelper: PreferenceDataStoreHelper) :
+    UserPreferenceDataSource {
 
     override suspend fun saveUserToken(token: String) {
         return preferenceHelper.putPreference(PREF_USER_TOKEN, token)

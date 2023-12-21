@@ -9,15 +9,17 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.group2.sinow.R
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.databinding.ActivityOtpBinding
 import com.group2.sinow.presentation.bottom_dialog.RegistrationSuccessDialogFragment
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OTPActivity : AppCompatActivity() {
@@ -29,8 +31,6 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private var timer: CountDownTimer? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,24 +45,23 @@ class OTPActivity : AppCompatActivity() {
         timer = object : CountDownTimer(60000, 1000) { // 60 seconds, 1 second tick
             override fun onTick(millisUntilFinished: Long) {
                 val timeLeft = millisUntilFinished / 1000
-                val countdownText = "Kirim Ulang OTP dalam "
-                val timeLeftText = "$timeLeft detik"
+                val countdownText = getString(R.string.text_repeat_send_otp_in)
+                val timeLeftText = getString(R.string.second, timeLeft)
                 val fullText = countdownText + timeLeftText
 
                 val spannableString = SpannableStringBuilder(fullText).apply {
                     setSpan(
-                        ForegroundColorSpan(Color.parseColor("#6148FF")),
+                        ForegroundColorSpan(ContextCompat.getColor(this@OTPActivity, R.color.app_color_primary)),
                         countdownText.length,
                         fullText.length,
                         Spanned.SPAN_INCLUSIVE_INCLUSIVE
                     )
                 }
-
                 binding.tvCountdownTimer.text = spannableString
             }
 
             override fun onFinish() {
-                val finishText = "Kirim Ulang"
+                val finishText = getString(R.string.text_repeat_send)
                 val spannableString = SpannableStringBuilder(finishText).apply {
                     setSpan(
                         ForegroundColorSpan(Color.RED),
@@ -77,13 +76,11 @@ class OTPActivity : AppCompatActivity() {
                         Spanned.SPAN_INCLUSIVE_INCLUSIVE
                     )
                 }
-
                 binding.tvCountdownTimer.text = spannableString
                 binding.tvResendOtp.isVisible = true
             }
         }.start()
     }
-
 
 
     private fun displayEmail() {
@@ -102,7 +99,13 @@ class OTPActivity : AppCompatActivity() {
                 viewModel.resendOtp(email)
                 startCountdownTimer()
             } else {
-                Toast.makeText(this, "Email tidak valid", Toast.LENGTH_SHORT).show()
+                FancyToast.makeText(
+                    this,
+                    getString(R.string.text_email_not_valid),
+                    FancyToast.LENGTH_SHORT,
+                    FancyToast.ERROR,
+                    false
+                ).show()
             }
         }
 
@@ -113,21 +116,24 @@ class OTPActivity : AppCompatActivity() {
                 val verifyEmailRequest = VerifyEmailRequest(email!!, otpCode)
                 viewModel.verifyEmail(verifyEmailRequest)
             } else {
-                Toast.makeText(this, "wrong", Toast.LENGTH_SHORT).show()
-
+                FancyToast.makeText(
+                    this,
+                    getString(R.string.text_otp_code_wrong),
+                    FancyToast.LENGTH_SHORT,
+                    FancyToast.ERROR,
+                    false
+                ).show()
             }
         }
         observeViewModel()
     }
 
-
-
     private fun observeViewModel() {
-        viewModel.verificationState.observe(this){ resultWrapper ->
+        viewModel.verificationState.observe(this) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
+                    binding.btnSendOtp.isVisible = true
                     binding.progressBar.isVisible = false
-                    binding.tvErrorMessage.isVisible = false
                     it.payload?.data?.token.let { token ->
                         if (token != null) {
                             viewModel.saveToken(token)
@@ -135,35 +141,45 @@ class OTPActivity : AppCompatActivity() {
                     }
                     showRegistrationSuccessDialog()
                 }, doOnLoading = {
+                    binding.btnSendOtp.isVisible = false
                     binding.progressBar.isVisible = true
-                    binding.tvErrorMessage.isVisible = false
                 }, doOnError = {
+                    binding.btnSendOtp.isVisible = true
                     binding.progressBar.isVisible = false
-                    binding.tvErrorMessage.isVisible = true
-                    if (it.exception is ApiException){
-                        binding.tvErrorMessage.text = it.exception.getParsedError()?.message
+                    if (it.exception is ApiException) {
+                        FancyToast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message,
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,
+                            false
+                        ).show()
                     }
-
-
-                })
+                }
+            )
         }
 
-        viewModel.resendOtpStatus.observe(this){result ->
+        viewModel.resendOtpStatus.observe(this) { result ->
             result.proceedWhen(
                 doOnSuccess = {
+                    binding.btnSendOtp.isVisible = true
                     binding.progressBar.isVisible = false
-                    binding.tvErrorMessage.isVisible = false
-
                 },
                 doOnLoading = {
+                    binding.btnSendOtp.isVisible = false
                     binding.progressBar.isVisible = true
-                    binding.tvErrorMessage.isVisible = false
                 },
                 doOnError = {
+                    binding.btnSendOtp.isVisible = true
                     binding.progressBar.isVisible = false
-                    binding.tvErrorMessage.isVisible = true
-                    if (it.exception is ApiException){
-                        binding.tvErrorMessage.text = it.exception.getParsedError()?.message
+                    if (it.exception is ApiException) {
+                        FancyToast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message,
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,
+                            false
+                        ).show()
                     }
                 }
             )
@@ -175,7 +191,6 @@ class OTPActivity : AppCompatActivity() {
         dialog.show(supportFragmentManager, "RegistrationSuccessDialogFragment")
     }
 
-
     private fun navigateToMain() {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -183,4 +198,4 @@ class OTPActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    }
+}

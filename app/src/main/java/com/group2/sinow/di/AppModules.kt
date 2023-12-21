@@ -12,8 +12,8 @@ import com.group2.sinow.data.repository.AuthRepositoryImpl
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.data.repository.CourseRepositoryImpl
 import com.group2.sinow.presentation.auth.login.LoginViewModel
-import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
-import com.group2.sinow.presentation.auth.login.UserPreferenceDataSourceImpl
+import com.group2.sinow.data.local.UserPreferenceDataSource
+import com.group2.sinow.data.local.UserPreferenceDataSourceImpl
 import com.group2.sinow.presentation.auth.otp.OTPViewModel
 import com.group2.sinow.presentation.auth.register.RegisterViewModel
 import com.group2.sinow.data.repository.NotificationRepository

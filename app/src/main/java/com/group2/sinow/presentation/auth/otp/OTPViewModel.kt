@@ -4,20 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.group2.sinow.data.network.api.model.login.LoginResponse
-import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.data.repository.AuthRepository
-import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
+import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.utils.ResultWrapper
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.core.time.measureDurationForResult
 
 class OTPViewModel(private val repository: AuthRepository, private val userPreferenceDataSource: UserPreferenceDataSource): ViewModel() {
 

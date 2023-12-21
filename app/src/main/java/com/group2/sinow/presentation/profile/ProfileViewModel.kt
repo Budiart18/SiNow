@@ -4,16 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
 import com.group2.sinow.data.repository.UserRepository
 import com.group2.sinow.model.profile.ProfileData
-import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
+import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.InputStream
 
 class ProfileViewModel(
     private val repository: UserRepository,
