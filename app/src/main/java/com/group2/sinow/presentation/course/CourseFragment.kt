@@ -65,6 +65,11 @@ class CourseFragment : Fragment(){
         setFilter()
         setupRadioButtons()
         setupSearch()
+        setFilterResult()
+    }
+
+    private fun setFilterResult() {
+        TODO("Not yet implemented")
     }
 
     private fun setupRadioButtons() {

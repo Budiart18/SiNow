@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
+import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentFilterDialogBinding
 import com.group2.sinow.databinding.FragmentFilterDialogBinding.inflate
 import com.group2.sinow.model.category.Category
+import com.group2.sinow.model.filter.Filter
 import com.group2.sinow.presentation.course.CourseFragment
 import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.utils.proceedWhen
@@ -25,7 +27,6 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         CategoryFilterAdapter(object : CategoryItemListener {
             override fun onCategoryChecked(category: Category) {
                 viewModel.onCategoryChecked(category)
-                Log.d("ADAPTER", "onCategoryChecked: ${viewModel.getSelectedCategory().toString()} ")
             }
             override fun onCategoryUnchecked(category: Category) {
                 viewModel.onCategoryUncheck(category)
@@ -73,6 +74,21 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
     }
 
     private fun applyFilter() {
+        val sortBy = when (binding.topPicks.checkedRadioButtonId) {
+            R.id.rb_new -> "terbaru"
+            R.id.rb_popular -> "terpopuler"
+            R.id.rb_promo -> "promo"
+            else -> null
+        }
+        val selectedCategories = viewModel.getSelectedCategory()
+        val selectedLevels = mutableListOf<String>().apply {
+            if (binding.cbBeginner.isChecked) add("beginner")
+            if (binding.cbIntermediate.isChecked) add("intermediate")
+            if (binding.cbAdvance.isChecked) add("advanced")
+        }
+
+        val filter = Filter(selectedCategories, selectedLevels, sortBy)
+        viewModel.applyFilters(filter)
     }
 
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.model.category.Category
 import com.group2.sinow.model.course.Course
-import com.group2.sinow.presentation.userclass.UserClassViewModel
+import com.group2.sinow.model.filter.Filter
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,15 +29,26 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
     val courses: LiveData<ResultWrapper<List<Course>>>
         get() = _courses
 
-    fun getFilterCourses(search: String? = null, type: String? = null, categories: List<Int>? = null) {
+    private val _appliedFilters = MutableLiveData<Filter>()
+    val appliedFilters: LiveData<Filter>
+        get() = _appliedFilters
+
+    fun getFilterCourses(search: String? = null, type: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getCoursesFilter(
+            repository.getCourses(
                 search = search,
-                type = if(type == "all") null else type,
-                category = categories
+                type = if(type == "all") null else type
             ).collect{
                 _courses.postValue(it)
             }
+        }
+    }
+
+    fun applyFilters(filter: Filter) {
+        viewModelScope.launch {
+            repository.getCobaFilter(filter).collect {
+            }
+            _appliedFilters.value = filter
         }
     }
 

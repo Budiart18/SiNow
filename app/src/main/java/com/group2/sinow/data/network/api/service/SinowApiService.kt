@@ -82,8 +82,6 @@ interface SinowApiService {
 
     @GET("courses")
     suspend fun getCoursesFilter(
-        @Query("search") search: String? = null,
-        @Query("type") type: String? = null,
         @Query("category") category: List<Int>? = null,
         @Query("level") level: List<String>? = null,
         @Query("sortBy") sortBy: String? = null
