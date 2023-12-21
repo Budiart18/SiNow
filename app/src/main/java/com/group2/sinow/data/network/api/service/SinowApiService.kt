@@ -12,7 +12,7 @@ import com.group2.sinow.data.network.api.model.register.RegisterRequest
 import com.group2.sinow.data.network.api.model.register.RegisterResponse
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
-import com.group2.sinow.presentation.auth.login.UserPreferenceDataSource
+import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
 import com.group2.sinow.data.network.api.model.userclass.ClassesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="24dp"
     tools:context=".presentation.bottom_dialog.RegistrationSuccessDialogFragment">
 
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
-        android:text="Registrasi Berhasil !"
+        android:text="@string/text_registration_success"
         android:textAlignment="center"
         android:textColor="@color/app_color_primary"
         android:textSize="40sp"
@@ -32,13 +32,15 @@
         android:id="@+id/iv_registration_success"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginVertical="24dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_registration_success"
+        app:layout_constraintBottom_toTopOf="@id/btn_go_to_home"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_registration_success"
-        app:layout_constraintWidth_percent="0.4" />
+        app:layout_constraintWidth_percent="0.5" />
 
     <Button
         android:id="@+id/btn_go_to_home"
@@ -46,12 +48,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="@color/app_color_primary"
-        android:text="Beranda"
+        android:text="@string/text_home"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_registration_success"
         app:layout_constraintWidth_percent="0.7" />
 
 

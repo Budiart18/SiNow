@@ -14,6 +14,7 @@ import com.group2.sinow.presentation.auth.otp.OTPActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.highLightWord
 import com.group2.sinow.utils.proceedWhen
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -32,28 +33,30 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun observeResult() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.registerState.collect { resultWrapper ->
-                resultWrapper.proceedWhen(
-                    doOnSuccess = {
-                        binding.progressbar.isVisible = false
-                        binding.tvErrorMessage.isVisible = false
-                        binding.btnRegister.isVisible  = true
-                        navigateToOTP()
-                    }, doOnLoading = {
-                        binding.btnRegister.isVisible = true
-                        binding.progressbar.isVisible = true
-                        binding.tvErrorMessage.isVisible = false
+        viewModel.registerState.observe(this) { resultWrapper ->
+            resultWrapper.proceedWhen(
+                doOnSuccess = {
+                    binding.pbLoading.isVisible = false
+                    binding.btnRegister.isVisible = true
+                    navigateToOTP()
+                }, doOnLoading = {
+                    binding.btnRegister.isVisible = false
+                    binding.pbLoading.isVisible = true
 
-                    }, doOnError = {
-                        binding.progressbar.isVisible = false
-                        binding.tvErrorMessage.isVisible = true
-                        if (it.exception is ApiException){
-                            binding.tvErrorMessage.text = it.exception.getParsedError()?.message
-                        }
-
-                    })
-            }
+                }, doOnError = {
+                    binding.btnRegister.isVisible = true
+                    binding.pbLoading.isVisible = false
+                    if (it.exception is ApiException) {
+                        FancyToast.makeText(
+                            this,
+                            it.exception.getParsedError()?.message,
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,
+                            false
+                        ).show()
+                    }
+                }
+            )
         }
     }
 
@@ -62,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.etEmail.text.toString().trim()
         val intent = Intent(this, OTPActivity::class.java).apply {
             putExtra("email", email)
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
     }

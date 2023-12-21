@@ -1,5 +1,7 @@
 package com.group2.sinow.presentation.auth.register
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.network.api.model.register.RegisterRequest
@@ -12,8 +14,8 @@ import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val repository: AuthRepository): ViewModel() {
 
-    private val _registerState = MutableStateFlow<ResultWrapper<RegisterResponse>>(ResultWrapper.Loading())
-    val registerState: StateFlow<ResultWrapper<RegisterResponse>> = _registerState
+    private val _registerState = MutableLiveData<ResultWrapper<RegisterResponse>>()
+    val registerState: LiveData<ResultWrapper<RegisterResponse>> = _registerState
 
     fun register(registerRequest: RegisterRequest) {
         viewModelScope.launch {

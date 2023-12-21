@@ -4,43 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_color_primary"
     tools:context=".presentation.auth.register.RegisterActivity">
 
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
         android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@id/tv_register"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tv_register" />
 
     <TextView
         android:id="@+id/tv_register"
+        style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
         android:text="@string/text_register"
-        android:textColor="@color/app_color_primary"
-        android:textSize="24sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_register_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/text_create_your_account_now"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_back" />
+        app:layout_constraintTop_toBottomOf="@id/tv_register" />
 
     <LinearLayout
         android:id="@+id/ll_register"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_register_body"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_register">
+        android:paddingHorizontal="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.85">
 
         <TextView
             android:id="@+id/tv_name"
@@ -101,10 +112,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etl_no_telp"
             android:layout_width="match_parent"
-            app:hintEnabled="false"
-            app:counterMaxLength="13"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:counterMaxLength="13"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_no_telp"
@@ -128,8 +139,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:hintEnabled="false"
-            app:endIconMode="password_toggle">
+            app:endIconMode="password_toggle"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
@@ -144,8 +155,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/btn_register"
@@ -153,18 +163,18 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rounded_corners_color"
                 android:text="@string/text_register"
-                android:visibility="visible"
                 android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressbar"
+                android:id="@+id/pb_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                />
+                android:indeterminate="true"
+                android:visibility="gone" />
         </FrameLayout>
-
 
         <TextView
             android:id="@+id/tv_navigate_to_login"
@@ -176,26 +186,6 @@
             android:textColor="@color/app_color_primary"
             android:textStyle="bold" />
 
-
-
-
-
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_error_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_rounded_corners_color_red"
-        tools:ignore="Pesan error"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="32dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/ll_register"
-
-
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

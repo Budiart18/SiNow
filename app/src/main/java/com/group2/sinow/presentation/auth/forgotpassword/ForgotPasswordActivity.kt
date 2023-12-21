@@ -20,30 +20,28 @@ class ForgotPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setOnClickListener()
         observeResult()
     }
 
     private fun observeResult() {
-        viewModel.resetStatus.observe(this){result ->
-            result.proceedWhen (
+        viewModel.resetStatus.observe(this) { result ->
+            result.proceedWhen(
                 doOnSuccess = {
                     binding.progressBar.isVisible = false
                     binding.tvErrorMessage.isVisible = false
-                    binding.btnChangePassword.isVisible  = true
+                    binding.btnChangePassword.isVisible = true
                     binding.tvSuccessMessage.isVisible = true
                 },
                 doOnLoading = {
-                    binding.btnChangePassword.isVisible = true
+                    binding.btnChangePassword.isVisible = false
                     binding.progressBar.isVisible = true
                     binding.tvErrorMessage.isVisible = false
-
                 },
                 doOnError = {
                     binding.progressBar.isVisible = false
                     binding.tvErrorMessage.isVisible = true
-                    if (it.exception is ApiException){
+                    if (it.exception is ApiException) {
                         binding.tvErrorMessage.text = it.exception.getParsedError()?.message
                     }
                 }
@@ -54,9 +52,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun setOnClickListener() {
-        binding.btnChangePassword.setOnClickListener{
+        binding.btnChangePassword.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             viewModel.resetPassword(email)
+        }
+        binding.idBackButton.setOnClickListener {
+            onBackPressed()
         }
     }
 

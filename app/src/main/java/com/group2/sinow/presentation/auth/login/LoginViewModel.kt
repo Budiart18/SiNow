@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.data.network.api.model.login.LoginResponse
 import com.group2.sinow.data.repository.AuthRepository
 import com.group2.sinow.utils.ResultWrapper

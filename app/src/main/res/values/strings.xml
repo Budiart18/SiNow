@@ -35,7 +35,7 @@
     <string name="tab_premium">premium</string>
     <string name="tab_free">gratis</string>
     <string name="text_login">Masuk</string>
-    <string name="text_email_or_phone_number">Email / Nomor Telepon</string>
+    <string name="text_email_or_phone_number">Email</string>
     <string name="text_password">Password</string>
     <string name="text_forgot_password">Lupa Kata Sandi</string>
     <string name="text_enter_password">Masukkan Password</string>
@@ -124,4 +124,21 @@
     <string name="payment_time">Waktu Pembayaran</string>
     <string name="pay_before">Bayar Sebelum</string>
     <string name="format_tax">+ Pajak %1$d%%</string>
+    <string name="text_login_to_continue">Masuk sekarang untuk melanjutkan!</string>
+    <string name="text_create_your_account_now">Buat akunmu sekarang juga!</string>
+    <string name="text_enter_otp">Masukkan OTP</string>
+    <string name="text_verification_your_account">Verifikasi akun anda sekarang!</string>
+    <string name="text_type_six_code_otp">Ketik 6 digit kode yang dikirimkan ke</string>
+    <string name="text_repeat_send_otp_code">Kirim Ulang OTP dalam 60 detik</string>
+    <string name="text_ask_new_otp_code">Minta kode baru via Email</string>
+    <string name="text_send">Kirim</string>
+    <string name="text_repeat_send">Kirim Ulang</string>
+    <string name="text_home">Beranda</string>
+    <string name="text_registration_success">Registrasi Berhasil !</string>
+    <string name="text_repeat_send_otp_in">"Kirim Ulang OTP dalam "</string>
+    <string name="second">%1$d detik</string>
+    <string name="text_email_not_valid">Email tidak valid</string>
+    <string name="text_otp_code_wrong">Kode OTP Salah</string>
+    <string name="text_link_reset_password_sended">Tautan reset password berhasil dikirim ke email</string>
+    <string name="text_submit">Submit</string>
 </resources>
