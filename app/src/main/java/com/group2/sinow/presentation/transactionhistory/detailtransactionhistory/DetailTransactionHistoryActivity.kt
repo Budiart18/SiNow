@@ -5,12 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityDetailPaymentHistoryBinding
 import com.group2.sinow.model.paymenthistory.TransactionUser
 import com.group2.sinow.presentation.detail.DetailCourseActivity
+import com.group2.sinow.presentation.payment.PaymentActivity
 import com.group2.sinow.utils.changeFormatTime
 import com.group2.sinow.utils.proceedWhen
 import com.group2.sinow.utils.toCurrencyFormat
@@ -33,15 +35,29 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         bindHistoryTransaction(viewModel.transaction)
         observeData()
-        getData()
         setClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     private fun setClickListener() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            getData()
+            binding.swipeRefresh.isRefreshing = false
+        }
+
+
+
     }
+
+
 
     private fun getData() {
         viewModel.getTransaction()
@@ -91,6 +107,7 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
                     BANK_TRANSFER -> getString(R.string.bank_transfer)
                     ECHANNEL -> getString(R.string.e_channel)
                     CSTORE -> getString(R.string.pay_at_store)
+
                     else -> it.paymentMethod
                 }
             } else {
@@ -102,8 +119,8 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
                     binding.itemInformation.tvResultPaymentStatus.text = getString(R.string.waiting_for_payment)
                     binding.btnNavigate.text = getString(R.string.pay_now)
                     binding.btnNavigate.isVisible = true
-                    binding.btnNavigate.setOnClickListener {
-                        navigateToPayment()
+                    binding.btnNavigate.setOnClickListener { _, ->
+                        navigateToPayment(it.paymentUrl)
                     }
                 }
                 SUDAH_BAYAR -> {
@@ -145,7 +162,11 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
         DetailCourseActivity.startActivity(this, courseId)
     }
 
-    private fun navigateToPayment() {
+    private fun navigateToPayment(redirectUrl: String?) {
+        val intent = Intent(this, PaymentActivity::class.java).apply {
+            putExtra("URL", redirectUrl)
+        }
+        startActivity(intent)
 
     }
 

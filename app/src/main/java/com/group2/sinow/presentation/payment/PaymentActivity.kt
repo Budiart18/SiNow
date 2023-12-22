@@ -11,6 +11,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.group2.sinow.databinding.ActivityPaymentBinding
+import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -27,6 +28,15 @@ class PaymentActivity : AppCompatActivity() {
         setContentView(binding.root)
         val url = intent.getStringExtra("URL")
         openUrlFromWebView(url)
+        setupListener()
+    }
+
+    private fun setupListener() {
+        binding.btnCloseSnap.setOnClickListener {
+            onBackPressed()
+        }
+
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -70,6 +80,10 @@ class PaymentActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
         webView.loadUrl(url.toString())
+        binding.swipeRefresh.setOnRefreshListener {
+            webView.loadUrl(url.toString())
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
 
