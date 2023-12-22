@@ -2,6 +2,7 @@ package com.group2.sinow.data.repository
 
 import com.group2.sinow.data.network.api.datasource.SinowDataSource
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
+
 import com.group2.sinow.data.network.api.model.transactionhistory.toTransactionList
 import com.group2.sinow.data.network.api.model.profile.toProfileData
 import com.group2.sinow.data.network.api.model.transactionhistory.toItemTransaction
@@ -41,6 +42,7 @@ interface UserRepository {
     fun getUserTransactionHistory() : Flow<ResultWrapper<List<TransactionUser>>>
 
     fun getUserDetailTransaction(id: String) : Flow<ResultWrapper<TransactionUser>>
+
 
 
 }
@@ -92,6 +94,8 @@ class UserRepositoryImpl(
             dataSource.getUserDetailTransaction(id).data.transaction.toItemTransaction()
         }
     }
+
+
 
 
     override fun getUserCourses(

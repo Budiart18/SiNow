@@ -1,5 +1,6 @@
 package com.group2.sinow.data.network.api.datasource
 
+import com.google.android.gms.common.api.internal.DataHolderResult
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
@@ -94,6 +95,7 @@ interface SinowDataSource {
     suspend fun followCourse(courseId: Int?): FollowCourseResponse
 
     suspend fun buyPremiumCourse(transactionRequest: TransactionRequest): TransactionResponse
+
 
 }
 
@@ -209,5 +211,7 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
     override suspend fun buyPremiumCourse(transactionRequest: TransactionRequest): TransactionResponse {
         return service.buyPremiumCourse(transactionRequest)
     }
+
+
 
 }
