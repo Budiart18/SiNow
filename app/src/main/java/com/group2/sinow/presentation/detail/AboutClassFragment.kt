@@ -29,14 +29,13 @@ class AboutClassFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAboutClassBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
         observeData()
         setUpRv()
     }
@@ -45,10 +44,6 @@ class AboutClassFragment : Fragment() {
         binding.rvBenefitList.apply {
             adapter = benefitAdapter
         }
-    }
-
-    private fun getData() {
-        sharedViewModel.getDetailCourse(sharedViewModel.detail ?: 0)
     }
 
     private fun bindData(courseData: CourseData?) {

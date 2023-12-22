@@ -29,19 +29,14 @@ class ClassMaterialFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentClassMaterialBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
         observeData()
-    }
-
-    private fun getData() {
-        sharedViewModel.getDetailCourse(sharedViewModel.detail ?: 0)
     }
 
     private fun observeData() {
@@ -80,6 +75,7 @@ class ClassMaterialFragment : Fragment() {
 
     private fun bindData(item: CourseData?) {
         item?.let {
+            adapter.clear()
             val sections = item.course?.chapters?.map {
                 val section = Section()
                 section.setHeader(HeaderItemVideoChapter(it.name, it.totalDuration) { data ->
@@ -97,7 +93,6 @@ class ClassMaterialFragment : Fragment() {
                 section
             }
             sections?.let { adapter.addAll(it) }
-
         }
     }
 

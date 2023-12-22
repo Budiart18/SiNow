@@ -56,7 +56,7 @@ class BenefitListViewHolder(
 
     fun bind(item: BenefitData) {
         binding.tvBenefitContent.text = item.description
-        binding.tvNumber.text = item.id.toString()
+        binding.tvNumber.text = item.no.toString()
     }
 
 }

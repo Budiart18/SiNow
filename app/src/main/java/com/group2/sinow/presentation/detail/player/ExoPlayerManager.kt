@@ -74,7 +74,6 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         clearIndex()
-        //setClickListener()
     }
 
     override fun onStart(owner: LifecycleOwner) {

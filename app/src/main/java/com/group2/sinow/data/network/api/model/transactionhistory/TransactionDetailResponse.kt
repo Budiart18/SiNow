@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 
 @Keep
-data class TransactiondDetailResponse(
+data class TransactionDetailResponse(
     @SerializedName("status")
     val status: String?,
     @SerializedName("message")
