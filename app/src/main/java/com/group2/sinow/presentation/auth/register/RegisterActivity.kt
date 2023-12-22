@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.group2.sinow.R
 import com.group2.sinow.data.network.api.model.register.RegisterRequest
 import com.group2.sinow.databinding.ActivityRegisterBinding
 import com.group2.sinow.presentation.auth.login.LoginActivity
 import com.group2.sinow.presentation.auth.otp.OTPActivity
 import com.group2.sinow.utils.exceptions.ApiException
-import com.group2.sinow.utils.highLightWord
 import com.group2.sinow.utils.proceedWhen
 import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.viewModel

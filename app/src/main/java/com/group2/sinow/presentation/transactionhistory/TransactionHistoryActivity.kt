@@ -43,6 +43,11 @@ class TransactionHistoryActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            getData()
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun getData() {
