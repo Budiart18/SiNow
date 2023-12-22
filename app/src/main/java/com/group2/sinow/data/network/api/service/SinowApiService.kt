@@ -14,19 +14,22 @@ import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
+import com.group2.sinow.data.network.api.model.followcourse.FollowCourseResponse
 import com.group2.sinow.data.network.api.model.userclass.ClassesResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
-import com.group2.sinow.data.network.api.model.transactionhistory.TransactionResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactionsHistoryResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.transaction.TransactionRequest
+import com.group2.sinow.data.network.api.model.transaction.TransactionResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
-import com.group2.sinow.data.network.api.model.transactionhistory.TransactiondDetailResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactionDetailResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -127,10 +130,10 @@ interface SinowApiService {
     ): ClassesResponse
 
     @GET("user/transaction")
-    suspend fun getUserTransactionHistory(): TransactionResponse
+    suspend fun getUserTransactionHistory(): TransactionsHistoryResponse
 
     @GET("user/transaction/{transactionId}")
-    suspend fun getUserDetailTransaction(@Path("transactionId") id : String): TransactiondDetailResponse
+    suspend fun getUserDetailTransaction(@Path("transactionId") id : String): TransactionDetailResponse
 
 
     @GET("user/my-courses/{courseId}")
@@ -141,6 +144,12 @@ interface SinowApiService {
         @Path("courseId") courseId: Int?,
         @Path("userModuleId") userModuleId: Int?
     ): UserModuleDataResponse
+
+    @POST("user/my-courses/{courseId}/follow-course")
+    suspend fun followCourse(@Path("courseId") courseId: Int?): FollowCourseResponse
+
+    @POST("transactions")
+    suspend fun buyPremiumCourse(@Body transactionRequest: TransactionRequest): TransactionResponse
 
     companion object {
 

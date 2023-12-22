@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class BenefitData(
     val id: Int?,
+    val no: Int?,
     val description: String?
 ) : Parcelable

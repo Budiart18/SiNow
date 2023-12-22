@@ -9,6 +9,7 @@ data class CourseData(
     val userId: Int?,
     val courseId: Int?,
     val isAccessible: Boolean?,
+    val isFollowing: Boolean?,
     val lastSeen: String?,
     val progress: String?,
     val progressPercentage: Int?,

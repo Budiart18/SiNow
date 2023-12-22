@@ -14,6 +14,8 @@ data class CourseDetailResponse(
     val courseId: Int?,
     @SerializedName("isAccessible")
     val isAccessible: Boolean?,
+    @SerializedName("isFollowing")
+    val isFollowing: Boolean?,
     @SerializedName("lastSeen")
     val lastSeen: String?,
     @SerializedName("progress")
@@ -33,6 +35,7 @@ fun CourseDetailResponse.toCourseDetail() = CourseData(
     userId = this.userId ?: 0,
     courseId = this.courseId ?: 0,
     isAccessible = this.isAccessible,
+    isFollowing = this.isFollowing,
     lastSeen = this.lastSeen.orEmpty(),
     progress = this.progress.orEmpty(),
     progressPercentage = this.progressPercentage ?: 0,

@@ -1,17 +1,17 @@
 package com.group2.sinow.data.network.api.datasource
 
-import com.google.android.gms.common.api.internal.DataHolderResult
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
+import com.group2.sinow.data.network.api.model.followcourse.FollowCourseResponse
 import com.group2.sinow.data.network.api.model.login.LoginRequest
 import com.group2.sinow.data.network.api.model.login.LoginResponse
 import com.group2.sinow.data.network.api.model.notification.DeleteNotificationResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationDetailResponse
 import com.group2.sinow.data.network.api.model.notification.NotificationResponse
-import com.group2.sinow.data.network.api.model.transactionhistory.TransactionResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactionsHistoryResponse
 import com.group2.sinow.data.network.api.model.register.RegisterRequest
 import com.group2.sinow.data.network.api.model.register.RegisterResponse
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
@@ -22,8 +22,10 @@ import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordReques
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.transaction.TransactionRequest
+import com.group2.sinow.data.network.api.model.transaction.TransactionResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
-import com.group2.sinow.data.network.api.model.transactionhistory.TransactiondDetailResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.TransactionDetailResponse
 import com.group2.sinow.data.network.api.model.userclass.ClassesResponse
 import com.group2.sinow.data.network.api.service.SinowApiService
 import okhttp3.MultipartBody
@@ -75,9 +77,9 @@ interface SinowDataSource {
     suspend fun getUserModuleData(courseId: Int?, userModuleId: Int?): UserModuleDataResponse
     suspend fun getUserData(): ProfileResponse
 
-    suspend fun getUserTransactionHistory(): TransactionResponse
+    suspend fun getUserTransactionHistory(): TransactionsHistoryResponse
 
-    suspend fun getUserDetailTransaction(id: String): TransactiondDetailResponse
+    suspend fun getUserDetailTransaction(id: String): TransactionDetailResponse
 
     suspend fun updateUserData(
         name: RequestBody?,
@@ -88,6 +90,10 @@ interface SinowDataSource {
     ): UpdateUserDataResponse
 
     suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): ChangePasswordResponse
+
+    suspend fun followCourse(courseId: Int?): FollowCourseResponse
+
+    suspend fun buyPremiumCourse(transactionRequest: TransactionRequest): TransactionResponse
 
 }
 
@@ -162,11 +168,11 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.getUserData()
     }
 
-    override suspend fun getUserTransactionHistory(): TransactionResponse {
+    override suspend fun getUserTransactionHistory(): TransactionsHistoryResponse {
         return service.getUserTransactionHistory()
     }
 
-    override suspend fun getUserDetailTransaction(id: String): TransactiondDetailResponse {
+    override suspend fun getUserDetailTransaction(id: String): TransactionDetailResponse {
         return service.getUserDetailTransaction(id)
     }
 
@@ -194,6 +200,14 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         userModuleId: Int?
     ): UserModuleDataResponse {
         return service.getUserModuleData(courseId, userModuleId)
+    }
+
+    override suspend fun followCourse(courseId: Int?): FollowCourseResponse {
+        return service.followCourse(courseId)
+    }
+
+    override suspend fun buyPremiumCourse(transactionRequest: TransactionRequest): TransactionResponse {
+        return service.buyPremiumCourse(transactionRequest)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.group2.sinow.data.network.api.model.transactionhistory
+package com.group2.sinow.data.network.api.model.transaction
 
 
 import com.google.gson.annotations.SerializedName
@@ -11,5 +11,5 @@ data class TransactionResponse(
     @SerializedName("message")
     val message: String?,
     @SerializedName("data")
-    val data: DataTransaction?
+    val data: TransactionDataResponse
 )

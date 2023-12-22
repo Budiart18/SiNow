@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 
 @Keep
-data class DataTransaction(
+data class DataTransactions(
     @SerializedName("transactions")
     val transactions: List<Transaction>?
 )

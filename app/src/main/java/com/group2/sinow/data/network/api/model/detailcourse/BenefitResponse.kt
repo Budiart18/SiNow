@@ -8,11 +8,14 @@ import com.group2.sinow.model.detailcourse.BenefitData
 data class BenefitResponse(
     @SerializedName("id")
     val id: Int?,
+    @SerializedName("no")
+    val no: Int?,
     @SerializedName("description")
     val description: String?
 )
 
 fun BenefitResponse.toBenefitData() = BenefitData(
     id = this.id ?: 0,
+    no = this.no ?: 0,
     description = this.description.orEmpty()
 )

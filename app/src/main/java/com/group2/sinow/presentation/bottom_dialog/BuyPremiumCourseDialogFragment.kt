@@ -1,6 +1,5 @@
 package com.group2.sinow.presentation.bottom_dialog
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -8,18 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import coil.load
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.group2.sinow.presentation.main.MainActivity
-import com.group2.sinow.databinding.FragmentStartLearningDialogBinding
+import com.group2.sinow.R
+import com.group2.sinow.databinding.FragmentBuyPremiumCourseDialogBinding
 import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.DetailCourseViewModel
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import com.group2.sinow.utils.toCurrencyFormat
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-class StartLearningDialogFragment : SuperBottomSheetFragment() {
+class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
 
-    private lateinit var binding: FragmentStartLearningDialogBinding
+    private lateinit var binding: FragmentBuyPremiumCourseDialogBinding
 
     private val sharedViewModel: DetailCourseViewModel by activityViewModel()
 
@@ -28,7 +30,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentStartLearningDialogBinding.inflate(inflater, container, false)
+        binding = FragmentBuyPremiumCourseDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,8 +38,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         val displayMetrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenHeight = displayMetrics.heightPixels
-        println(screenHeight)
-        return (screenHeight * 0.9).toInt()
+        return (screenHeight * 0.6).toInt()
     }
 
     override fun isSheetAlwaysExpanded(): Boolean = true
@@ -46,7 +47,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
         observeCourseData()
-        observeIsFollowingCourse()
+        observeBuyCourseResult()
     }
 
     private fun setClickListener() {
@@ -60,9 +61,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
             resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutState.root.isVisible = false
-                    binding.btnJoinClass.setOnClickListener { _ , ->
-                        followCourse(it.payload?.courseId)
-                    }
+                    bindDetailCourse(it.payload)
                 },
                 doOnLoading = {
                     binding.layoutState.root.isVisible = true
@@ -82,19 +81,53 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         }
     }
 
-    private fun observeIsFollowingCourse() {
-        sharedViewModel.isFollowingCourse.observe(this) { resultWrapper ->
+    private fun bindDetailCourse(courseData: CourseData?) {
+        courseData?.let { item ->
+            binding.courseCard.ivCourseImage.load(item.course?.imageUrl)
+            binding.courseCard.tvCourseCategory.text = item.course?.category?.name
+            binding.courseCard.tvCourseName.text = item.course?.name
+            binding.courseCard.tvCourseRate.text = item.course?.rating.toString()
+            binding.courseCard.tvCourseAuthor.text = getString(
+                R.string.format_course_by,
+                item.course?.courseBy
+            )
+            binding.courseCard.tvCourseLevel.text = item.course?.level?.replaceFirstChar {
+                it.uppercase()
+            }
+            binding.courseCard.tvCourseModules.text = getString(
+                R.string.format_course_module,
+                item.course?.totalModule
+            )
+            binding.courseCard.tvCourseDuration.text = getString(
+                R.string.format_course_duration,
+                item.course?.totalDuration
+            )
+            binding.courseCard.tvBtnBuy.text = item.course?.price?.toDouble()?.toCurrencyFormat()
+            binding.courseCard.ivPremium.isVisible = true
+            binding.btnBuyNow.setOnClickListener {
+                buyPremiumCourse(item.courseId)
+            }
+        }
+    }
+
+    private fun buyPremiumCourse(courseId: Int?) {
+        sharedViewModel.buyPremiumCourse(courseId)
+    }
+
+    private fun observeBuyCourseResult() {
+        sharedViewModel.buyPremiumCourseResult.observe(viewLifecycleOwner) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(requireContext(), "Berhasil Mengikuti Course", Toast.LENGTH_SHORT).show()
-                    dismiss()
+                    navigateToPayment(it.payload?.redirectUrl)
                 },
                 doOnError = {
                     if (it.exception is ApiException) {
-                        Toast.makeText(
+                        FancyToast.makeText(
                             requireContext(),
-                            it.exception.getParsedError()?.message,
-                            Toast.LENGTH_SHORT
+                            it.exception.getParsedError()?.message.orEmpty(),
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,
+                            false
                         ).show()
                     }
                 }
@@ -102,8 +135,9 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         }
     }
 
-    private fun followCourse(courseId: Int?) {
-        sharedViewModel.followCourse(courseId)
+
+    private fun navigateToPayment(redirectUrl: String?) {
+        Toast.makeText(requireContext(), redirectUrl, Toast.LENGTH_SHORT).show()
     }
 
 }

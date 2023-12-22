@@ -141,4 +141,12 @@
     <string name="text_otp_code_wrong">Kode OTP Salah</string>
     <string name="text_link_reset_password_sended">Tautan reset password berhasil dikirim ke email</string>
     <string name="text_submit">Submit</string>
+    <string name="text_one_more_step_to">Selangkah lagi menuju</string>
+    <string name="text_premium_class">Kelas Premium</string>
+    <string name="text_buy_now">Beli Sekarang</string>
+    <string name="text_follow_class">Ikuti Kelas</string>
+    <string name="text_buy_class">Beli Kelas - %s</string>
+    <string name="text_onboarding">Onboarding...</string>
+    <string name="text_preparation_title">Persiapkan hal berikut untuk belajar maksimal:</string>
+    <string name="text_preparation_description">Mempunyai akun Figma atau install Adobe XD, Menggunakan Internet minimal kecepatan 2Mbps, Belajar di tempat yang nyaman</string>
 </resources>
