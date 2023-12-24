@@ -43,7 +43,7 @@ interface UserRepository {
 
     fun getUserDetailTransaction(id: String) : Flow<ResultWrapper<TransactionUser>>
 
-
+    fun deleteTransaction(transactionId: String) : Flow<ResultWrapper<Boolean>>
 
 }
 
@@ -95,7 +95,11 @@ class UserRepositoryImpl(
         }
     }
 
-
+    override fun deleteTransaction(transactionId: String): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow{
+            dataSource.deleteTransaction(transactionId).status == "Success"
+        }
+    }
 
 
     override fun getUserCourses(

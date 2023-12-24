@@ -17,16 +17,29 @@ class DetailTransactionHistoryViewModel(
     private val repository: UserRepository
 ) : ViewModel() {
 
-    val transaction = extra?.getParcelable<TransactionUser>(DetailTransactionHistoryActivity.EXTRA_TRANSACTION)
+    val transaction =
+        extra?.getString(DetailTransactionHistoryActivity.EXTRA_TRANSACTION)
 
     private val _transaction = MutableLiveData<ResultWrapper<TransactionUser>>()
     val transactionData: LiveData<ResultWrapper<TransactionUser>>
         get() = _transaction
 
-    fun getTransaction() {
+    private val _deleteTransactionResult = MutableLiveData<ResultWrapper<Boolean>>()
+    val deleteTransactionResult: LiveData<ResultWrapper<Boolean>>
+        get() = _deleteTransactionResult
+
+    fun getTransaction(id : String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getUserDetailTransaction(transaction?.id.orEmpty()).collect{
+            repository.getUserDetailTransaction(id).collect {
                 _transaction.postValue(it)
+            }
+        }
+    }
+
+    fun deleteTransaction(transactionId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteTransaction(transactionId).collect{
+                _deleteTransactionResult.postValue(it)
             }
         }
     }

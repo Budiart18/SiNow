@@ -1,6 +1,5 @@
 package com.group2.sinow.data.network.api.datasource
 
-import com.google.android.gms.common.api.internal.DataHolderResult
 import com.group2.sinow.data.network.api.model.category.CategoriesResponse
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordResponse
@@ -23,6 +22,7 @@ import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordReques
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
 import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.data.network.api.model.profile.ProfileResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.DeleteTransactionResponse
 import com.group2.sinow.data.network.api.model.transaction.TransactionRequest
 import com.group2.sinow.data.network.api.model.transaction.TransactionResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
@@ -96,7 +96,7 @@ interface SinowDataSource {
 
     suspend fun buyPremiumCourse(transactionRequest: TransactionRequest): TransactionResponse
 
-
+    suspend fun deleteTransaction(transactionId: String): DeleteTransactionResponse
 }
 
 class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource {
@@ -212,6 +212,9 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.buyPremiumCourse(transactionRequest)
     }
 
+    override suspend fun deleteTransaction(transactionId: String): DeleteTransactionResponse {
+        return service.deleteTransaction(transactionId)
+    }
 
 
 }
