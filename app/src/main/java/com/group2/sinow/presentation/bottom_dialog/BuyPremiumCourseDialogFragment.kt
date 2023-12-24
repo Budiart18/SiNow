@@ -3,6 +3,7 @@ package com.group2.sinow.presentation.bottom_dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.group2.sinow.databinding.FragmentBuyPremiumCourseDialogBinding
 import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.DetailCourseViewModel
 import com.group2.sinow.presentation.payment.PaymentActivity
+import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
+import com.group2.sinow.presentation.transactionhistory.detailtransactionhistory.DetailTransactionHistoryActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import com.group2.sinow.utils.toCurrencyFormat
@@ -39,7 +42,7 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
         val displayMetrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenHeight = displayMetrics.heightPixels
-        return (screenHeight * 0.6).toInt()
+        return (screenHeight * 0.7).toInt()
     }
 
     override fun isSheetAlwaysExpanded(): Boolean = true
@@ -130,10 +133,18 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
                             FancyToast.ERROR,
                             false
                         ).show()
+                        if (it.exception.httpCode == 400) {
+                            navigateTolPaymentHistory()
+                        }
                     }
                 }
             )
         }
+    }
+
+    private fun navigateTolPaymentHistory() {
+        val intent = Intent(requireContext(), TransactionHistoryActivity::class.java)
+        startActivity(intent)
     }
 
 

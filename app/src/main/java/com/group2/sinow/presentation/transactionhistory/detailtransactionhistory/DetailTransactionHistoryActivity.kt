@@ -1,11 +1,12 @@
 package com.group2.sinow.presentation.transactionhistory.detailtransactionhistory
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.group2.sinow.R
@@ -13,7 +14,9 @@ import com.group2.sinow.databinding.ActivityDetailPaymentHistoryBinding
 import com.group2.sinow.model.paymenthistory.TransactionUser
 import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.payment.PaymentActivity
+import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
 import com.group2.sinow.utils.changeFormatTime
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import com.group2.sinow.utils.toCurrencyFormat
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,16 +29,16 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
 
     }
 
-    private val viewModel : DetailTransactionHistoryViewModel by viewModel{
+    private val viewModel: DetailTransactionHistoryViewModel by viewModel {
         parametersOf(intent.extras ?: bundleOf())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        bindHistoryTransaction(viewModel.transaction)
         observeData()
         setClickListener()
+        observeDeleteTransactionResult()
     }
 
     override fun onResume() {
@@ -54,22 +57,24 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
         }
 
 
-
     }
 
 
-
     private fun getData() {
-        viewModel.getTransaction()
+        val transactionId = intent.getStringExtra(EXTRA_TRANSACTION)
+        if (transactionId != null) {
+            viewModel.getTransaction(transactionId)
+        }
     }
 
     private fun observeData() {
         viewModel.transactionData.observe(this) { resultWrapper ->
-            resultWrapper.proceedWhen (
+            resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStateTransaction.root.isVisible = false
                     binding.layoutStateTransaction.loadingAnimation.isVisible = false
                     binding.layoutStateTransaction.tvError.isVisible = false
+                    bindHistoryTransaction(it.payload)
                 },
                 doOnLoading = {
                     binding.layoutStateTransaction.root.isVisible = true
@@ -86,15 +91,66 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeDeleteTransactionResult() {
+        viewModel.deleteTransactionResult.observe(this) { resultWrapper ->
+            resultWrapper.proceedWhen(
+                doOnSuccess = {
+                    navigateToTransactionList()
+                },
+                doOnError = { err ->
+                    if (err.exception is ApiException) {
+                        Toast.makeText(
+                            this,
+                            err.exception.getParsedError()?.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            )
+        }
+    }
+
+    private fun navigateToTransactionList() {
+        val intent = Intent(this, TransactionHistoryActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun deleteTransaction(id: String) {
+        val dialog = AlertDialog.Builder(this)
+            .setMessage(getString(R.string.text_cancel_payment_confirmation))
+            .setPositiveButton(
+                getString(R.string.text_yes)
+            ) { _, _ ->
+                viewModel.deleteTransaction(id)
+            }
+            .setNegativeButton(
+                getString(R.string.text_no)
+            ) { _, _ ->
+                // no-op , do nothing
+            }.create()
+        dialog.show()
+    }
+
 
     private fun bindHistoryTransaction(transaction: TransactionUser?) {
         transaction?.let {
             binding.itemPayment.itemCost.tvItemTitle.text = it.courseUser?.name
-            binding.itemPayment.itemCost.tvItemPrice.text = it.coursePrice?.toDouble()?.toCurrencyFormat()
-            binding.itemPayment.itemCostDiscount.tvItemTitle.text = getString(R.string.tv_discount_course, it.promoDiscountPercentage)
-            binding.itemPayment.itemCostDiscount.tvItemPrice.text = getString(R.string.discounted_price, it.discountPrice?.toDouble()?.toCurrencyFormat())
+            binding.itemPayment.itemCost.tvItemPrice.text =
+                it.coursePrice?.toDouble()?.toCurrencyFormat()
+            if (it.promoDiscountPercentage != 0) {
+                binding.itemPayment.itemCostDiscount.root.isVisible = true
+                binding.itemPayment.itemCostDiscount.tvItemTitle.text =
+                    getString(R.string.tv_discount_course, it.promoDiscountPercentage)
+            } else {
+                binding.itemPayment.itemCostDiscount.root.isVisible = false
+            }
+            binding.itemPayment.itemCostDiscount.tvItemPrice.text = getString(
+                R.string.discounted_price,
+                it.discountPrice?.toDouble()?.toCurrencyFormat()
+            )
             binding.itemPayment.tvItemTax.text = getString(R.string.format_tax, it.taxPercentage)
-            binding.itemPayment.tvItemTotalPrice.text = it.totalPrice?.toDouble()?.toCurrencyFormat()
+            binding.itemPayment.tvItemTotalPrice.text =
+                it.totalPrice?.toDouble()?.toCurrencyFormat()
 
             if (!it.paymentMethod.isNullOrEmpty()) {
                 binding.itemInformation.clPaymentMethod.visibility = View.VISIBLE
@@ -116,33 +172,44 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
 
             when (it.status) {
                 BELUM_BAYAR -> {
-                    binding.itemInformation.tvResultPaymentStatus.text = getString(R.string.waiting_for_payment)
+                    binding.itemInformation.tvResultPaymentStatus.text =
+                        getString(R.string.waiting_for_payment)
                     binding.btnNavigate.text = getString(R.string.pay_now)
                     binding.btnNavigate.isVisible = true
-                    binding.btnNavigate.setOnClickListener { _, ->
+                    binding.btnCancel.isVisible = true
+                    binding.btnCancel.setOnClickListener { _ ->
+                        it.id?.let { it1 -> deleteTransaction(it1) }
+                    }
+                    binding.btnNavigate.setOnClickListener { _ ->
                         navigateToPayment(it.paymentUrl)
                     }
                 }
+
                 SUDAH_BAYAR -> {
                     binding.itemInformation.tvResultPaymentStatus.text = getString(R.string.finish)
                     binding.btnNavigate.isVisible = true
+                    binding.btnCancel.isVisible = false
                     binding.btnNavigate.text = getString(R.string.open_course)
-                    binding.btnNavigate.setOnClickListener {_,  ->
+                    binding.btnNavigate.setOnClickListener { _ ->
                         navigateToDetail(courseId = it.courseId)
                     }
                 }
+
                 else -> {
                     binding.itemInformation.tvResultPaymentStatus.text = getString(R.string.failed)
                     binding.btnNavigate.isVisible = false
+                    binding.btnCancel.isVisible = true
                 }
             }
 
-            binding.itemInformation.tvResultNumberOrder.text = it.id
-            binding.itemInformation.tvResultOrderTime.text = changeFormatTime(it.createdAt.toString())
+            binding.itemInformation.tvResultNumberOrder.text = it.noOrder
+            binding.itemInformation.tvResultOrderTime.text =
+                changeFormatTime(it.createdAt.toString())
 
             if (!it.paidAt.isNullOrEmpty()) {
                 binding.itemInformation.clPaymentTime.visibility = View.VISIBLE
-                binding.itemInformation.tvResultPaymentTime.text = changeFormatTime(it.paidAt.toString())
+                binding.itemInformation.tvResultPaymentTime.text =
+                    changeFormatTime(it.paidAt.toString())
             } else {
                 binding.itemInformation.clPaymentTime.visibility = View.GONE
             }
@@ -151,7 +218,8 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
                 binding.itemInformation.clExpiredTime.visibility = View.GONE
             } else {
                 binding.itemInformation.clExpiredTime.visibility = View.VISIBLE
-                binding.itemInformation.tvResultExpiredTime.text = changeFormatTime(it.expiredAt.toString())
+                binding.itemInformation.tvResultExpiredTime.text =
+                    changeFormatTime(it.expiredAt.toString())
             }
 
         }
@@ -182,12 +250,13 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
         const val ECHANNEL = "echannel"
         const val CSTORE = "cstore"
 
-        fun startActivity(context: Context, transaction: TransactionUser) {
+        fun startActivity(context: Context, transactionId: String) {
             val intent = Intent(context, DetailTransactionHistoryActivity::class.java)
-            intent.putExtra(EXTRA_TRANSACTION, transaction)
+            intent.putExtra(EXTRA_TRANSACTION, transactionId)
             context.startActivity(intent)
         }
     }
+
 
 }
 

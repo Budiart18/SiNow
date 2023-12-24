@@ -20,23 +20,27 @@ class TransactionHistoryActivity : AppCompatActivity() {
     private val viewModel : TransactionHistoryViewModel by viewModel()
 
     private val transactionAdapter : PaymentHistoryAdapter by lazy {
-        PaymentHistoryAdapter{
-            navigateToDetailPayment(it)
+        PaymentHistoryAdapter{ transactionUser ->
+            transactionUser.id?.let { id -> navigateToDetailPayment(id) }
         }
 
     }
 
-    private fun navigateToDetailPayment(transaction: TransactionUser) {
-        DetailTransactionHistoryActivity.startActivity(this, transaction)
+    private fun navigateToDetailPayment(transactionId: String) {
+        DetailTransactionHistoryActivity.startActivity(this, transactionId)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        getData()
         observeTransactionList()
         setClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     private fun setClickListener() {

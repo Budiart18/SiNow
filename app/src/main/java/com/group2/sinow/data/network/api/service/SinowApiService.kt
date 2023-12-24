@@ -21,6 +21,7 @@ import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.DeleteTransactionResponse
 import com.group2.sinow.data.network.api.model.transaction.TransactionRequest
 import com.group2.sinow.data.network.api.model.transaction.TransactionResponse
 import com.group2.sinow.data.network.api.model.transactionhistory.TransactionDetailResponse
@@ -52,11 +53,11 @@ interface SinowApiService {
 
     // Login
     @POST("auth/login")
-    suspend fun doLogin(@Body loginRequest: LoginRequest) : LoginResponse
+    suspend fun doLogin(@Body loginRequest: LoginRequest): LoginResponse
 
     // Token
     @GET("auth/check-token")
-    suspend fun checkToken(@Header("Authorization") token: String) : LoginResponse
+    suspend fun checkToken(@Header("Authorization") token: String): LoginResponse
 
 
     // Register
@@ -74,7 +75,6 @@ interface SinowApiService {
     // Reset Password
     @POST("auth/reset-password")
     suspend fun resetPassword(@Body resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse
-
 
 
     @GET("category")
@@ -99,16 +99,16 @@ interface SinowApiService {
     ): CoursesResponse
 
     @GET("user/notifications")
-    suspend fun getNotifications() : NotificationResponse
+    suspend fun getNotifications(): NotificationResponse
 
     @GET("user/notifications/{id}")
-    suspend fun getNotificationDetail(@Path("id") id : Int) : NotificationDetailResponse
+    suspend fun getNotificationDetail(@Path("id") id: Int): NotificationDetailResponse
 
     @DELETE("user/notifications/{id}")
-    suspend fun deleteNotification(@Path("id") id : Int) : DeleteNotificationResponse
+    suspend fun deleteNotification(@Path("id") id: Int): DeleteNotificationResponse
 
     @GET("user")
-    suspend fun getUserData() : ProfileResponse
+    suspend fun getUserData(): ProfileResponse
 
     @Multipart
     @PATCH("user/update")
@@ -118,10 +118,10 @@ interface SinowApiService {
         @Part("country") country: RequestBody?,
         @Part("city") city: RequestBody?,
         @Part image: MultipartBody.Part?
-    ) : UpdateUserDataResponse
+    ): UpdateUserDataResponse
 
     @PATCH("user/change-password")
-    suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest) : ChangePasswordResponse
+    suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest): ChangePasswordResponse
 
     @GET("user/my-courses")
     suspend fun getUserCourses(
@@ -133,7 +133,7 @@ interface SinowApiService {
     suspend fun getUserTransactionHistory(): TransactionsHistoryResponse
 
     @GET("user/transaction/{transactionId}")
-    suspend fun getUserDetailTransaction(@Path("transactionId") id : String): TransactionDetailResponse
+    suspend fun getUserDetailTransaction(@Path("transactionId") id: String): TransactionDetailResponse
 
 
     @GET("user/my-courses/{courseId}")
@@ -150,6 +150,9 @@ interface SinowApiService {
 
     @POST("transactions")
     suspend fun buyPremiumCourse(@Body transactionRequest: TransactionRequest): TransactionResponse
+
+    @DELETE("user/transaction/{transactionId}")
+    suspend fun deleteTransaction(@Path("transactionId") transactionId: String): DeleteTransactionResponse
 
     companion object {
 

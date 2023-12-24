@@ -8,6 +8,8 @@ import com.group2.sinow.model.paymenthistory.TransactionUser
 data class Transaction(
     @SerializedName("id")
     val id: String?,
+    @SerializedName("noOrder")
+    val noOrder: String?,
     @SerializedName("userId")
     val userId: Int?,
     @SerializedName("courseId")
@@ -44,6 +46,7 @@ data class Transaction(
 
 fun Transaction.toItemTransaction() = TransactionUser(
     id = this.id.orEmpty(),
+    noOrder = this.noOrder.orEmpty(),
     userId = this.userId ?: 0,
     courseId = this.courseId ?: 0,
     coursePrice = this.coursePrice ?: 0,
