@@ -12,6 +12,7 @@ class CategoryFilterViewHolder(
     fun bind(item: Category) {
         with(item) {
             binding.cbItemCategory.text = item.categoryName
+            binding.cbItemCategory.isChecked = listener.getSelectedCategories()?.contains(item.id) == true
             binding.cbItemCategory.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     listener.onCategoryChecked(item)

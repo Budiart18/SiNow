@@ -3,13 +3,17 @@ package com.group2.sinow.presentation.userclass
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentUserClassBinding
+import com.group2.sinow.presentation.course.CourseFragment
 import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
@@ -35,6 +39,9 @@ class UserClassFragment : Fragment() {
 
     private val viewModel: UserClassViewModel by viewModel()
 
+    private var searchQuery: String? = null
+    private var selectedProgress: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,37 +52,68 @@ class UserClassFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fetchData()
         observeCourseList()
-        getData()
-        setupRadioButtons()
+        setProgress()
         setupSearch()
+        observeFilterData()
+        refreshData()
     }
 
-    private fun getData() {
-        viewModel.getUserCourses()
+    private fun fetchData() {
+        getData(searchQuery, selectedProgress)
     }
 
-    private fun setupRadioButtons() {
+    private fun refreshData() {
+        binding.swipeRefresh.setOnRefreshListener {
+            fetchData()
+            binding.swipeRefresh.isRefreshing = false
+        }
+    }
+
+    private fun observeFilterData() {
+        viewModel.searchQuery.observe(viewLifecycleOwner) { query ->
+            searchQuery = query
+            fetchData()
+        }
+        viewModel.selectedProgress.observe(viewLifecycleOwner) { progress ->
+            selectedProgress = progress
+            fetchData()
+        }
+    }
+
+    private fun getData(search: String? = null, progress: String? = null) {
+        viewModel.getUserCourses(search, progress)
+    }
+
+    private fun setProgress() {
         binding.btnAll.setOnClickListener {
-            val searchQuery = binding.searchBar.etSearchBar.text.toString()
-            viewModel.onTabClicked(searchQuery, "all")
+            viewModel.setSelectedProgress(PROGRESS_ALL)
         }
 
         binding.btnInProgress.setOnClickListener {
-            val searchQuery = binding.searchBar.etSearchBar.text.toString()
-            viewModel.onTabClicked(searchQuery,"inProgress")
+            viewModel.setSelectedProgress(ON_PROGRESS)
         }
 
         binding.btnFinish.setOnClickListener {
-            val searchQuery = binding.searchBar.etSearchBar.text.toString()
-            viewModel.onTabClicked(searchQuery,"completed")
+            viewModel.setSelectedProgress(PROGRESS_FINISH)
         }
     }
 
+
     private fun setupSearch() {
+        binding.searchBar.etSearchBar.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                val searchQuery = binding.searchBar.etSearchBar.text.toString()
+                viewModel.setSearchQuery(searchQuery)
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+
         binding.searchBar.ivSearchButton.setOnClickListener {
             val searchQuery = binding.searchBar.etSearchBar.text.toString()
-            viewModel.getUserCourses(searchQuery)
+            viewModel.setSearchQuery(searchQuery)
         }
     }
 
@@ -112,11 +150,18 @@ class UserClassFragment : Fragment() {
                             binding.layoutCourseEmpty.tvNotificationEmpty.text = getString(R.string.tv_user_must_login_first)
                         }else{
                             binding.layoutCourseEmpty.root.isVisible = true
+                            binding.layoutCourseEmpty.tvNotificationEmpty.text = getString(R.string.tv_you_havent_taken_course_yet)
                         }
                     }
                 }
             )
         }
+    }
+
+    companion object {
+        const val PROGRESS_ALL = "all"
+        const val ON_PROGRESS = "inProgress"
+        const val PROGRESS_FINISH = "completed"
     }
 
 }

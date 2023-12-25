@@ -81,11 +81,11 @@ interface SinowApiService {
     suspend fun getCategories(): CategoriesResponse
 
     @GET("courses")
-    suspend fun getCoursesFilter(
+    suspend fun getCourses(
         @Query("search") search: String? = null,
         @Query("type") type: String? = null,
-        @Query("category") category: List<Int>? = null,
-        @Query("level") level: List<String>? = null,
+        @Query("category") category: Int? = null,
+        @Query("level") level: String? = null,
         @Query("sortBy") sortBy: String? = null
     ): CoursesResponse
 
@@ -93,8 +93,8 @@ interface SinowApiService {
     suspend fun getCourses(
         @Query("search") search: String? = null,
         @Query("type") type: String? = null,
-        @Query("category") category: Int? = null,
-        @Query("level") level: String? = null,
+        @Query("category") category: List<Int>? = null,
+        @Query("level") level: List<String>? = null,
         @Query("sortBy") sortBy: String? = null
     ): CoursesResponse
 

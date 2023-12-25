@@ -153,4 +153,6 @@
     <string name="text_cancel_payment_confirmation">Apakah Anda yakin untuk membatalkan pembayaran ini?</string>
     <string name="text_history_payment">History Pembayaran</string>
     <string name="text_detail_payment">Detail Pembayaran</string>
+    <string name="tv_you_havent_taken_course_yet">Kamu belum mengikuti course</string>
+    <string name="tv_you_dont_have_any_transaction">Anda belum memiliki transaksi apapun</string>
 </resources>

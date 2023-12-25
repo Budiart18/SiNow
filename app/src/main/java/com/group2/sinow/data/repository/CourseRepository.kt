@@ -29,12 +29,12 @@ interface CourseRepository {
         sortBy: String? = null
     ): Flow<ResultWrapper<List<Course>>>
 
-    fun getCoursesFilter(
-        search: String? = null,
-        type: String? = null,
-        category: List<Int>? = null,
-        level: List<String>? = null,
-        sortBy: String? = null
+    fun getCourses(
+        search: String?,
+        type: String?,
+        category: List<Int>?,
+        level: List<String>?,
+        sortBy: String?
     ): Flow<ResultWrapper<List<Course>>>
 
     fun getDetailCourse(id: Int): Flow<ResultWrapper<CourseData?>>
@@ -50,6 +50,7 @@ interface CourseRepository {
 class CourseRepositoryImpl(
     private val dataSource: SinowDataSource
 ) : CourseRepository {
+
 
     override fun getCategories(): Flow<ResultWrapper<List<Category>>> {
         return proceedFlow {
@@ -69,7 +70,8 @@ class CourseRepositoryImpl(
         }
     }
 
-    override fun getCoursesFilter(
+
+    override fun getCourses(
         search: String?,
         type: String?,
         category: List<Int>?,
@@ -77,7 +79,7 @@ class CourseRepositoryImpl(
         sortBy: String?
     ): Flow<ResultWrapper<List<Course>>> {
         return proceedFlow {
-            dataSource.getCoursesFilter(search, type, category, level, sortBy).data?.toCourseList() ?: emptyList()
+            dataSource.getCourses(search, type, category, level, sortBy).data?.toCourseList() ?: emptyList()
         }
     }
 

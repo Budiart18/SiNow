@@ -29,6 +29,11 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
     val courses: LiveData<ResultWrapper<List<Course>>>
         get() = _courses
 
+    private val _searchQuery = MutableLiveData<String>()
+    val searchQuery: LiveData<String>
+        get() = _searchQuery
+
+
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getCategories().collect { result ->
@@ -44,9 +49,10 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
         }
     }
 
-    fun getCourses(category: Int? = null) {
+    fun getCourses(search: String? = null, category: Int? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getCourses(
+                search = search,
                 category = if (category == 0) null else category,
                 sortBy = SORT_BY_POPULAR
             ).collect { result ->
@@ -59,5 +65,10 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
     fun changeSelectedCategory(newCategory: Category) {
         _selectedCategory.value = newCategory
     }
+
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
 
 }
