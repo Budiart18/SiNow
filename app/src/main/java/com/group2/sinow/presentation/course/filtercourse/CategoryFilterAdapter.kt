@@ -41,6 +41,7 @@ class CategoryFilterAdapter(private val listener: CategoryItemListener) :
 
     override fun onBindViewHolder(holder: CategoryFilterViewHolder, position: Int) {
         val category = dataDiffer.currentList[position]
+
         holder.bind(category)
     }
 
@@ -53,4 +54,6 @@ class CategoryFilterAdapter(private val listener: CategoryItemListener) :
 interface CategoryItemListener {
     fun onCategoryChecked(category: Category)
     fun onCategoryUnchecked(category: Category)
+
+    fun getSelectedCategories() : List<Int>?
 }

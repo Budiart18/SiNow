@@ -17,6 +17,7 @@ data class CategoryItemResponse(
     val name: String?,
     @SerializedName("updatedAt")
     val updatedAt: String?
+
 )
 
 fun CategoryItemResponse.toCategory() = Category(

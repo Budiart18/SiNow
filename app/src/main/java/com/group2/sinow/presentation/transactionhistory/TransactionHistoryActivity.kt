@@ -3,6 +3,7 @@ package com.group2.sinow.presentation.transactionhistory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
+import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityPaymentHistoryBinding
 import com.group2.sinow.model.paymenthistory.TransactionUser
 import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
@@ -83,9 +84,10 @@ class TransactionHistoryActivity : AppCompatActivity() {
                     binding.rvListPaymentHistory.isVisible = false
                     if(it.exception is ApiException){
                         if(it.exception.httpCode == 401){
-                            binding.layoutCourseEmpty.root.isVisible = true
+                            binding.layoutTransactionEmpty.root.isVisible = true
                         }else{
-                            binding.layoutCourseEmpty.root.isVisible = true
+                            binding.layoutTransactionEmpty.root.isVisible = true
+                            binding.layoutTransactionEmpty.tvNotificationEmpty.text = getString(R.string.tv_you_dont_have_any_transaction)
                         }
                     }
                 }

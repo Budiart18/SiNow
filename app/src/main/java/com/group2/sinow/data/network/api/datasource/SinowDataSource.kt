@@ -59,7 +59,9 @@ interface SinowDataSource {
         sortBy: String? = null
     ): CoursesResponse
 
-    suspend fun getCoursesFilter(
+    suspend fun getCourses(
+        search: String?,
+        type: String?,
         category:List<Int>? = null,
         level: List<String>? = null,
         sortBy: String? = null
@@ -150,13 +152,16 @@ class SinowApiDataSource(private val service: SinowApiService) : SinowDataSource
         return service.getCourses(search, type, category, level, sortBy)
     }
 
-    override suspend fun getCoursesFilter(
+    override suspend fun getCourses(
+        search: String?,
+        type: String?,
         category: List<Int>?,
         level: List<String>?,
         sortBy: String?
     ): CoursesResponse {
-        return service.getCoursesFilter(category, level, sortBy)
+        return service.getCourses(search, type, category, level, sortBy)
     }
+
 
     override suspend fun deleteNotification(id: Int): DeleteNotificationResponse {
         return service.deleteNotification(id)

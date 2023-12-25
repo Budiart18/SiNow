@@ -2,11 +2,15 @@ package com.group2.sinow.presentation.homepage
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.room.util.query
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentHomeBinding
@@ -29,7 +33,7 @@ class HomeFragment : Fragment() {
 
     private val categoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter {
-            navigateToCourseByCategory()
+            navigateToCourseByCategory(it.id)
         }
     }
 
@@ -115,17 +119,36 @@ class HomeFragment : Fragment() {
         binding.tvSeeAllCourse.setOnClickListener {
             navigateToAllPopularCourse()
         }
+        binding.searchBar.etSearchBar.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                performSearch()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+        binding.searchBar.ivSearchButton.setOnClickListener {
+            performSearch()
+        }
     }
 
-    private fun navigateToCourseByCategory() {
-        TODO("Not yet implemented")
+    private fun performSearch() {
+        val query = binding.searchBar.etSearchBar.text.toString()
+        navigateSearchToCourseFragment(query)
+    }
+
+    private fun navigateSearchToCourseFragment(query: String) {
+        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCourse(query, 0)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToCourseByCategory(id: Int) {
+        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCourse(null, id)
+        findNavController().navigate(action)
     }
 
     private fun navigateToDetailCourse(courseId: Int?) {
         DetailCourseActivity.startActivity(requireContext(), courseId)
-        //val intent = Intent(requireContext(), DetailCourseActivity::class.java)
-        //intent.putExtra("COURSE_ID", courseId)
-        //startActivity(intent)
+
     }
 
     private fun navigateToProfile() {

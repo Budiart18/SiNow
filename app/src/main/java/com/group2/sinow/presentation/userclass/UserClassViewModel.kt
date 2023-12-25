@@ -14,28 +14,36 @@ class UserClassViewModel(private val repository: UserRepository) : ViewModel() {
 
     companion object {
         const val PROGRESS_ALL = "all"
-        const val ON_PROGRESS = "inProgress"
-        const val PROGRESS_FINISH = "completed"
     }
 
     private val _courses = MutableLiveData<ResultWrapper<List<UserCourseData>>>()
     val courses: LiveData<ResultWrapper<List<UserCourseData>>>
         get() = _courses
 
+    private val _searchQuery = MutableLiveData<String>()
+    val searchQuery: LiveData<String>
+        get() = _searchQuery
+
+    private val _selectedProgress = MutableLiveData<String>()
+    val selectedProgress: LiveData<String>
+        get() = _selectedProgress
+
     fun getUserCourses(search: String? = null, progress: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getUserCourses(
                 search = search,
-                progress = if(progress == "all") null else progress
+                progress = if(progress == PROGRESS_ALL) null else progress
             ).collect {
                 _courses.postValue(it)
             }
         }
     }
 
-    fun onTabClicked(search: String? = null, progress: String) {
-        when (progress) {
-            PROGRESS_ALL, ON_PROGRESS, PROGRESS_FINISH -> getUserCourses(search, progress)
-        }
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun setSelectedProgress(progress: String) {
+        _selectedProgress.value = progress
     }
 }

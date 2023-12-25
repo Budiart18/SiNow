@@ -14,58 +14,30 @@ import kotlinx.coroutines.launch
 
 class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
 
-    companion object {
-        const val TYPE_ALL = "all"
-        const val TYPE_PREMIUM = "premium"
-        const val TYPE_FREE = "gratis"
-    }
-    private val selectedCategories = mutableListOf<Category>()
+
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
+
     val categories: LiveData<ResultWrapper<List<Category>>>
         get() = _categories
 
     private val _courses = MutableLiveData<ResultWrapper<List<Course>>>()
+
     val courses: LiveData<ResultWrapper<List<Course>>>
         get() = _courses
 
-    private val _appliedFilters = MutableLiveData<Filter>()
-    val appliedFilters: LiveData<Filter>
-        get() = _appliedFilters
+    private val _searchQuery = MutableLiveData<String>()
+    val searchQuery: LiveData<String>
+        get() = _searchQuery
 
-    fun getFilterCourses(search: String? = null, type: String? = null) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getCourses(
-                search = search,
-                type = if(type == "all") null else type
-            ).collect{
-                _courses.postValue(it)
-            }
-        }
-    }
+    private val _selectedType = MutableLiveData<String>()
+    val selectedType: LiveData<String>
+        get() = _selectedType
 
-    fun applyFilters(filter: Filter) {
-        viewModelScope.launch {
-            repository.getCobaFilter(filter).collect {
-            }
-            _appliedFilters.value = filter
-        }
-    }
+    private val _selectedCategories = MutableLiveData<List<Int>>()
+    val selectedCategories: LiveData<List<Int>?>
+        get() = _selectedCategories
 
-    fun onCategoryChecked(category: Category){
-        selectedCategories.add(category)
-    }
-    fun onCategoryUncheck(category: Category){
-        selectedCategories.remove(category)
-    }
-
-    fun getSelectedCategory() = selectedCategories.map { it.id }
-
-    fun onTabClicked(search: String? = null, type: String) {
-        when (type) {
-            TYPE_ALL, TYPE_PREMIUM, TYPE_FREE -> getFilterCourses(search, type)
-        }
-    }
 
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -74,5 +46,50 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
             }
         }
     }
+
+    fun getCourses(
+        search: String? = null,
+        type: String? = null,
+        category: List<Int>? = null,
+        level: List<String>? = null,
+        sortBy: String? = null
+    ) {
+        viewModelScope.launch {
+            repository.getCourses(
+                search = search,
+                type = if(type == "all") null else type,
+                category = category,
+                level = level,
+                sortBy = sortBy
+            ).collect {
+                _courses.postValue(it)
+            }
+        }
+    }
+
+    fun addSelectedCategory(category: Int) {
+        val updatedList = _selectedCategories.value.orEmpty().toMutableList()
+        updatedList.add(category)
+        _selectedCategories.value = updatedList.distinct()
+    }
+
+    fun removeSelectedCategory(category: Int) {
+        val updatedList = _selectedCategories.value.orEmpty().toMutableList()
+        updatedList.remove(category)
+        _selectedCategories.value = updatedList.distinct()
+    }
+
+    fun clearSelectedCategories() {
+        _selectedCategories.value = emptyList()
+    }
+
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun setSelectedType(type: String) {
+        _selectedType.value = type
+    }
+
 
 }

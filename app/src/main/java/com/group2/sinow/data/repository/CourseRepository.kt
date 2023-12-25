@@ -12,12 +12,10 @@ import com.group2.sinow.model.category.Category
 import com.group2.sinow.model.course.Course
 import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.model.transaction.TransactionData
-import com.group2.sinow.model.filter.Filter
 import com.group2.sinow.model.usermodule.ModuleData
 import com.group2.sinow.utils.ResultWrapper
 import com.group2.sinow.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onCompletion
 
 interface CourseRepository {
 
@@ -31,9 +29,13 @@ interface CourseRepository {
         sortBy: String? = null
     ): Flow<ResultWrapper<List<Course>>>
 
-    fun setFilters(filter: Filter)
-
-    fun getCobaFilter(filter: Filter): Flow<ResultWrapper<List<Course>>>
+    fun getCourses(
+        search: String?,
+        type: String?,
+        category: List<Int>?,
+        level: List<String>?,
+        sortBy: String?
+    ): Flow<ResultWrapper<List<Course>>>
 
     fun getDetailCourse(id: Int): Flow<ResultWrapper<CourseData?>>
 
@@ -49,11 +51,6 @@ class CourseRepositoryImpl(
     private val dataSource: SinowDataSource
 ) : CourseRepository {
 
-    private var filters: Filter
-
-    init {
-        filters = Filter()
-    }
 
     override fun getCategories(): Flow<ResultWrapper<List<Category>>> {
         return proceedFlow {
@@ -73,22 +70,16 @@ class CourseRepositoryImpl(
         }
     }
 
-    override fun setFilters(filter: Filter) {
-        filters = filter
-    }
 
-
-    override fun getCobaFilter(filter: Filter): Flow<ResultWrapper<List<Course>>> {
+    override fun getCourses(
+        search: String?,
+        type: String?,
+        category: List<Int>?,
+        level: List<String>?,
+        sortBy: String?
+    ): Flow<ResultWrapper<List<Course>>> {
         return proceedFlow {
-            dataSource.getCoursesFilter(
-                filter.selectedCategories,
-                filter.selectedLevels,
-                filter.sortBy
-            ).data?.toCourseList() ?: emptyList()
-        }.onCompletion {
-            if (it == null) {
-                setFilters(filter)
-            }
+            dataSource.getCourses(search, type, category, level, sortBy).data?.toCourseList() ?: emptyList()
         }
     }
 
