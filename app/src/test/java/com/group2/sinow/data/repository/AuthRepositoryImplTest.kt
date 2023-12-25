@@ -80,7 +80,6 @@ class AuthRepositoryImplTest {
         }
     }
 
-
     @Test
     fun `doLogin, result failed`() {
         // Arrange
