@@ -81,7 +81,7 @@ class AuthRepositoryImplTest {
     }
 
     @Test
-    fun `doLogin, result failed`() {
+    fun `doLogin, result error`() {
         // Arrange
         val exception = Exception("Network error")
         coEvery { dataSource.doLogin(any()) } throws exception
@@ -97,6 +97,28 @@ class AuthRepositoryImplTest {
 
                 // Assert
                 assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.doLogin(any()) }
+            }
+        }
+    }
+
+    @Test
+    fun `doLogin, result empty`() {
+        val fakeUser = LoginResponse(
+            status = "Failed",
+            message = "Email atau password salah",
+            null
+        )
+
+        runTest {
+            coEvery { dataSource.doLogin(any()) } returns fakeUser
+            repository.doLogin("user@gmail.com", "123456").map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload?.message, "Email atau password salah")
                 coVerify { dataSource.doLogin(any()) }
             }
         }
@@ -155,7 +177,7 @@ class AuthRepositoryImplTest {
     }
 
     @Test
-    fun `registerUser, result failed`() {
+    fun `registerUser, result error`() {
         // Arrange
         val exception = Exception("Network error")
         coEvery { dataSource.registerUser(any()) } throws exception
@@ -178,6 +200,34 @@ class AuthRepositoryImplTest {
 
                 // Assert
                 assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.registerUser(any()) }
+            }
+        }
+    }
+
+    @Test
+    fun `registerUser, email already registered`() {
+        val fakeUser = RegisterResponse(
+            status = "Failed",
+            message = "Email sudah terdaftar"
+        )
+
+        runTest {
+            coEvery { dataSource.registerUser(any()) } returns fakeUser
+            repository.registerUser(
+                RegisterRequest(
+                    "user",
+                    "user@gmail.com",
+                    "0812345789",
+                    "123456"
+                )
+            ).map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload?.message, "Email sudah terdaftar")
                 coVerify { dataSource.registerUser(any()) }
             }
         }
@@ -233,7 +283,7 @@ class AuthRepositoryImplTest {
     }
 
     @Test
-    fun `verifyEmail, result failed`() {
+    fun `verifyEmail, result error`() {
         // Arrange
         val exception = Exception("Network error")
         coEvery { dataSource.verifyEmail(any()) } throws exception
@@ -254,6 +304,33 @@ class AuthRepositoryImplTest {
 
                 // Assert
                 assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.verifyEmail(any()) }
+            }
+        }
+    }
+
+    @Test
+    fun `verifyEmail, result empty`() {
+        val fakeResponse = VerifyEmailResponse(
+            status = "Failed",
+            message = "Email atau password salah",
+            data = null
+        )
+
+        runTest {
+            coEvery { dataSource.verifyEmail(any()) } returns fakeResponse
+            repository.verifyEmail(
+                VerifyEmailRequest(
+                    "user@gmail.com",
+                    "123456"
+                )
+            ).map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload?.data, null)
                 coVerify { dataSource.verifyEmail(any()) }
             }
         }
@@ -298,7 +375,7 @@ class AuthRepositoryImplTest {
     }
 
     @Test
-    fun `resendOtp, result failed`() {
+    fun `resendOtp, result error`() {
         // Arrange
         val exception = Exception("Network error")
         coEvery { dataSource.resendOtp(any()) } throws exception
@@ -314,6 +391,27 @@ class AuthRepositoryImplTest {
 
                 // Assert
                 assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.resendOtp(any()) }
+            }
+        }
+    }
+
+    @Test
+    fun `resendOtp, result empty`() {
+        val fakeResponse = ResendOtpResponse(
+            status = "Failed",
+            message = "Email tidak terdaftar"
+        )
+
+        runTest {
+            coEvery { dataSource.resendOtp(any()) } returns fakeResponse
+            repository.resendOtp("user@gmail.com").map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload?.message, "Email tidak terdaftar")
                 coVerify { dataSource.resendOtp(any()) }
             }
         }
@@ -357,7 +455,7 @@ class AuthRepositoryImplTest {
     }
 
     @Test
-    fun `resetPassword, result failed`() {
+    fun `resetPassword, result error`() {
         // Arrange
         val exception = Exception("Network error")
         coEvery { dataSource.resetPassword(any()) } throws exception
@@ -373,6 +471,26 @@ class AuthRepositoryImplTest {
 
                 // Assert
                 assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.resetPassword(any()) }
+            }
+        }
+    }
+
+    @Test
+    fun `resetPassword, result empty`() {
+        val fakeResponse = ResetPasswordResponse(
+            email = ""
+        )
+
+        runTest {
+            coEvery { dataSource.resetPassword(any()) } returns fakeResponse
+            repository.resetPassword("").map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload?.email, "")
                 coVerify { dataSource.resetPassword(any()) }
             }
         }
