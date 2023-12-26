@@ -10,6 +10,12 @@ import com.group2.sinow.data.network.api.model.course.CourseCreatorResponse
 import com.group2.sinow.data.network.api.model.course.CourseItemResponse
 import com.group2.sinow.data.network.api.model.course.CoursesResponse
 import com.group2.sinow.data.network.api.model.detailcourse.DataResponse
+import com.group2.sinow.data.network.api.model.followcourse.FollowCourseResponse
+import com.group2.sinow.data.network.api.model.transaction.TransactionDataResponse
+import com.group2.sinow.data.network.api.model.transaction.TransactionRequest
+import com.group2.sinow.data.network.api.model.transaction.TransactionResponse
+import com.group2.sinow.data.network.api.model.usermodule.ModuleResponse
+import com.group2.sinow.data.network.api.model.usermodule.UserModuleDataResponse
 import com.group2.sinow.utils.ResultWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -389,7 +395,7 @@ class CourseRepositoryImplTest {
         val fakeCourseResponse = CoursesResponse(
             status = "Failed",
             message = "Data course tidak ditemukan",
-            data = null
+            data = emptyList()
         )
 
         runTest {
@@ -458,4 +464,268 @@ class CourseRepositoryImplTest {
         }
     }
 
+    @Test
+    fun `getUserModuleData, with result success`() {
+        val fakeDataResponse = UserModuleDataResponse(
+            status = "Success",
+            message = "Berhasil mengambil data user module",
+            data = com.group2.sinow.data.network.api.model.usermodule.DataResponse(
+                ModuleResponse(
+                    id = 1,
+                    no = 1,
+                    name = "Pengenalan",
+                    videoUrl = "https://sinow.id/storage/module/1.mp4"
+                )
+            )
+        )
+
+        runTest {
+            coEvery { dataSource.getUserModuleData(1, 1) } returns fakeDataResponse
+            repository.getUserModuleData(1, 1).map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Success)
+                assertEquals(data.payload?.id, 1)
+                coVerify { dataSource.getUserModuleData(1, 1) }
+            }
+        }
+    }
+
+    @Test
+    fun `getUserModuleData, with result error`() {
+        runTest {
+            coEvery {
+                dataSource.getUserModuleData(
+                    1,
+                    1
+                )
+            } throws IllegalStateException("Mock error")
+            repository.getUserModuleData(1, 1).map {
+                delay(100)
+                it
+            }.test {
+                delay(220)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.getUserModuleData(1, 1) }
+            }
+        }
+    }
+
+    @Test
+    fun `getUserModuleData, with result loading`() {
+        val mockResponse = mockk<UserModuleDataResponse>()
+
+        runTest {
+            coEvery { dataSource.getUserModuleData(1, 1) } returns mockResponse
+            repository.getUserModuleData(1, 1).map {
+                delay(100)
+                it
+            }.test {
+                delay(100)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Loading)
+                coVerify { dataSource.getUserModuleData(1, 1) }
+            }
+        }
+    }
+
+    @Test
+    fun `getUserModuleData, with result empty`() {
+        val fakeDataResponse = UserModuleDataResponse(
+            status = "Failed",
+            message = "Data user module tidak ditemukan",
+            data = null
+        )
+
+        runTest {
+            coEvery { dataSource.getUserModuleData(1, 1) } returns fakeDataResponse
+            repository.getUserModuleData(1, 1).map {
+                delay(100)
+                it
+            }.test {
+                delay(220)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload, null)
+                coVerify { dataSource.getUserModuleData(1, 1) }
+            }
+        }
+    }
+
+    @Test
+    fun `followCourse, with result success`() {
+        val fakeDataResponse = FollowCourseResponse(
+            status = "Success",
+            message = "Berhasil mengambil data follow course",
+        )
+
+        runTest {
+            coEvery { dataSource.followCourse(1) } returns fakeDataResponse
+            repository.followCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Success)
+                assertEquals(data.payload?.status, "Success")
+                coVerify { dataSource.followCourse(1) }
+            }
+        }
+    }
+
+    @Test
+    fun `followCourse, with result error`() {
+        runTest {
+            coEvery { dataSource.followCourse(1) } throws IllegalStateException("Mock error")
+            repository.followCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(220)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Error)
+                coVerify { dataSource.followCourse(1) }
+            }
+        }
+    }
+
+    @Test
+    fun `followCourse, with result loading`() {
+        val mockResponse = mockk<FollowCourseResponse>()
+
+        runTest {
+            coEvery { dataSource.followCourse(1) } returns mockResponse
+            repository.followCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(100)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Loading)
+                coVerify { dataSource.followCourse(1) }
+            }
+        }
+    }
+
+    @Test
+    fun `followCourse, with result empty`() {
+        val fakeDataResponse = FollowCourseResponse(
+            status = "Failed",
+            message = "Data follow course tidak ditemukan",
+        )
+
+        runTest {
+            coEvery { dataSource.followCourse(1) } returns fakeDataResponse
+            repository.followCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(220)
+                val data = expectMostRecentItem()
+                assertEquals(data.payload?.status, "Failed")
+                coVerify { dataSource.followCourse(1) }
+            }
+        }
+    }
+
+    @Test
+    fun `buyPremiumCourse, with result success`() {
+        val fakeDataResponse = TransactionResponse(
+            status = "Success",
+            message = "Berhasil mengambil data transaction",
+            data = TransactionDataResponse(
+                token = "token",
+                redirectUrl = "redirectUrl",
+                transactionDetail = null
+            )
+        )
+
+        runTest {
+            coEvery {
+                dataSource.buyPremiumCourse(
+                    TransactionRequest(
+                        courseId = 1,
+                    )
+                )
+            } returns fakeDataResponse
+            repository.buyPremiumCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(3000)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Success)
+                assertEquals(data.payload?.token, "token")
+                coVerify {
+                    dataSource.buyPremiumCourse(
+                        TransactionRequest(
+                            1
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `buyPremiumCourse, with result loading`() {
+        val mockResponse = mockk<TransactionResponse>()
+
+        runTest {
+            coEvery {
+                dataSource.buyPremiumCourse(
+                    TransactionRequest(
+                        courseId = 1,
+                    )
+                )
+            } returns mockResponse
+            repository.buyPremiumCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(100)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Loading)
+                coVerify {
+                    dataSource.buyPremiumCourse(
+                        TransactionRequest(
+                            1
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `buyPremiumCourse, with result error`() {
+        runTest {
+            coEvery {
+                dataSource.buyPremiumCourse(
+                    TransactionRequest(
+                        courseId = 1,
+                    )
+                )
+            } throws IllegalStateException("Mock error")
+            repository.buyPremiumCourse(1).map {
+                delay(100)
+                it
+            }.test {
+                delay(220)
+                val data = expectMostRecentItem()
+                assertTrue(data is ResultWrapper.Error)
+                coVerify {
+                    dataSource.buyPremiumCourse(
+                        TransactionRequest(
+                            1
+                        )
+                    )
+                }
+            }
+        }
+    }
 }
