@@ -1,14 +1,11 @@
-package com.group2.sinow.presentation.splashscreen
+package com.group2.sinow.presentation.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.databinding.ActivitySplashBinding
-import com.group2.sinow.presentation.introslider.IntroSliderActivity
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.group2.sinow.presentation.splash.intropage.IntroPageActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
@@ -22,17 +19,12 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        checkIfUserLogin()
+        checkShouldShowIntroPage()
     }
 
-    private fun checkIfUserLogin() {
-        lifecycleScope.launch {
-            delay(2000)
-            if (viewModel.isLoggedIn) {
-                navigateToMain()
-            } else {
-                navigateToIntroSlider()
-            }
+    private fun checkShouldShowIntroPage() {
+        viewModel.isFirstTime.observe(this){ isFirstTime ->
+            if (isFirstTime) navigateToIntroPage() else navigateToMain()
         }
     }
 
@@ -43,10 +35,11 @@ class SplashActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun navigateToIntroSlider() {
-        val intent = Intent(this, IntroSliderActivity::class.java).apply {
+    private fun navigateToIntroPage() {
+        val intent = Intent(this, IntroPageActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
         startActivity(intent)
     }
+
 }
