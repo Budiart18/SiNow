@@ -3,7 +3,6 @@ package com.group2.sinow.presentation.bottom_dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.DetailCourseViewModel
 import com.group2.sinow.presentation.payment.PaymentActivity
 import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
-import com.group2.sinow.presentation.transactionhistory.detailtransactionhistory.DetailTransactionHistoryActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import com.group2.sinow.utils.toCurrencyFormat
@@ -150,10 +148,13 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
 
     private fun navigateToPayment(redirectUrl: String?) {
         val intent = Intent(requireContext(), PaymentActivity::class.java).apply {
-            putExtra("URL", redirectUrl)
+            putExtra(URL, redirectUrl)
         }
         startActivity(intent)
     }
 
+    companion object {
+        const val URL = "URL"
+    }
 
 }

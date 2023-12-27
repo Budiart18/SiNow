@@ -1,6 +1,5 @@
 package com.group2.sinow.presentation.bottom_dialog
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -9,9 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.group2.sinow.presentation.main.MainActivity
+import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentStartLearningDialogBinding
-import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.DetailCourseViewModel
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
@@ -86,7 +84,8 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         sharedViewModel.isFollowingCourse.observe(this) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(requireContext(), "Berhasil Mengikuti Course", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.tv_toast_success_follow_class), Toast.LENGTH_SHORT).show()
                     dismiss()
                 },
                 doOnError = {

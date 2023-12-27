@@ -63,7 +63,7 @@ class ProfileActivity : AppCompatActivity() {
                     viewModel.toggleEditMode()
                     FancyToast.makeText(
                         this,
-                        "Berhasil mengupdate data user",
+                        getString(R.string.tv_toast_success_update_data_user),
                         FancyToast.LENGTH_LONG,
                         FancyToast.SUCCESS,
                         false

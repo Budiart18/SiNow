@@ -198,7 +198,7 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
                 else -> {
                     binding.itemInformation.tvResultPaymentStatus.text = getString(R.string.failed)
                     binding.btnNavigate.isVisible = false
-                    binding.btnCancel.isVisible = true
+                    binding.btnCancel.isVisible = false
                 }
             }
 
@@ -232,7 +232,7 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
 
     private fun navigateToPayment(redirectUrl: String?) {
         val intent = Intent(this, PaymentActivity::class.java).apply {
-            putExtra("URL", redirectUrl)
+            putExtra(URL, redirectUrl)
         }
         startActivity(intent)
 
@@ -249,6 +249,7 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
         const val BANK_TRANSFER = "bank_transfer"
         const val ECHANNEL = "echannel"
         const val CSTORE = "cstore"
+        const val URL = "URL"
 
         fun startActivity(context: Context, transactionId: String) {
             val intent = Intent(context, DetailTransactionHistoryActivity::class.java)

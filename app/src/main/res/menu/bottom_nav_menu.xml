@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Beranda" />
+        android:title="@string/tv_menu_home" />
 
     <item
         android:id="@+id/navigation_class"
         android:icon="@drawable/ic_class"
-        android:title="Kelas" />
+        android:title="@string/tv_menu_class" />
 
     <item
         android:id="@+id/navigation_course"
         android:icon="@drawable/ic_course"
-        android:title="Kursus" />
+        android:title="@string/tv_menu_course" />
 
 </menu>

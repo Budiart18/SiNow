@@ -220,7 +220,7 @@ class DetailCourseActivity : AppCompatActivity() {
             binding.tvRating.text = item.course?.rating.toString()
 
             val bundle = Bundle().apply {
-                putParcelable("COURSE_DATA", courseData)
+                putParcelable(COURSE_DATA, courseData)
             }
             val aboutClassFragment = AboutClassFragment()
             aboutClassFragment.arguments = bundle
@@ -279,7 +279,8 @@ class DetailCourseActivity : AppCompatActivity() {
     }
 
     private fun setTabLayout() {
-        val tabArray = arrayOf("Tentang", "Materi Kelas")
+        val tabArray = arrayOf(getString(R.string.tv_tab_detail_about),
+            getString(R.string.tv_tab_detail_material_class))
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
         val adapter = DetailViewPagerAdapter(supportFragmentManager, lifecycle)
@@ -298,6 +299,7 @@ class DetailCourseActivity : AppCompatActivity() {
         const val TYPE_GRATIS = "gratis"
         const val TYPE_PREMIUM = "premium"
         const val EXTRA_COURSE = "EXTRA_COURSE"
+        const val COURSE_DATA = "COURSE_DATA"
 
         fun startActivity(context: Context, courseId: Int?) {
             val intent = Intent(context, DetailCourseActivity::class.java)

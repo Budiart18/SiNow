@@ -2,7 +2,6 @@ package com.group2.sinow.presentation.course.filtercourse
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,14 +121,14 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         val selectedType = viewModel.selectedType.value
         val selectedCategories = viewModel.selectedCategories.value
         val selectedLevels = mutableListOf<String>().apply {
-            if ( binding.cbBeginner.isChecked) add("beginner")
-            if (binding.cbIntermediate.isChecked) add("intermediate")
-            if (binding.cbAdvance.isChecked) add("advanced")
+            if ( binding.cbBeginner.isChecked) add(BEGINNER_LEVEL)
+            if (binding.cbIntermediate.isChecked) add(INTERMEDIATE_LEVEL)
+            if (binding.cbAdvance.isChecked) add(ADVANCED_LEVEL)
         }
         val selectedSortBy = when (binding.topPicks.checkedRadioButtonId) {
-            R.id.rb_new -> "terbaru"
-            R.id.rb_popular -> "terpopuler"
-            R.id.rb_promo -> "promo"
+            R.id.rb_new -> NEW_SORT
+            R.id.rb_popular -> POPULAR_SORT
+            R.id.rb_promo -> PROMO_SORT
             else -> null
         }
         filterListener?.onFilterApplied(searchQuery, selectedType, selectedCategories, selectedLevels, selectedSortBy)
@@ -158,5 +157,14 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
                 }
             )
         }
+    }
+
+    companion object {
+        const val BEGINNER_LEVEL = "beginner"
+        const val INTERMEDIATE_LEVEL = "intermediate"
+        const val ADVANCED_LEVEL = "advanced"
+        const val NEW_SORT = "terbaru"
+        const val POPULAR_SORT = "terpopuler"
+        const val PROMO_SORT = "promo"
     }
 }
