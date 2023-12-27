@@ -9,7 +9,5 @@ class AccountFeatureViewModel(
     private val userPreferenceDataSource: UserPreferenceDataSource
 ): ViewModel() {
 
-    val userDarkModeLiveData = userPreferenceDataSource.getUserDarkModePrefFlow().asLiveData(
-        Dispatchers.IO
-    )
+    val userDarkMode = userPreferenceDataSource.getUserDarkModePrefFlow()
 }

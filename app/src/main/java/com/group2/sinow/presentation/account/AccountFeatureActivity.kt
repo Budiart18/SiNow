@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.lifecycle.asLiveData
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityAccountFeatureBinding
 import com.group2.sinow.presentation.account.settings.SettingsDialogFragment
@@ -17,6 +18,7 @@ import com.group2.sinow.presentation.profile.ProfileActivity
 import com.group2.sinow.presentation.profile.ProfileViewModel
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountFeatureActivity : AppCompatActivity() {
@@ -138,7 +140,7 @@ class AccountFeatureActivity : AppCompatActivity() {
     }
 
     private fun observeDarkModePref() {
-        accountFeatureViewModel.userDarkModeLiveData.observe(this) { isUsingDarkMode ->
+        accountFeatureViewModel.userDarkMode.asLiveData(Dispatchers.IO).observe(this) { isUsingDarkMode ->
             AppCompatDelegate.setDefaultNightMode(if (isUsingDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
         }
     }

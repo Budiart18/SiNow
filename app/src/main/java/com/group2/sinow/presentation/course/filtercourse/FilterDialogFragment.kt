@@ -22,14 +22,14 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
     private val categoryAdapter: CategoryFilterAdapter by lazy {
         CategoryFilterAdapter(object : CategoryItemListener {
             override fun onCategoryChecked(category: Category) {
-                viewModel.addSelectedCategory(category.id)
+                viewModel.addSelectedCategory(category)
             }
 
             override fun onCategoryUnchecked(category: Category) {
-                viewModel.removeSelectedCategory(category.id)
+                viewModel.removeSelectedCategory(category)
             }
 
-            override fun getSelectedCategories(): List<Int>? {
+            override fun getSelectedCategories(): List<Category>? {
                 return viewModel.selectedCategories.value
             }
         })
@@ -45,7 +45,7 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         fun onFilterApplied(
             search: String?,
             type: String?,
-            category: List<Int>?,
+            category: List<Category>?,
             level: List<String>?,
             sortBy: String?
         )
@@ -98,7 +98,7 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
     private fun resetFilter() {
         val searchQuery = null
         val selectedType = null
-        val selectedCategories = emptyList<Int>()
+        val selectedCategories = emptyList<Category>()
         viewModel.clearSelectedCategories()
 
         val selectedLevels = mutableListOf<String>().apply {

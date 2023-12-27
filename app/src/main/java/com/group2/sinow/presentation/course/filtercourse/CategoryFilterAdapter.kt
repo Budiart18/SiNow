@@ -55,5 +55,5 @@ interface CategoryItemListener {
     fun onCategoryChecked(category: Category)
     fun onCategoryUnchecked(category: Category)
 
-    fun getSelectedCategories() : List<Int>?
+    fun getSelectedCategories() : List<Category>?
 }

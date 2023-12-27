@@ -3,6 +3,7 @@ package com.group2.sinow.presentation.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.dummy.IntroPageDataSource
 import com.group2.sinow.data.local.UserPreferenceDataSource
@@ -17,6 +18,8 @@ class SplashViewModel(
 
     private val _isFirstTime = MutableLiveData<Boolean>()
     val isFirstTime: LiveData<Boolean> get() = _isFirstTime
+
+    val userDarkMode = userPreferenceDataSource.getUserDarkModePrefFlow()
 
     fun getIntroPageData() = introPageDataSource.getIntroPageData()
 

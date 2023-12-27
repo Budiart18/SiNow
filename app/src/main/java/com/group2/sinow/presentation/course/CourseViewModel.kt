@@ -34,8 +34,8 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
     val selectedType: LiveData<String>
         get() = _selectedType
 
-    private val _selectedCategories = MutableLiveData<List<Int>>()
-    val selectedCategories: LiveData<List<Int>?>
+    private val _selectedCategories = MutableLiveData<List<Category>>()
+    val selectedCategories: LiveData<List<Category>?>
         get() = _selectedCategories
 
 
@@ -67,13 +67,13 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
         }
     }
 
-    fun addSelectedCategory(category: Int) {
+    fun addSelectedCategory(category: Category) {
         val updatedList = _selectedCategories.value.orEmpty().toMutableList()
         updatedList.add(category)
         _selectedCategories.value = updatedList.distinct()
     }
 
-    fun removeSelectedCategory(category: Int) {
+    fun removeSelectedCategory(category: Category) {
         val updatedList = _selectedCategories.value.orEmpty().toMutableList()
         updatedList.remove(category)
         _selectedCategories.value = updatedList.distinct()

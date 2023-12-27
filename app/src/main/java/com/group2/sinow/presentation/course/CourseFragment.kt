@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.google.android.material.chip.Chip
+import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentCourseBinding
+import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.course.filtercourse.FilterDialogFragment
 import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.homepage.NonLoginUserDialogFragment
@@ -32,7 +36,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
 
     private var searchQuery: String? = null
     private var selectedType: String? = null
-    private var selectedCategories: List<Int>? = null
+    private var selectedCategories: List<Category>? = null
     private var selectedLevel: List<String>? = null
     private var selectedSortBy: String? = null
 
@@ -77,6 +81,59 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         observeFilterData()
         receivedArguments()
         refreshData()
+        //observeTextShowFilter()
+        buildChipItem()
+    }
+
+    private fun observeTextShowFilter() {
+        val filterText = buildFilterText()
+
+        if (filterText.isNotBlank()) {
+            binding.tvFilterResult.isVisible = true
+            binding.tvFilterResult.text = "Menampilkan $filterText"
+        } else {
+            binding.tvFilterResult.isVisible = false
+        }
+    }
+
+    private fun buildFilterText(): String {
+        val mapCategoryName = selectedCategories?.map {
+            it.categoryName
+        }?.joinToString(", ")
+        val mapCourseLevel = selectedLevel?.map {
+            it
+        }?.joinToString(", ")
+        val nonNullValues = listOfNotNull(searchQuery, mapCategoryName, mapCourseLevel, selectedSortBy)
+        return nonNullValues.joinToString(", ")
+    }
+
+    private fun buildChipItem() {
+        if (searchQuery != null) addChipToGroup(searchQuery)
+        if (selectedCategories != null) {
+            selectedCategories?.map {
+                addChipToGroup(it.categoryName)
+            }
+        }
+        if (selectedLevel != null) {
+            selectedLevel?.map {
+                addChipToGroup(it)
+            }
+        }
+        if (selectedSortBy != null) addChipToGroup(selectedSortBy)
+    }
+
+    private fun addChipToGroup(chipItem: String?) {
+        val chip = Chip(context)
+        chip.text = chipItem
+        chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
+        chip.isChipIconVisible = false
+        chip.isCloseIconVisible = true
+        chip.isClickable = true
+        chip.isCheckable = false
+        binding.chipGroup.addView(chip as View)
+        chip.setOnCloseIconClickListener {
+            binding.chipGroup.removeView(chip as View)
+        }
     }
 
 
@@ -88,10 +145,10 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     private fun receivedArguments() {
-        val category = arguments?.getInt(KEY_CATEGORY)
-        if (category == 0) {
+        val category = arguments?.getParcelable<Category>(KEY_CATEGORY)
+        if (category == null) {
             selectedCategories = null
-        } else if (category != null && category != 0) {
+        } else {
             selectedCategories = listOf(category)
             viewModel.addSelectedCategory(category)
         }
@@ -131,11 +188,14 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     private fun getData(
         search: String? = null,
         type: String? = null,
-        category: List<Int>? = null,
+        category: List<Category>? = null,
         level: List<String>? = null,
         sortBy: String? = null
     ) {
-        viewModel.getCourses(search, type, category, level, sortBy)
+        val categoryIdList = category?.map {
+            it.id
+        }
+        viewModel.getCourses(search, type, categoryIdList, level, sortBy)
     }
 
     private fun setupSearch() {
@@ -143,6 +203,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
             if (actionId == EditorInfo.IME_ACTION_SEARCH || event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 val searchQuery = binding.searchBar.etSearchBar.text.toString()
                 viewModel.setSearchQuery(searchQuery)
+                this.searchQuery = searchQuery
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
@@ -151,6 +212,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         binding.searchBar.ivSearchButton.setOnClickListener {
             val searchQuery = binding.searchBar.etSearchBar.text.toString()
             viewModel.setSearchQuery(searchQuery)
+            this.searchQuery = searchQuery
         }
     }
 
@@ -204,7 +266,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     override fun onFilterApplied(
         search: String?,
         type: String?,
-        category: List<Int>?,
+        category: List<Category>?,
         level: List<String>?,
         sortBy: String?
     ) {
@@ -212,7 +274,13 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         selectedCategories = category
         selectedLevel = level
         selectedSortBy = sortBy
-        viewModel.getCourses(searchQuery, selectedType, category, level, sortBy)
+        val categoryIdList = category?.map {
+            it.id
+        }
+        viewModel.getCourses(searchQuery, selectedType, categoryIdList, level, sortBy)
+        //observeTextShowFilter()
+        binding.chipGroup.removeAllViews()
+        buildChipItem()
     }
 
 
