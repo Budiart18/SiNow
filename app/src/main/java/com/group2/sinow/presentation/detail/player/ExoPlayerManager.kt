@@ -14,7 +14,7 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
 
     private var startAutoPlay = false
     private var startItemIndex = 0
-    private var startPosition : Long = 0
+    private var startPosition: Long = 0
 
     private var currentMediaItem: MediaItem? = null
 
@@ -27,7 +27,7 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
         }
     }
 
-    private fun initializePlayer() {
+    private fun initializePlayer(onFullScreenListener: (Boolean) -> Unit) {
         player = ExoPlayer.Builder(playerView.context)
             .build()
             .also { exoPlayer ->
@@ -35,6 +35,9 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
                     .buildUpon()
                     .setMaxVideoSizeSd()
                     .build()
+                playerView.setFullscreenButtonClickListener { isFullScreen ->
+                    onFullScreenListener(isFullScreen)
+                }
                 playerView.player = exoPlayer
             }
         val haveStartPosition = startItemIndex != C.INDEX_UNSET
@@ -44,8 +47,16 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
         play(currentMediaItem, haveStartPosition)
     }
 
-    override fun play(videoUrl: String) {
+    override fun play(videoUrl: String, onFullScreenListener: (Boolean) -> Unit) {
+        if (player != null && currentMediaItem != null) {
+            releasePlayer()
+        }
+        initializePlayer(onFullScreenListener)
         play(MediaItem.Builder().setUri(videoUrl).build(), false)
+    }
+
+    override fun release() {
+        releasePlayer()
     }
 
     private fun updateIndex() {
@@ -67,6 +78,7 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
             updateIndex()
             exoPlayer.release()
             player = null
+            currentMediaItem = null
             playerView.player = null
         }
     }
@@ -78,34 +90,28 @@ class ExoPlayerManager(private val playerView: PlayerView) : PlayerManager {
 
     override fun onStart(owner: LifecycleOwner) {
         super.onStart(owner)
-        if (Build.VERSION.SDK_INT > 23) {
-            initializePlayer()
-            playerView.onResume()
-        }
+        playerView.onResume()
     }
 
     override fun onStop(owner: LifecycleOwner) {
         super.onStop(owner)
-        if (Build.VERSION.SDK_INT > 23) {
-            playerView.onPause()
-            releasePlayer()
-        }
+        playerView.onPause()
+        releasePlayer()
     }
 
     override fun onPause(owner: LifecycleOwner) {
         super.onPause(owner)
-        if (Build.VERSION.SDK_INT <= 23) {
-            playerView.onPause()
-            releasePlayer()
-        }
+        playerView.onPause()
+        releasePlayer()
     }
 
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)
-        if (Build.VERSION.SDK_INT <= 23 || player == null) {
-            initializePlayer()
-            playerView.onResume()
-        }
+        playerView.onResume()
     }
 
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        releasePlayer()
+    }
 }

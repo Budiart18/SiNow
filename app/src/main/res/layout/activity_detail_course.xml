@@ -35,19 +35,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="Kelas Lainnya"
+                android:text="@string/text_other_class"
                 android:textColor="@color/color_background_light_mode"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <androidx.media3.ui.PlayerView
-            android:id="@+id/video_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_video_player_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="16:9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/ll_toolbar">
+
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:focusable="true"
+                android:keepScreenOn="true"
+                app:use_controller="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/container"
@@ -57,7 +67,7 @@
             android:fitsSystemWindows="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/video_view">
+            app:layout_constraintTop_toBottomOf="@id/cl_video_player_container">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
