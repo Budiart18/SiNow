@@ -87,6 +87,7 @@
                 android:id="@+id/et_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
                 android:background="@drawable/rounded_corners"
                 android:hint="@string/text_enter_your_name" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -120,6 +121,7 @@
                 android:id="@+id/et_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
                 android:background="@drawable/rounded_corners"
                 android:hint="@string/text_enter_your_email" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -152,6 +154,7 @@
                 android:id="@+id/et_profile_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
                 android:background="@drawable/rounded_corners"
                 android:hint="@string/text_enter_your_phone" />
 
@@ -184,6 +187,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_profile_country"
                 android:layout_width="match_parent"
+                android:backgroundTint="@color/white"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_corners"
                 android:hint="@string/text_enter_your_country" />
@@ -217,6 +221,7 @@
                 android:id="@+id/et_profile_city"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
                 android:background="@drawable/rounded_corners"
                 android:hint="@string/text_enter_your_city" />
         </com.google.android.material.textfield.TextInputLayout>
