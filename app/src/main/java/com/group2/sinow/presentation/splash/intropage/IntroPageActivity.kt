@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.introslider
+package com.group2.sinow.presentation.splash.intropage
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,30 +11,28 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityIntroSliderBinding
-import com.group2.sinow.model.introslider.IntroSliderItem
 import com.group2.sinow.presentation.auth.login.LoginActivity
+import com.group2.sinow.presentation.main.MainActivity
+import com.group2.sinow.presentation.splash.SplashViewModel
 import com.group2.sinow.utils.highLightWord
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class IntroSliderActivity : AppCompatActivity() {
+class IntroPageActivity : AppCompatActivity() {
 
     private val binding: ActivityIntroSliderBinding by lazy {
         ActivityIntroSliderBinding.inflate(layoutInflater)
     }
 
-    private val introSliderItems: List<IntroSliderItem> = listOf(
-        IntroSliderItem("SINOW", "Sinau dari pengalaman", R.drawable.introslider_icon1),
-        IntroSliderItem("SINOW", "Sinau dari mentor", R.drawable.introslider_icon2),
-        IntroSliderItem("SINOW", "Sinau darimana saja", R.drawable.introslider_icon3),
-    )
+    private val viewModel : SplashViewModel by viewModel()
 
-    private val introSliderAdapter :IntroSliderAdapter by lazy {
-        IntroSliderAdapter(introSliderItems)
+    private val introPageAdapter : IntroPageAdapter by lazy {
+        IntroPageAdapter(viewModel.getIntroPageData())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        binding.viewpagerIntroSlider.adapter = introSliderAdapter
+        binding.viewpagerIntroSlider.adapter = introPageAdapter
         setupIndicators()
         setCurrentIndicator(0)
         changePageViewPager()
@@ -46,6 +44,7 @@ class IntroSliderActivity : AppCompatActivity() {
             handleNextButtonClick()
         }
         binding.tvGoToLogin.highLightWord(getString(R.string.text_highlight_login_here)) {
+            viewModel.setShouldShowIntroPage(false)
             navigateToLogin()
         }
     }
@@ -58,15 +57,23 @@ class IntroSliderActivity : AppCompatActivity() {
     }
 
     private fun handleNextButtonClick() {
-        if (binding.viewpagerIntroSlider.currentItem + 1 < introSliderAdapter.itemCount) {
+        if (binding.viewpagerIntroSlider.currentItem + 1 < introPageAdapter.itemCount) {
             binding.viewpagerIntroSlider.currentItem += 1
         } else {
-            navigateToLogin()
+            viewModel.setShouldShowIntroPage(false)
+            navigateToMain()
         }
     }
 
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        startActivity(intent)
+    }
+
     private fun setupIndicators() {
-        val indicators = arrayOfNulls<ImageView>(introSliderAdapter.itemCount)
+        val indicators = arrayOfNulls<ImageView>(introPageAdapter.itemCount)
         val layoutParams: LinearLayout.LayoutParams =
             LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,

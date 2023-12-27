@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.introslider
+package com.group2.sinow.presentation.splash.intropage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.group2.sinow.databinding.IntroSliderItemBinding
 import com.group2.sinow.model.introslider.IntroSliderItem
 
-class IntroSliderAdapter(
+class IntroPageAdapter(
     private val introSlide: List<IntroSliderItem>
-) : RecyclerView.Adapter<IntroSliderAdapter.IntroSliderViewHolder>() {
+) : RecyclerView.Adapter<IntroPageAdapter.IntroSliderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IntroSliderViewHolder {
         val binding = IntroSliderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -4,6 +4,8 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.group2.sinow.data.local.appDataStore
 import com.group2.sinow.data.dummy.DummyNotificationDataSource
 import com.group2.sinow.data.dummy.DummyNotificationDataSourceImpl
+import com.group2.sinow.data.dummy.IntroPageDataSource
+import com.group2.sinow.data.dummy.IntroPageDataSourceImpl
 import com.group2.sinow.data.network.api.datasource.SinowApiDataSource
 import com.group2.sinow.data.network.api.datasource.SinowDataSource
 import com.group2.sinow.data.network.api.service.SinowApiService
@@ -31,7 +33,7 @@ import com.group2.sinow.presentation.notification.notificationlist.NotificationV
 import com.group2.sinow.presentation.transactionhistory.TransactionHistoryViewModel
 import com.group2.sinow.presentation.transactionhistory.detailtransactionhistory.DetailTransactionHistoryViewModel
 import com.group2.sinow.presentation.profile.ProfileViewModel
-import com.group2.sinow.presentation.splashscreen.SplashViewModel
+import com.group2.sinow.presentation.splash.SplashViewModel
 import com.group2.sinow.presentation.userclass.UserClassViewModel
 import com.group2.sinow.utils.PreferenceDataStoreHelper
 import com.group2.sinow.utils.PreferenceDataStoreHelperImpl
@@ -59,6 +61,7 @@ object AppModules {
         single<UserPreferenceDataSource> { UserPreferenceDataSourceImpl(get()) }
 
         single<DummyNotificationDataSource> { DummyNotificationDataSourceImpl() }
+        single<IntroPageDataSource> { IntroPageDataSourceImpl() }
     }
 
     private val repository = module {
@@ -85,8 +88,8 @@ object AppModules {
         viewModel {ForgotPasswordViewModel(get())}
         viewModel {TransactionHistoryViewModel(get())}
         viewModel { params -> DetailTransactionHistoryViewModel(params.get(), get()) }
-        viewModel { params -> DetailCourseViewModel(params.get(), get()) }
         viewModel {ForgotPasswordViewModel(get())}
+        viewModel { SplashViewModel(get(), get()) }
     }
 
 }

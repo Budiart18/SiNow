@@ -57,20 +57,19 @@
             android:name=".presentation.auth.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.introslider.IntroSliderActivity"
+            android:name=".presentation.splash.intropage.IntroPageActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.splashscreen.SplashActivity"
-            android:exported="true" />
-        <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="true">
+            android:name=".presentation.splash.SplashActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.splashscreen.SplashActivity">
+    android:background="@color/app_color_secondary"
+    tools:context=".presentation.splash.SplashActivity">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintHeight_percent="0.3"
-        android:src="@drawable/logo_sinow"
+        app:layout_constraintHeight_percent="0.2"
+        app:lottie_rawRes="@raw/sinow_splash"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
