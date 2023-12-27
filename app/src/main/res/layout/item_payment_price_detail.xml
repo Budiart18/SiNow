@@ -80,7 +80,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textColor="@color/app_color_secondary"
                     app:layout_constraintBottom_toBottomOf="@id/tv_item_title"
                     app:layout_constraintStart_toEndOf="@id/tv_item_title"
                     app:layout_constraintTop_toTopOf="@id/tv_item_title" />

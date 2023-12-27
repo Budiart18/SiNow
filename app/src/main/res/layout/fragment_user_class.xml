@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="Kelas Berjalan"
+            android:text="@string/tv_current_class"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_bar" />
@@ -53,7 +53,7 @@
                 android:background="@drawable/radio_btn_selector"
                 android:button="@drawable/null_radio_btn"
                 android:gravity="center"
-                android:text="All"
+                android:text="@string/tv_btn_all"
                 android:textColor="@drawable/radio_btn_text_selected" />
 
             <RadioButton
@@ -65,7 +65,7 @@
                 android:background="@drawable/radio_btn_selector"
                 android:button="@drawable/null_radio_btn"
                 android:gravity="center"
-                android:text="In Progress"
+                android:text="@string/tv_btn_in_progress"
                 android:textColor="@drawable/radio_btn_text_selected" />
 
             <RadioButton
@@ -76,7 +76,7 @@
                 android:background="@drawable/radio_btn_selector"
                 android:button="@drawable/null_radio_btn"
                 android:gravity="center"
-                android:text="Selesai"
+                android:text="@string/tv_btn_finish"
                 android:textColor="@drawable/radio_btn_text_selected" />
 
         </RadioGroup>

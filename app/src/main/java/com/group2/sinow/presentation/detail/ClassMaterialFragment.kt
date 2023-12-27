@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentClassMaterialBinding
 import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.viewitems.DataItemVideoChapter
@@ -51,7 +52,7 @@ class ClassMaterialFragment : Fragment() {
                         if (err.exception.httpCode == 403) {
                             Toast.makeText(
                                 requireActivity(),
-                                "Anda harus bayar dahulu",
+                                getString(R.string.tv_toast_you_have_to_pay_first),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

@@ -35,11 +35,11 @@ class DataItemVideoChapter(
     override fun bind(viewBinding: ItemListVideoChapterBinding, position: Int) {
         viewBinding.tvTitleUnlock.text = moduleName
         when (moduleStatus) {
-            "terbuka" -> {
+            STATUS_OPEN -> {
                 viewBinding.ivPlayVideo.setImageResource(R.drawable.ic_play)
             }
 
-            "terkunci" -> {
+            STATUS_LOCKED -> {
                 viewBinding.ivPlayVideo.setImageResource(R.drawable.ic_lock_video)
             }
 
@@ -55,4 +55,9 @@ class DataItemVideoChapter(
 
     override fun initializeViewBinding(view: View): ItemListVideoChapterBinding =
         ItemListVideoChapterBinding.bind(view)
+
+    companion object {
+        const val STATUS_OPEN = "terbuka"
+        const val STATUS_LOCKED = "terkunci"
+    }
 }

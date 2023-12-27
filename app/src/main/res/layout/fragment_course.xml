@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
             android:layout_marginStart="24dp"
-            android:text="Menampilkan “Advanced Level”"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_class_topic"
@@ -76,7 +75,7 @@
                 android:background="@drawable/radio_btn_selector"
                 android:button="@drawable/null_radio_btn"
                 android:gravity="center"
-                android:text="All"
+                android:text="@string/tv_btn_all"
                 android:textColor="@drawable/radio_btn_text_selected" />
 
             <RadioButton
@@ -88,7 +87,7 @@
                 android:background="@drawable/radio_btn_selector"
                 android:button="@drawable/null_radio_btn"
                 android:gravity="center"
-                android:text="Kelas Premium"
+                android:text="@string/tv_btn_class_premium"
                 android:textColor="@drawable/radio_btn_text_selected" />
 
             <RadioButton
@@ -99,7 +98,7 @@
                 android:background="@drawable/radio_btn_selector"
                 android:button="@drawable/null_radio_btn"
                 android:gravity="center"
-                android:text="Kelas Gratis"
+                android:text="@string/tv_btn_class_free"
                 android:textColor="@drawable/radio_btn_text_selected" />
 
         </RadioGroup>

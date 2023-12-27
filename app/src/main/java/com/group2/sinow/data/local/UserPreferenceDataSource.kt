@@ -10,6 +10,11 @@ interface UserPreferenceDataSource {
     fun getUserTokenFlow(): Flow<String>
     suspend fun getUserToken(): String
     suspend fun deleteToken()
+    suspend fun getUserDarkModePref(): Boolean
+    fun getUserDarkModePrefFlow(): Flow<Boolean>
+    suspend fun setUserDarkModePref(isUsingDarkMode: Boolean)
+
+    suspend fun clearUserPreferencesTheme()
 
     suspend fun setShouldShowIntroPage(isFirstTime: Boolean)
 
@@ -44,10 +49,27 @@ class UserPreferenceDataSourceImpl(private val preferenceHelper: PreferenceDataS
         return preferenceHelper.getPreference(PREF_SHOW_INTRO_PAGE, true)
     }
 
+    override suspend fun getUserDarkModePref(): Boolean {
+        return preferenceHelper.getFirstPreference(PREF_USER_DARK_MODE, false)
+    }
+
+    override fun getUserDarkModePrefFlow(): Flow<Boolean> {
+        return preferenceHelper.getPreference(PREF_USER_DARK_MODE, false)
+    }
+
+    override suspend fun setUserDarkModePref(isUsingDarkMode: Boolean) {
+        return preferenceHelper.putPreference(PREF_USER_DARK_MODE, isUsingDarkMode)
+    }
+
+    override suspend fun clearUserPreferencesTheme() {
+        return preferenceHelper.removePreference(PREF_USER_DARK_MODE)
+    }
+
 
     companion object {
         val PREF_USER_TOKEN = stringPreferencesKey("PREF_USER_TOKEN")
         val PREF_SHOW_INTRO_PAGE = booleanPreferencesKey("PREF_SHOW_INTRO_PAGE")
+        val PREF_USER_DARK_MODE = booleanPreferencesKey("PREF_USER_DARK_MODE")
     }
 
 }

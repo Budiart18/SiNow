@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">SiNow</string>
-    <string name="text_highlight_login_here">Masuk disini</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_oopps">Oopps!</string>
@@ -155,5 +154,38 @@
     <string name="text_detail_payment">Detail Pembayaran</string>
     <string name="tv_you_havent_taken_course_yet">Kamu belum mengikuti course</string>
     <string name="tv_you_dont_have_any_transaction">Anda belum memiliki transaksi apapun</string>
+    <string name="text_settings">Pengaturan</string>
+    <string name="tv_dark_mode">Model Gelap</string>
     <string name="text_other_class">Kelas Lainnya</string>
+    <string name="tv_already_have_an_account_login_here">Sudah punya akun? Masuk disini</string>
+    <string name="text_highlight_login_here">Masuk disini</string>
+    <string name="tv_lets_find_your_course">Mari temukan Kursusmu!</string>
+    <string name="tv_menu_home">Beranda</string>
+    <string name="tv_menu_class">Kelas</string>
+    <string name="tv_menu_course">Kursus</string>
+    <string name="tv_btn_all">All</string>
+    <string name="tv_btn_class_premium">Kelas Premium</string>
+    <string name="tv_btn_class_free">Kelas Gratis</string>
+    <string name="tv_current_class">Kelas Berjalan</string>
+    <string name="tv_btn_in_progress">In Progress</string>
+    <string name="tv_btn_finish">Selesai</string>
+    <string name="tv_sort_by">Sort by</string>
+    <string name="rb_sortby_newest">Paling Baru</string>
+    <string name="rb_sortby_most_popular">Paling Populer</string>
+    <string name="rb_sortby_promo">Promo</string>
+    <string name="tv_category">Kategori</string>
+    <string name="tv_difficulty_level">Level Kesulitan</string>
+    <string name="cb_beginner_level">Beginner Level</string>
+    <string name="cb_intermediate_level">Intermediate Level</string>
+    <string name="cb_advanced_level">Advanced Level</string>
+    <string name="tv_btn_apply_filter">Terapkan Filter</string>
+    <string name="tv_reset_filter">Hapus Filter</string>
+    <string name="tv_tab_detail_about">Tentang</string>
+    <string name="tv_tab_detail_material_class">Materi Kelas</string>
+    <string name="tv_are_you_sure_want_to_logout">Apakah kamu yakin ingin keluar akun ?</string>
+    <string name="tv_yes">Ya</string>
+    <string name="tv_no">Tidak</string>
+    <string name="tv_toast_success_update_data_user">Berhasil mengupdate data user</string>
+    <string name="tv_toast_you_have_to_pay_first">Anda harus bayar dahulu</string>
+    <string name="tv_toast_success_follow_class">Berhasil Mengikuti Course</string>
 </resources>

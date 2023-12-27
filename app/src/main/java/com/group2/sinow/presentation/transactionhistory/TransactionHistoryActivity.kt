@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityPaymentHistoryBinding
-import com.group2.sinow.model.paymenthistory.TransactionUser
-import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
 import com.group2.sinow.presentation.transactionhistory.detailtransactionhistory.DetailTransactionHistoryActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
@@ -24,7 +22,6 @@ class TransactionHistoryActivity : AppCompatActivity() {
         PaymentHistoryAdapter{ transactionUser ->
             transactionUser.id?.let { id -> navigateToDetailPayment(id) }
         }
-
     }
 
     private fun navigateToDetailPayment(transactionId: String) {

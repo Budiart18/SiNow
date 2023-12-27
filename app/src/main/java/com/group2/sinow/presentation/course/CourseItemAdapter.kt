@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.group2.sinow.R
-import com.group2.sinow.databinding.ItemGridCourseBinding
 import com.group2.sinow.databinding.ItemListCourseBinding
 import com.group2.sinow.model.course.Course
-import com.group2.sinow.utils.toCurrencyFormat
 
 class CourseItemAdapter(
     private val itemClick: (Course) -> Unit
@@ -87,7 +85,7 @@ class ItemListCourseViewHolder(
             binding.tvBtnBuy.text = item.type?.replaceFirstChar {
                 it.uppercase()
             }
-            if (item.type == "premium") {
+            if (item.type == TYPE_PREMIUM) {
                 binding.ivPremium.visibility = View.VISIBLE
             } else {
                 binding.ivPremium.visibility = View.GONE
@@ -96,6 +94,10 @@ class ItemListCourseViewHolder(
                 itemClick(item)
             }
         }
+    }
+
+    companion object {
+        const val TYPE_PREMIUM = "premium"
     }
 
 }
