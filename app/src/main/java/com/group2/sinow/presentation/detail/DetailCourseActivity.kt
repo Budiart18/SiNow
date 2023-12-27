@@ -2,13 +2,18 @@ package com.group2.sinow.presentation.detail
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
-import com.faltenreich.skeletonlayout.createSkeleton
 import com.google.android.material.tabs.TabLayoutMediator
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityDetailCourseBinding
@@ -17,8 +22,6 @@ import com.group2.sinow.presentation.bottom_dialog.BuyPremiumCourseDialogFragmen
 import com.group2.sinow.presentation.bottom_dialog.StartLearningDialogFragment
 import com.group2.sinow.presentation.detail.player.ExoPlayerManager
 import com.group2.sinow.presentation.detail.player.PlayerManager
-import com.group2.sinow.presentation.homepage.NonLoginUserDialogFragment
-import com.group2.sinow.utils.SkeletonConfigWrapper
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import com.group2.sinow.utils.toCurrencyFormat
@@ -34,15 +37,85 @@ class DetailCourseActivity : AppCompatActivity() {
         parametersOf(intent.extras ?: bundleOf())
     }
 
+    private val windowInsetsController: WindowInsetsControllerCompat by lazy {
+        WindowCompat.getInsetsController(window, window.decorView)
+    }
+
     private lateinit var playerManager: PlayerManager
+
+    private var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE
         observeData()
         setTabLayout()
         observeUserModuleData()
         setOnClickListener()
+    }
+
+    private fun checkFullScreen(): Boolean {
+        if (checkLandscapeOrientation()) {
+            changeOrientationToLandscape(false)
+        } else {
+            changeOrientationToLandscape(true)
+        }
+        return isFullScreen
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            enterFullScreen()
+        } else {
+            exitFullScreen()
+        }
+    }
+
+    private fun exitFullScreen() {
+        isFullScreen = false
+        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+        binding.llToolbar.isVisible = true
+        binding.clVideoPlayerContainer.isVisible = true
+        binding.videoView.isVisible = true
+        binding.container.isVisible = true
+        binding.layoutStateDetailCourse.root.isVisible = false
+        val params =
+            binding.clVideoPlayerContainer.layoutParams as ConstraintLayout.LayoutParams
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = 0
+        params.dimensionRatio = "16:9"
+        binding.clVideoPlayerContainer.layoutParams = params
+    }
+
+    private fun enterFullScreen() {
+        isFullScreen = true
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+        binding.llToolbar.isVisible = false
+        binding.clVideoPlayerContainer.isVisible = true
+        binding.videoView.isVisible = true
+        binding.container.isVisible = false
+        binding.layoutStateDetailCourse.root.isVisible = false
+        val params =
+            binding.clVideoPlayerContainer.layoutParams as ConstraintLayout.LayoutParams
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.clVideoPlayerContainer.layoutParams = params
+    }
+
+    fun changeOrientationToLandscape(shouldLandscape: Boolean) {
+        requestedOrientation = if (shouldLandscape) {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+    }
+
+    fun checkLandscapeOrientation(): Boolean {
+        val orientation = resources.configuration.orientation
+        return orientation == Configuration.ORIENTATION_LANDSCAPE
     }
 
     override fun onResume() {
@@ -56,6 +129,7 @@ class DetailCourseActivity : AppCompatActivity() {
         }
         binding.swipeRefresh.setOnRefreshListener {
             getData()
+            playerManager.release()
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -100,7 +174,11 @@ class DetailCourseActivity : AppCompatActivity() {
         viewModel.userModule.observe(this) { result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    it.payload?.videoUrl?.let { it1 -> playerManager.play(it1) }
+                    it.payload?.videoUrl?.let { it1 ->
+                        playerManager.play(it1) {
+                            checkFullScreen()
+                        }
+                    }
                 },
                 doOnError = { err ->
                     if (err.exception is ApiException) {
@@ -151,7 +229,11 @@ class DetailCourseActivity : AppCompatActivity() {
 
             playerManager = ExoPlayerManager(binding.videoView)
             this.lifecycle.addObserver(playerManager)
-            item.course?.videoPreviewUrl?.let { playerManager.play(it) }
+            item.course?.videoPreviewUrl?.let {
+                playerManager.play(it) {
+                    checkFullScreen()
+                }
+            }
 
             when (item.course?.type) {
                 TYPE_GRATIS -> {
@@ -186,7 +268,10 @@ class DetailCourseActivity : AppCompatActivity() {
     }
 
     private fun openBuyPremiumClass() {
-        BuyPremiumCourseDialogFragment().show(supportFragmentManager, "BuyPremiumCourseDialogFragment")
+        BuyPremiumCourseDialogFragment().show(
+            supportFragmentManager,
+            "BuyPremiumCourseDialogFragment"
+        )
     }
 
     private fun openStartLearningDialog() {

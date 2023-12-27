@@ -50,6 +50,7 @@
             android:name=".presentation.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|layoutDirection"
             android:name=".presentation.detail.DetailCourseActivity"
             android:exported="false" />
         <activity
