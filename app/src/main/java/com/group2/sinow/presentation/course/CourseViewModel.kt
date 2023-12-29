@@ -7,13 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.model.category.Category
 import com.group2.sinow.model.course.Course
-import com.group2.sinow.model.filter.Filter
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
-
+class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
 
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
@@ -39,6 +38,11 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
         get() = _selectedCategories
 
 
+    fun resetFilter() {
+        _selectedCategories.postValue(listOf())
+        _selectedType.postValue("")
+    }
+
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getCategories().collect {
@@ -57,7 +61,7 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
         viewModelScope.launch {
             repository.getCourses(
                 search = search,
-                type = if(type == "all") null else type,
+                type = if (type == "all") null else type,
                 category = category,
                 level = level,
                 sortBy = sortBy

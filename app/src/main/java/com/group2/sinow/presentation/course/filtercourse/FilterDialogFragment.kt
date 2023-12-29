@@ -12,23 +12,22 @@ import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class FilterDialogFragment : SuperBottomSheetFragment() {
 
     private lateinit var binding: FragmentFilterDialogBinding
 
-    private val viewModel: CourseViewModel by activityViewModel()
+    private val viewModel: CourseViewModel by lazy { requireParentFragment().getViewModel() }
 
     private val categoryAdapter: CategoryFilterAdapter by lazy {
         CategoryFilterAdapter(object : CategoryItemListener {
             override fun onCategoryChecked(category: Category) {
                 viewModel.addSelectedCategory(category)
             }
-
             override fun onCategoryUnchecked(category: Category) {
                 viewModel.removeSelectedCategory(category)
             }
-
             override fun getSelectedCategories(): List<Category>? {
                 return viewModel.selectedCategories.value
             }

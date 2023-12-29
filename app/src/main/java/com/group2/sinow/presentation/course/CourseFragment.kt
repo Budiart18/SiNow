@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentCourseBinding
 import com.group2.sinow.model.category.Category
@@ -81,32 +82,9 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         observeFilterData()
         receivedArguments()
         refreshData()
-        //observeTextShowFilter()
         buildChipItem()
+        viewModel.resetFilter()
     }
-
-    private fun observeTextShowFilter() {
-        val filterText = buildFilterText()
-
-        if (filterText.isNotBlank()) {
-            binding.tvFilterResult.isVisible = true
-            binding.tvFilterResult.text = "Menampilkan $filterText"
-        } else {
-            binding.tvFilterResult.isVisible = false
-        }
-    }
-
-    private fun buildFilterText(): String {
-        val mapCategoryName = selectedCategories?.map {
-            it.categoryName
-        }?.joinToString(", ")
-        val mapCourseLevel = selectedLevel?.map {
-            it
-        }?.joinToString(", ")
-        val nonNullValues = listOfNotNull(searchQuery, mapCategoryName, mapCourseLevel, selectedSortBy)
-        return nonNullValues.joinToString(", ")
-    }
-
     private fun buildChipItem() {
         if (searchQuery != null) addChipToGroup(searchQuery)
         if (selectedCategories != null) {
@@ -127,13 +105,8 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         chip.text = chipItem
         chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
         chip.isChipIconVisible = false
-        chip.isCloseIconVisible = true
-        chip.isClickable = true
         chip.isCheckable = false
         binding.chipGroup.addView(chip as View)
-        chip.setOnCloseIconClickListener {
-            binding.chipGroup.removeView(chip as View)
-        }
     }
 
 
@@ -278,7 +251,6 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
             it.id
         }
         viewModel.getCourses(searchQuery, selectedType, categoryIdList, level, sortBy)
-        //observeTextShowFilter()
         binding.chipGroup.removeAllViews()
         buildChipItem()
     }
