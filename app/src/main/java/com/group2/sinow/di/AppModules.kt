@@ -82,7 +82,7 @@ object AppModules {
         viewModel { RegisterViewModel(get()) }
         viewModel { OTPViewModel(get(), get()) }
         viewModel { LoginViewModel(get(), get()) }
-        viewModel { AllPopularCourseViewModel(get()) }
+        viewModel { AllPopularCourseViewModel(get(), get()) }
         viewModel { NotificationViewModel(get()) }
         viewModel { ProfileViewModel(get(), get()) }
         viewModel { ChangePasswordUserViewModel(get()) }

@@ -1,5 +1,6 @@
 package com.group2.sinow.presentation.allpopularcourse
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
@@ -9,6 +10,7 @@ import com.faltenreich.skeletonlayout.applySkeleton
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityAllPopularCourseBinding
 import com.group2.sinow.presentation.allpopularcourse.adapter.PopularCourseAdapter
+import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.homepage.NonLoginUserDialogFragment
 import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.utils.SkeletonConfigWrapper
@@ -32,8 +34,23 @@ class AllPopularCourseActivity : AppCompatActivity() {
 
     private val courseAdapter: PopularCourseAdapter by lazy {
         PopularCourseAdapter {
-            openNonLoginUserDialog()
+            itemCourseListener(it.id)
         }
+    }
+
+    private fun itemCourseListener(courseId: Int?) {
+        viewModel.userData.observe(this) { resultWrapper ->
+            if (resultWrapper.payload != null) {
+                navigateToDetailCourse(courseId)
+            } else {
+                openNonLoginUserDialog()
+            }
+        }
+    }
+
+
+    private fun navigateToDetailCourse(courseId: Int?) {
+        DetailCourseActivity.startActivity(this, courseId)
     }
 
     private var searchQuery: String? = null
@@ -92,6 +109,7 @@ class AllPopularCourseActivity : AppCompatActivity() {
     }
 
     private fun getData() {
+        viewModel.getUserData()
         viewModel.getCategories()
         getCourseData()
     }

@@ -130,7 +130,7 @@
                     android:text="@string/cb_intermediate_level"
                     android:textColor="?attr/colorOnPrimaryContainer" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <CheckBox
                     android:id="@+id/cb_advance"
                     style="@style/Widget.App.CheckBox"
                     android:layout_width="wrap_content"
