@@ -24,7 +24,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/text_registration_success"
         android:textAlignment="center"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/app_color_primary"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/iv_close" />

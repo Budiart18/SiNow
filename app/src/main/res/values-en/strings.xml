@@ -75,7 +75,7 @@
     <string name="discounted_price">- %s</string>
     <string name="waiting_for_payment">Waiting for Payment</string>
     <string name="pay_now">Pay Now</string>
-    <string name="finish">Finish</string>
+    <string name="finish">Paid</string>
     <string name="open_course">Open Class</string>
     <string name="failed">Failed</string>
     <string name="credit_card">Credit Card</string>
