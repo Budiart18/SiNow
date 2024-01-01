@@ -47,5 +47,4 @@ class CourseAdapter(
     fun submitData(data: List<Course>) {
         dataDiffer.submitList(data)
     }
-
 }

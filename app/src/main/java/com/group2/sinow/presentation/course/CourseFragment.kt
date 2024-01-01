@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.google.android.material.chip.Chip
+import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentCourseBinding
+import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.course.filtercourse.FilterDialogFragment
 import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.homepage.NonLoginUserDialogFragment
-import com.group2.sinow.presentation.profile.ProfileViewModel
+import com.group2.sinow.presentation.main.MainViewModel
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -28,11 +31,11 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
 
     private val viewModel: CourseViewModel by viewModel()
 
-    private val profileViewModel: ProfileViewModel by activityViewModel()
+    private val mainViewModel: MainViewModel by activityViewModel()
 
     private var searchQuery: String? = null
     private var selectedType: String? = null
-    private var selectedCategories: List<Int>? = null
+    private var selectedCategories: List<Category>? = null
     private var selectedLevel: List<String>? = null
     private var selectedSortBy: String? = null
 
@@ -43,7 +46,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     private fun itemCourseListener(courseId: Int?) {
-        profileViewModel.userData.observe(viewLifecycleOwner) { resultWrapper ->
+        mainViewModel.userData.observe(viewLifecycleOwner) { resultWrapper ->
             if (resultWrapper.payload != null) {
                 navigateToDetailCourse(courseId)
             } else {
@@ -61,7 +64,8 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCourseBinding.inflate(inflater, container, false)
@@ -77,8 +81,32 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         observeFilterData()
         receivedArguments()
         refreshData()
+        buildChipItem()
+        viewModel.resetFilter()
+    }
+    private fun buildChipItem() {
+        if (selectedCategories != null) {
+            selectedCategories?.map {
+                addChipToGroup(it.categoryName)
+            }
+        }
+        if (selectedLevel != null) {
+            selectedLevel?.map {
+                addChipToGroup(it)
+            }
+        }
+        if (selectedSortBy != null) addChipToGroup(selectedSortBy)
     }
 
+    private fun addChipToGroup(chipItem: String?) {
+        if (!chipItem.isNullOrBlank()) {
+            val chip = Chip(context, null, R.attr.CustomChipChoiceStyle)
+            chip.text = chipItem
+            chip.isChipIconVisible = false
+            chip.isCheckable = false
+            binding.chipGroup.addView(chip as View)
+        }
+    }
 
     private fun refreshData() {
         binding.swipeRefresh.setOnRefreshListener {
@@ -88,10 +116,10 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     private fun receivedArguments() {
-        val category = arguments?.getInt(KEY_CATEGORY)
-        if (category == 0) {
+        val category = arguments?.getParcelable<Category>(KEY_CATEGORY)
+        if (category == null) {
             selectedCategories = null
-        } else if (category != null && category != 0) {
+        } else {
             selectedCategories = listOf(category)
             viewModel.addSelectedCategory(category)
         }
@@ -99,10 +127,12 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         if (!query.isNullOrEmpty()) {
             searchQuery = query
             viewModel.setSearchQuery(query)
+            binding.searchBar.etSearchBar.setText(query)
         } else {
             searchQuery = null
         }
         getData(searchQuery, selectedType, selectedCategories, selectedLevel, selectedSortBy)
+        arguments = null
     }
 
     private fun observeFilterData() {
@@ -131,11 +161,14 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     private fun getData(
         search: String? = null,
         type: String? = null,
-        category: List<Int>? = null,
+        category: List<Category>? = null,
         level: List<String>? = null,
         sortBy: String? = null
     ) {
-        viewModel.getCourses(search, type, category, level, sortBy)
+        val categoryIdList = category?.map {
+            it.id
+        }
+        viewModel.getCourses(search, type, categoryIdList, level, sortBy)
     }
 
     private fun setupSearch() {
@@ -143,6 +176,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
             if (actionId == EditorInfo.IME_ACTION_SEARCH || event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 val searchQuery = binding.searchBar.etSearchBar.text.toString()
                 viewModel.setSearchQuery(searchQuery)
+                this.searchQuery = searchQuery
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
@@ -151,9 +185,9 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         binding.searchBar.ivSearchButton.setOnClickListener {
             val searchQuery = binding.searchBar.etSearchBar.text.toString()
             viewModel.setSearchQuery(searchQuery)
+            this.searchQuery = searchQuery
         }
     }
-
 
     private fun observeCourseList() {
         viewModel.courses.observe(viewLifecycleOwner) {
@@ -204,7 +238,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     override fun onFilterApplied(
         search: String?,
         type: String?,
-        category: List<Int>?,
+        category: List<Category>?,
         level: List<String>?,
         sortBy: String?
     ) {
@@ -212,9 +246,13 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         selectedCategories = category
         selectedLevel = level
         selectedSortBy = sortBy
-        viewModel.getCourses(searchQuery, selectedType, category, level, sortBy)
+        val categoryIdList = category?.map {
+            it.id
+        }
+        viewModel.getCourses(searchQuery, selectedType, categoryIdList, level, sortBy)
+        binding.chipGroup.removeAllViews()
+        buildChipItem()
     }
-
 
     companion object {
         const val TYPE_ALL = "all"

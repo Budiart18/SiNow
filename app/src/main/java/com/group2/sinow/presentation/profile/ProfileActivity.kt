@@ -18,7 +18,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.InputStream
 
-
 class ProfileActivity : AppCompatActivity() {
 
     private val binding: ActivityProfileBinding by lazy {

@@ -1,6 +1,5 @@
 package com.group2.sinow.presentation.detail.player
 
-import android.os.Build
 import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem

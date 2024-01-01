@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.data.repository.UserRepository
 import com.group2.sinow.model.profile.ProfileData
-import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ class ProfileViewModel(
 ) : ViewModel() {
 
     private val _userData = MutableLiveData<ResultWrapper<ProfileData>>()
-    val userData : LiveData<ResultWrapper<ProfileData>>
+    val userData: LiveData<ResultWrapper<ProfileData>>
         get() = _userData
 
     private val _changeProfileResult = MutableLiveData<ResultWrapper<Boolean>>()
@@ -36,7 +36,7 @@ class ProfileViewModel(
 
     fun getUserData() {
         viewModelScope.launch {
-            repository.getUserData().collect{
+            repository.getUserData().collect {
                 _userData.postValue(it)
             }
         }
@@ -50,13 +50,13 @@ class ProfileViewModel(
         image: MultipartBody.Part?
     ) {
         viewModelScope.launch {
-            repository.updateUserData(name, phoneNumber, country, city, image).collect{
+            repository.updateUserData(name, phoneNumber, country, city, image).collect {
                 _changeProfileResult.postValue(it)
             }
         }
     }
 
-    fun doLogout(){
+    fun doLogout() {
         viewModelScope.launch(Dispatchers.IO) {
             userPreferenceDataSource.deleteToken()
         }
@@ -65,5 +65,4 @@ class ProfileViewModel(
     fun toggleEditMode() {
         _isEditModeEnabled.value = _isEditModeEnabled.value?.not()
     }
-
 }

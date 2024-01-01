@@ -1,8 +1,7 @@
 package com.group2.sinow.data.network.api.model.userclass
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.userclass.UserCourses
 
 @Keep
@@ -66,7 +65,7 @@ fun Course.toUserCourses() = UserCourses(
     promo = this.promo ?: 0,
     totalUser = this.totalUser ?: 0,
     courseBy = this.courseBy.orEmpty(),
-    createdBy = this.createdBy ?:0,
+    createdBy = this.createdBy ?: 0,
     createdAt = this.createdAt.orEmpty(),
     updatedAt = this.updatedAt.orEmpty(),
     category = this.category?.toUserCourseCategory()

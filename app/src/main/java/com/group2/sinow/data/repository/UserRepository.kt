@@ -2,10 +2,9 @@ package com.group2.sinow.data.repository
 
 import com.group2.sinow.data.network.api.datasource.SinowDataSource
 import com.group2.sinow.data.network.api.model.changepassword.ChangePasswordRequest
-
-import com.group2.sinow.data.network.api.model.transactionhistory.toTransactionList
 import com.group2.sinow.data.network.api.model.profile.toProfileData
 import com.group2.sinow.data.network.api.model.transactionhistory.toItemTransaction
+import com.group2.sinow.data.network.api.model.transactionhistory.toTransactionList
 import com.group2.sinow.data.network.api.model.userclass.toUserListCourseData
 import com.group2.sinow.model.paymenthistory.TransactionUser
 import com.group2.sinow.model.profile.ProfileData
@@ -26,25 +25,24 @@ interface UserRepository {
         country: RequestBody?,
         city: RequestBody?,
         image: MultipartBody.Part?
-    ) : Flow<ResultWrapper<Boolean>>
+    ): Flow<ResultWrapper<Boolean>>
 
     fun changePassword(
         oldPassword: String?,
         newPassword: String?,
         confirmNewPassword: String?
-    ) : Flow<ResultWrapper<Boolean>>
+    ): Flow<ResultWrapper<Boolean>>
 
     fun getUserCourses(
         search: String? = null,
         progress: String? = null
-    ) : Flow<ResultWrapper<List<UserCourseData>>>
+    ): Flow<ResultWrapper<List<UserCourseData>>>
 
-    fun getUserTransactionHistory() : Flow<ResultWrapper<List<TransactionUser>>>
+    fun getUserTransactionHistory(): Flow<ResultWrapper<List<TransactionUser>>>
 
-    fun getUserDetailTransaction(id: String) : Flow<ResultWrapper<TransactionUser>>
+    fun getUserDetailTransaction(id: String): Flow<ResultWrapper<TransactionUser>>
 
-    fun deleteTransaction(transactionId: String) : Flow<ResultWrapper<Boolean>>
-
+    fun deleteTransaction(transactionId: String): Flow<ResultWrapper<Boolean>>
 }
 
 class UserRepositoryImpl(
@@ -85,7 +83,6 @@ class UserRepositoryImpl(
         return proceedFlow {
             dataSource.getUserTransactionHistory().data?.transactions?.toTransactionList()
                 ?: emptyList()
-
         }
     }
 
@@ -96,11 +93,10 @@ class UserRepositoryImpl(
     }
 
     override fun deleteTransaction(transactionId: String): Flow<ResultWrapper<Boolean>> {
-        return proceedFlow{
+        return proceedFlow {
             dataSource.deleteTransaction(transactionId).status == "Success"
         }
     }
-
 
     override fun getUserCourses(
         search: String?,
@@ -110,5 +106,4 @@ class UserRepositoryImpl(
             dataSource.getUserCourse(search, progress).data?.toUserListCourseData() ?: emptyList()
         }
     }
-
 }

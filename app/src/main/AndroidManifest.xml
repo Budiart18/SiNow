@@ -7,9 +7,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo_sinow"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo_sinow"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiNow"
         tools:targetApi="31">
@@ -23,7 +23,7 @@
             android:name=".presentation.auth.otp.OTPActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.change_password.ChangePasswordUserActivity"
+            android:name=".presentation.changepassword.ChangePasswordUserActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.account.AccountFeatureActivity"

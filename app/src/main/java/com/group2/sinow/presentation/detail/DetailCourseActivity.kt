@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
@@ -18,11 +18,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityDetailCourseBinding
 import com.group2.sinow.model.detailcourse.CourseData
-import com.group2.sinow.presentation.bottom_dialog.BuyPremiumCourseDialogFragment
-import com.group2.sinow.presentation.bottom_dialog.StartLearningDialogFragment
+import com.group2.sinow.presentation.bottomdialog.BuyPremiumCourseDialogFragment
+import com.group2.sinow.presentation.bottomdialog.StartLearningDialogFragment
 import com.group2.sinow.presentation.detail.player.ExoPlayerManager
 import com.group2.sinow.presentation.detail.player.PlayerManager
 import com.group2.sinow.utils.exceptions.ApiException
+import com.group2.sinow.utils.formatSecondsToMinutes
 import com.group2.sinow.utils.proceedWhen
 import com.group2.sinow.utils.toCurrencyFormat
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,7 +50,7 @@ class DetailCourseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         windowInsetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         observeData()
         setTabLayout()
         observeUserModuleData()
@@ -88,6 +89,7 @@ class DetailCourseActivity : AppCompatActivity() {
         params.height = 0
         params.dimensionRatio = "16:9"
         binding.clVideoPlayerContainer.layoutParams = params
+        binding.clBtnBuy.isVisible = true
     }
 
     private fun enterFullScreen() {
@@ -103,14 +105,16 @@ class DetailCourseActivity : AppCompatActivity() {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT
         params.height = ViewGroup.LayoutParams.MATCH_PARENT
         binding.clVideoPlayerContainer.layoutParams = params
+        binding.clBtnBuy.isVisible = false
     }
 
     fun changeOrientationToLandscape(shouldLandscape: Boolean) {
-        requestedOrientation = if (shouldLandscape) {
-            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        } else {
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
+        requestedOrientation =
+            if (shouldLandscape) {
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            } else {
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            }
     }
 
     fun checkLandscapeOrientation(): Boolean {
@@ -143,6 +147,7 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.root.isVisible = false
                     binding.layoutStateDetailCourse.loadingAnimation.isVisible = false
                     binding.layoutStateDetailCourse.tvError.isVisible = false
+                    binding.clBtnBuy.isVisible = true
                     bindDetailCourse(it.payload)
                 },
                 doOnLoading = {
@@ -151,6 +156,7 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.tvError.isVisible = false
                     binding.container.isVisible = false
                     binding.btnBuyClass.isVisible = false
+                    binding.clBtnBuy.isVisible = false
                 },
                 doOnError = {
                     binding.container.isVisible = false
@@ -158,6 +164,7 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.root.isVisible = true
                     binding.layoutStateDetailCourse.loadingAnimation.isVisible = false
                     binding.layoutStateDetailCourse.tvError.isVisible = true
+                    binding.clBtnBuy.isVisible = false
                     if (it.exception is ApiException) {
                         Toast.makeText(
                             this,
@@ -202,26 +209,31 @@ class DetailCourseActivity : AppCompatActivity() {
         courseData?.let { item ->
             binding.tvTitle.text = item.course?.category?.name
             binding.tvDetailTitle.text = item.course?.name
-            binding.tvBy.text = getString(
-                R.string.format_course_by,
-                item.course?.courseBy
-            )
-            binding.tvLevel.text = item.course?.level?.replaceFirstChar {
-                it.uppercase()
-            }
-            binding.tvModul.text = getString(
-                R.string.format_course_module,
-                item.course?.totalModule
-            )
-            binding.tvTime.text = getString(
-                R.string.format_course_duration,
-                item.course?.totalDuration
-            )
+            binding.tvBy.text =
+                getString(
+                    R.string.format_course_by,
+                    item.course?.courseBy
+                )
+            binding.tvLevel.text =
+                item.course?.level?.replaceFirstChar {
+                    it.uppercase()
+                }
+            binding.tvModul.text =
+                getString(
+                    R.string.format_course_module,
+                    item.course?.totalModule
+                )
+            binding.tvTime.text =
+                getString(
+                    R.string.format_course_duration,
+                    item.course?.totalDuration?.let { formatSecondsToMinutes(it) }
+                )
             binding.tvRating.text = item.course?.rating.toString()
 
-            val bundle = Bundle().apply {
-                putParcelable(COURSE_DATA, courseData)
-            }
+            val bundle =
+                Bundle().apply {
+                    putParcelable(COURSE_DATA, courseData)
+                }
             val aboutClassFragment = AboutClassFragment()
             aboutClassFragment.arguments = bundle
             val materialClassFragment = ClassMaterialFragment()
@@ -238,10 +250,12 @@ class DetailCourseActivity : AppCompatActivity() {
             when (item.course?.type) {
                 TYPE_GRATIS -> {
                     if (item.isFollowing == true) {
-                        binding.btnBuyClass.isVisible = false
+                        binding.clBtnBuy.isVisible = false
                     } else {
-                        binding.btnBuyClass.isVisible = true
-                        binding.btnBuyClass.text = getString(R.string.text_follow_class)
+                        binding.clBtnBuy.isVisible = true
+                        binding.tvTotalPrice.isVisible = false
+                        binding.tvCoursePrice.text = getString(R.string.text_free)
+                        binding.tvBtnBuy.text = getString(R.string.text_follow_class)
                         binding.btnBuyClass.setOnClickListener {
                             openStartLearningDialog()
                         }
@@ -250,14 +264,13 @@ class DetailCourseActivity : AppCompatActivity() {
 
                 TYPE_PREMIUM -> {
                     if (item.isFollowing == true && item.isAccessible == true) {
-                        binding.btnBuyClass.isVisible = false
+                        binding.clBtnBuy.isVisible = false
                     } else {
-                        binding.btnBuyClass.isVisible = true
-                        binding.btnBuyClass.text =
-                            getString(
-                                R.string.text_buy_class,
-                                item.course.price?.toDouble()?.toCurrencyFormat()
-                            )
+                        binding.clBtnBuy.isVisible = true
+                        binding.tvBtnBuy.text =
+                            getString(R.string.text_buy_class)
+                        binding.tvTotalPrice.isVisible = true
+                        binding.tvCoursePrice.text = item.course.price?.toDouble()?.toCurrencyFormat()
                         binding.btnBuyClass.setOnClickListener {
                             openBuyPremiumClass()
                         }
@@ -279,8 +292,11 @@ class DetailCourseActivity : AppCompatActivity() {
     }
 
     private fun setTabLayout() {
-        val tabArray = arrayOf(getString(R.string.tv_tab_detail_about),
-            getString(R.string.tv_tab_detail_material_class))
+        val tabArray =
+            arrayOf(
+                getString(R.string.tv_tab_detail_about),
+                getString(R.string.tv_tab_detail_material_class)
+            )
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
         val adapter = DetailViewPagerAdapter(supportFragmentManager, lifecycle)
@@ -301,7 +317,10 @@ class DetailCourseActivity : AppCompatActivity() {
         const val EXTRA_COURSE = "EXTRA_COURSE"
         const val COURSE_DATA = "COURSE_DATA"
 
-        fun startActivity(context: Context, courseId: Int?) {
+        fun startActivity(
+            context: Context,
+            courseId: Int?
+        ) {
             val intent = Intent(context, DetailCourseActivity::class.java)
             intent.putExtra(EXTRA_COURSE, courseId)
             context.startActivity(intent)

@@ -1,12 +1,12 @@
 package com.group2.sinow.presentation.auth.forgotpassword
 
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.group2.sinow.databinding.ActivityForgotPasswordBinding
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -15,7 +15,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private val viewModel: ForgotPasswordViewModel by viewModel()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     }
                 }
 
-
             )
         }
     }
@@ -60,6 +58,4 @@ class ForgotPasswordActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
-
-
 }

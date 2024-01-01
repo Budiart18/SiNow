@@ -11,17 +11,12 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.group2.sinow.databinding.ActivityPaymentBinding
-import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class PaymentActivity : AppCompatActivity() {
 
     private val binding: ActivityPaymentBinding by lazy {
         ActivityPaymentBinding.inflate(layoutInflater)
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +30,6 @@ class PaymentActivity : AppCompatActivity() {
         binding.btnCloseSnap.setOnClickListener {
             onBackPressed()
         }
-
-
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -47,14 +40,14 @@ class PaymentActivity : AppCompatActivity() {
 
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
-                request: WebResourceRequest?,
+                request: WebResourceRequest?
             ): Boolean {
                 val requestUrl = request?.url.toString()
-                if (requestUrl.contains("gojek://")
-                    || requestUrl.contains("shopeeid://")
-                    || requestUrl.contains("//wsa.wallet.airpay.co.id/")
-                    || requestUrl.contains("/gopay/partner/")
-                    || requestUrl.contains("/shopeepay/")
+                if (requestUrl.contains("gojek://") ||
+                    requestUrl.contains("shopeeid://") ||
+                    requestUrl.contains("//wsa.wallet.airpay.co.id/") ||
+                    requestUrl.contains("/gopay/partner/") ||
+                    requestUrl.contains("/shopeepay/")
                 ) {
                     val intent = Intent(Intent.ACTION_VIEW, request?.url)
                     startActivity(intent)
@@ -74,7 +67,6 @@ class PaymentActivity : AppCompatActivity() {
                 pd.hide()
                 super.onPageFinished(view, url)
             }
-
         }
         webView.settings.loadsImagesAutomatically = true
         webView.settings.javaScriptEnabled = true
@@ -85,6 +77,4 @@ class PaymentActivity : AppCompatActivity() {
             binding.swipeRefresh.isRefreshing = false
         }
     }
-
-
 }

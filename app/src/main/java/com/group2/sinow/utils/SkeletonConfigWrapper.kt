@@ -17,5 +17,4 @@ class SkeletonConfigWrapper(private val appContext: Context) {
         shimmerDirection = SkeletonShimmerDirection.LEFT_TO_RIGHT,
         shimmerAngle = 45
     )
-
 }

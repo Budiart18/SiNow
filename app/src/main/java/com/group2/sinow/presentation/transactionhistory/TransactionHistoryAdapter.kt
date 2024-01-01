@@ -13,7 +13,8 @@ import com.group2.sinow.databinding.ItemListCourseBinding
 import com.group2.sinow.model.paymenthistory.TransactionUser
 
 class PaymentHistoryAdapter(
-    val itemClick: (TransactionUser) -> Unit) :
+    val itemClick: (TransactionUser) -> Unit
+) :
     RecyclerView.Adapter<PaymentHistoryViewHolder>() {
 
     private val dataDiffer =
@@ -65,8 +66,6 @@ class PaymentHistoryViewHolder(
         private const val STATUS_SUCCESS = "SUDAH_BAYAR"
         private const val STATUS_EXPIRED = "KADALUARSA"
         private const val STATUS_WAITING = "BELUM_BAYAR"
-
-
     }
 
     fun bind(item: TransactionUser) {
@@ -115,12 +114,9 @@ class PaymentHistoryViewHolder(
                 }
             }
 
-
             itemView.setOnClickListener {
                 itemClick(item)
             }
-
         }
-
     }
 }

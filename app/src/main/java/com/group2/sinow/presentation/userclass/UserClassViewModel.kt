@@ -32,7 +32,7 @@ class UserClassViewModel(private val repository: UserRepository) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getUserCourses(
                 search = search,
-                progress = if(progress == PROGRESS_ALL) null else progress
+                progress = if (progress == PROGRESS_ALL) null else progress
             ).collect {
                 _courses.postValue(it)
             }

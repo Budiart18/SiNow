@@ -41,7 +41,9 @@
 
         <argument
             android:name="selectedCategory"
-            app:argType="integer"/>
+            app:argType="com.group2.sinow.model.category.Category"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <dialog
         android:id="@+id/filterDialogFragment"

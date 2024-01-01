@@ -1,19 +1,14 @@
 package com.group2.sinow.presentation.allpopularcourse
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityAllPopularCourseBinding
 import com.group2.sinow.presentation.allpopularcourse.adapter.PopularCourseAdapter
-import com.group2.sinow.presentation.course.CourseFragment
-import com.group2.sinow.presentation.homepage.HomeFragmentDirections
 import com.group2.sinow.presentation.homepage.NonLoginUserDialogFragment
 import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.utils.SkeletonConfigWrapper
@@ -23,11 +18,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllPopularCourseActivity : AppCompatActivity() {
 
-    private val binding : ActivityAllPopularCourseBinding by lazy {
+    private val binding: ActivityAllPopularCourseBinding by lazy {
         ActivityAllPopularCourseBinding.inflate(layoutInflater)
     }
 
-    private val viewModel : AllPopularCourseViewModel by viewModel()
+    private val viewModel: AllPopularCourseViewModel by viewModel()
 
     private val categoryAdapter: PopularCourseCategoryAdapter by lazy {
         PopularCourseCategoryAdapter {
@@ -75,7 +70,6 @@ class AllPopularCourseActivity : AppCompatActivity() {
             refreshData()
         }
     }
-
 
     private fun refreshData() {
         getCourseData(searchQuery, selectedCategory)
@@ -179,5 +173,4 @@ class AllPopularCourseActivity : AppCompatActivity() {
     private fun openNonLoginUserDialog() {
         NonLoginUserDialogFragment().show(supportFragmentManager, null)
     }
-
 }

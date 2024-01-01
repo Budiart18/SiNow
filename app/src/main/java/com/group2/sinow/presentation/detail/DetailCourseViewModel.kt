@@ -38,9 +38,9 @@ class DetailCourseViewModel(
     val buyPremiumCourseResult: LiveData<ResultWrapper<TransactionData>>
         get() = _buyPremiumCourseResult
 
-    fun getDetailCourse(id : Int) {
+    fun getDetailCourse(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getDetailCourse(id).collect{
+            repository.getDetailCourse(id).collect {
                 _detailCourse.postValue(it)
             }
         }
@@ -48,7 +48,7 @@ class DetailCourseViewModel(
 
     fun getUserModule(courseId: Int?, userModuleId: Int?) {
         viewModelScope.launch {
-            repository.getUserModuleData(courseId, userModuleId).collect{
+            repository.getUserModuleData(courseId, userModuleId).collect {
                 _userModule.postValue(it)
             }
         }
@@ -56,7 +56,7 @@ class DetailCourseViewModel(
 
     fun followCourse(courseId: Int?) {
         viewModelScope.launch {
-            repository.followCourse(courseId).collect{
+            repository.followCourse(courseId).collect {
                 _isFollowingCourse.postValue(it)
             }
         }
@@ -64,10 +64,9 @@ class DetailCourseViewModel(
 
     fun buyPremiumCourse(courseId: Int?) {
         viewModelScope.launch {
-            repository.buyPremiumCourse(courseId).collect{
+            repository.buyPremiumCourse(courseId).collect {
                 _buyPremiumCourseResult.postValue(it)
             }
         }
     }
-
 }

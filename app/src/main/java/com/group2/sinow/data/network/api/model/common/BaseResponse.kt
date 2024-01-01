@@ -6,5 +6,5 @@ data class BaseResponse(
     @SerializedName("status")
     val status: String?,
     @SerializedName("message")
-    val message: String?,
+    val message: String?
 )

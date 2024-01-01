@@ -15,7 +15,6 @@ import com.group2.sinow.utils.ResultWrapper
 import com.group2.sinow.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-
 interface AuthRepository {
 
     fun doLogin(email: String, password: String): Flow<ResultWrapper<LoginResponse>>
@@ -29,16 +28,15 @@ interface AuthRepository {
     fun resetPassword(email: String): Flow<ResultWrapper<ResetPasswordResponse>>
 }
 
-class AuthRepositoryImpl(private val dataSource: SinowDataSource
-):AuthRepository{
-
+class AuthRepositoryImpl(
+    private val dataSource: SinowDataSource
+) : AuthRepository {
 
     override fun doLogin(email: String, password: String): Flow<ResultWrapper<LoginResponse>> {
         return proceedFlow {
             dataSource.doLogin(LoginRequest(email, password))
         }
     }
-
 
     override fun registerUser(registerRequest: RegisterRequest): Flow<ResultWrapper<RegisterResponse>> {
         return proceedFlow {
@@ -63,5 +61,4 @@ class AuthRepositoryImpl(private val dataSource: SinowDataSource
             dataSource.resetPassword(ResetPasswordRequest(email))
         }
     }
-
 }

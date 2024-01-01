@@ -26,5 +26,5 @@ data class Course(
     val updatedAt: String?,
     val category: CourseCategory?,
     val courseCreator: CourseCreator?,
-    val benefits: List<CourseBenefit?>?,
+    val benefits: List<CourseBenefit?>?
 ) : Parcelable

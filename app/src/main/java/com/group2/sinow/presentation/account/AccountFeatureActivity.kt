@@ -1,27 +1,29 @@
 package com.group2.sinow.presentation.account
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.lifecycle.asLiveData
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityAccountFeatureBinding
 import com.group2.sinow.presentation.account.settings.SettingsDialogFragment
 import com.group2.sinow.presentation.auth.login.LoginActivity
 import com.group2.sinow.presentation.auth.register.RegisterActivity
-import com.group2.sinow.presentation.change_password.ChangePasswordUserActivity
-import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
+import com.group2.sinow.presentation.changepassword.ChangePasswordUserActivity
 import com.group2.sinow.presentation.profile.ProfileActivity
 import com.group2.sinow.presentation.profile.ProfileViewModel
+import com.group2.sinow.presentation.transactionhistory.TransactionHistoryActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountFeatureActivity : AppCompatActivity() {
 
-    private val binding : ActivityAccountFeatureBinding by lazy {
+    private val binding: ActivityAccountFeatureBinding by lazy {
         ActivityAccountFeatureBinding.inflate(layoutInflater)
     }
 
@@ -39,7 +41,7 @@ class AccountFeatureActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
-        viewModel.userData.observe(this){
+        viewModel.userData.observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.cvAccount.isVisible = true
@@ -63,7 +65,6 @@ class AccountFeatureActivity : AppCompatActivity() {
             )
         }
     }
-
 
     private fun getData() {
         viewModel.getUserData()
@@ -134,14 +135,12 @@ class AccountFeatureActivity : AppCompatActivity() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
     private fun openSettingDialog() {
-        SettingsDialogFragment().show(supportFragmentManager, null )
+        SettingsDialogFragment().show(supportFragmentManager, null)
     }
 
     private fun observeDarkModePref() {
-        accountFeatureViewModel.userDarkModeLiveData.observe(this) { isUsingDarkMode ->
+        accountFeatureViewModel.userDarkMode.asLiveData(Dispatchers.IO).observe(this) { isUsingDarkMode ->
             AppCompatDelegate.setDefaultNightMode(if (isUsingDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
-
-
 }

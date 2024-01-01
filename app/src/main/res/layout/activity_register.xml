@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/text_create_your_account_now"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_register" />
 
@@ -58,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_name"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -72,8 +73,7 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_full_name"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/text_email"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -97,8 +98,7 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_hint_email"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/text_phone_number"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -123,8 +124,7 @@
                 android:id="@+id/et_no_telp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_hint_phone_numbeer"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -135,6 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/text_create_password"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -149,9 +150,8 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_create_password"
-                android:backgroundTint="@color/white"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 

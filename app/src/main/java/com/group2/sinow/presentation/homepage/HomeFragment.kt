@@ -10,19 +10,20 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.room.util.query
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentHomeBinding
+import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.account.AccountFeatureActivity
 import com.group2.sinow.presentation.allpopularcourse.AllPopularCourseActivity
 import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.homepage.adapter.CategoryAdapter
-import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
 import com.group2.sinow.presentation.homepage.adapter.CourseAdapter
+import com.group2.sinow.presentation.homepage.adapter.PopularCourseCategoryAdapter
+import com.group2.sinow.presentation.main.MainViewModel
 import com.group2.sinow.presentation.notification.notificationlist.NotificationActivity
-import com.group2.sinow.presentation.profile.ProfileViewModel
 import com.group2.sinow.utils.SkeletonConfigWrapper
+import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,9 +32,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    private val homeViewModel: HomeViewModel by viewModel()
+
+    private val mainViewModel: MainViewModel by activityViewModel()
+
     private val categoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter {
-            navigateToCourseByCategory(it.id)
+            navigateToCourseByCategory(it)
         }
     }
 
@@ -51,7 +56,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun itemCourseListener(courseId: Int?) {
-        profileViewModel.userData.observe(viewLifecycleOwner){resultWrapper ->
+        mainViewModel.userData.observe(viewLifecycleOwner) { resultWrapper ->
             if (resultWrapper.payload != null) {
                 navigateToDetailCourse(courseId)
             } else {
@@ -60,12 +65,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private val homeViewModel: HomeViewModel by viewModel()
-
-    private val profileViewModel: ProfileViewModel by activityViewModel()
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -74,18 +76,23 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
         setClickListener()
+        observeProfileData()
         observeCategoryData()
-        observeCourseData()
         observePopularCourseCategoryData()
         observeSelectedCategory()
-        observeProfileData()
+        observeCourseData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     private fun observeProfileData() {
-        profileViewModel.userData.observe(viewLifecycleOwner){ resultWrapper ->
+        mainViewModel.userData.observe(viewLifecycleOwner) { resultWrapper ->
             if (resultWrapper.payload != null) {
+                observeNotificationData()
                 binding.icNotification.isVisible = true
                 binding.tvGreetingUser.text = getString(
                     R.string.text_hi_user,
@@ -95,18 +102,17 @@ class HomeFragment : Fragment() {
                 binding.icNotification.isVisible = false
                 binding.tvGreetingUser.text = getString(
                     R.string.text_hi_user,
-                    getString(R.string.text_sizian),
+                    getString(R.string.text_sizian)
                 )
             }
-
         }
     }
 
     private fun getData() {
+        homeViewModel.getNotifications()
         homeViewModel.getCategories()
         homeViewModel.getPopularCourseCategories()
         homeViewModel.getCourses()
-        profileViewModel.getUserData()
     }
 
     private fun setClickListener() {
@@ -129,26 +135,30 @@ class HomeFragment : Fragment() {
         binding.searchBar.ivSearchButton.setOnClickListener {
             performSearch()
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            getData()
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun performSearch() {
         val query = binding.searchBar.etSearchBar.text.toString()
         navigateSearchToCourseFragment(query)
+        binding.searchBar.etSearchBar.text.clear()
     }
 
     private fun navigateSearchToCourseFragment(query: String) {
-        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCourse(query, 0)
+        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCourse(query, null)
         findNavController().navigate(action)
     }
 
-    private fun navigateToCourseByCategory(id: Int) {
-        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCourse(null, id)
+    private fun navigateToCourseByCategory(category: Category) {
+        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCourse(null, category)
         findNavController().navigate(action)
     }
 
     private fun navigateToDetailCourse(courseId: Int?) {
         DetailCourseActivity.startActivity(requireContext(), courseId)
-
     }
 
     private fun navigateToProfile() {
@@ -198,7 +208,10 @@ class HomeFragment : Fragment() {
                     binding.layoutStateCategories.root.isVisible = true
                     binding.layoutStateCategories.loadingAnimation.isVisible = false
                     binding.layoutStateCategories.tvError.isVisible = true
-                    binding.layoutStateCategories.tvError.text = it.exception?.message.orEmpty()
+                    if (it.exception is ApiException) {
+                        binding.layoutStateCategories.tvError.text =
+                            it.exception.getParsedError()?.message.orEmpty()
+                    }
                     binding.rvListCategories.isVisible = false
                 }
             )
@@ -233,7 +246,10 @@ class HomeFragment : Fragment() {
                     binding.layoutStatePopularCategories.root.isVisible = true
                     binding.layoutStatePopularCategories.loadingAnimation.isVisible = false
                     binding.layoutStatePopularCategories.tvError.isVisible = true
-                    binding.layoutStatePopularCategories.tvError.text = it.exception?.message.orEmpty()
+                    if (it.exception is ApiException) {
+                        binding.layoutStatePopularCategories.tvError.text =
+                            it.exception.getParsedError()?.message.orEmpty()
+                    }
                     binding.rvCategoryPopularCourse.isVisible = false
                 }
             )
@@ -263,15 +279,14 @@ class HomeFragment : Fragment() {
                     binding.layoutStatePopularCourse.root.isVisible = true
                     binding.layoutStatePopularCourse.loadingAnimation.isVisible = false
                     binding.layoutStatePopularCourse.tvError.isVisible = true
-                    binding.layoutStatePopularCourse.tvError.text = it.exception?.message.orEmpty()
-                    binding.rvListCourse.isVisible = false
-                },
-                doOnEmpty = {
-                    binding.layoutStatePopularCourse.root.isVisible = true
-                    binding.layoutStatePopularCourse.loadingAnimation.isVisible = false
-                    binding.layoutStatePopularCourse.tvError.isVisible = true
-                    binding.layoutStatePopularCourse.tvError.text =
-                        getString(R.string.text_course_not_found)
+                    if (it.exception is ApiException) {
+                        if (it.exception.httpCode == 404) {
+                            binding.layoutStatePopularCourse.tvError.text = getString(R.string.text_sorry_course_not_found)
+                        } else {
+                            binding.layoutStatePopularCourse.tvError.text =
+                                it.exception.getParsedError()?.message.orEmpty()
+                        }
+                    }
                     binding.rvListCourse.isVisible = false
                 }
             )
@@ -284,4 +299,29 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun observeNotificationData() {
+        homeViewModel.notifications.observe(viewLifecycleOwner) { resultWrapper ->
+            resultWrapper.proceedWhen(
+                doOnSuccess = {
+                    it.payload?.let { data ->
+                        fun checkUnReadNotification(): Boolean {
+                            data.map { notification ->
+                                if (notification.isRead == false) {
+                                    return false
+                                }
+                            }
+                            return true
+                        }
+                        binding.notificationBadge.isVisible = !checkUnReadNotification()
+                    }
+                },
+                doOnLoading = {
+                    binding.notificationBadge.isVisible = false
+                },
+                doOnError = {
+                    binding.notificationBadge.isVisible = false
+                }
+            )
+        }
+    }
 }

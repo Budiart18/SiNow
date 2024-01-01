@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="CustomChipChoiceStyle" format="reference"/>
+    <attr name="CustomCheckBoxStyle" format="reference"/>
+    <attr name="superBottomSheet_backgroundColor" format="color"/>
+</resources>

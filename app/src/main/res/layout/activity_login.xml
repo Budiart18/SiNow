@@ -60,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_email_or_phone_number"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,9 +79,8 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_hint_email"
-                android:backgroundTint="@color/white"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/text_password"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etl_email" />
@@ -120,9 +121,8 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_enter_password"
-                android:backgroundTint="@color/white"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/text_login_without_login"
+            android:text="@string/text_login_without_account"
             android:textColor="@color/app_color_primary"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

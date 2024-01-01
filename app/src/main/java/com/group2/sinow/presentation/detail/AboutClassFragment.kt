@@ -1,16 +1,11 @@
 package com.group2.sinow.presentation.detail
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.group2.sinow.R
-import com.group2.sinow.databinding.ActivityDetailCourseBinding
+import androidx.fragment.app.Fragment
 import com.group2.sinow.databinding.FragmentAboutClassBinding
 import com.group2.sinow.model.detailcourse.CourseData
 import com.group2.sinow.presentation.detail.adapter.BenefitListAdapter
@@ -27,7 +22,8 @@ class AboutClassFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAboutClassBinding.inflate(inflater, container, false)
@@ -51,7 +47,6 @@ class AboutClassFragment : Fragment() {
             binding.tvContentAboutClass.text = item?.course?.description
             binding.rvBenefitList.apply {
                 adapter = benefitAdapter
-
             }
             item?.course?.benefits?.let {
                 benefitAdapter.submitData(it)
@@ -75,8 +70,6 @@ class AboutClassFragment : Fragment() {
                     }
                 }
             )
-
         }
     }
-
 }

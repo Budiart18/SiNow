@@ -1,10 +1,8 @@
 package com.group2.sinow.data.network.api.model.transaction
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.transaction.TransactionData
-import com.group2.sinow.model.transaction.TransactionDetail
 
 @Keep
 data class TransactionDataResponse(

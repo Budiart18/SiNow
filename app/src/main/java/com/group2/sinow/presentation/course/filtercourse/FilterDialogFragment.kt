@@ -11,25 +11,23 @@ import com.group2.sinow.databinding.FragmentFilterDialogBinding
 import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.utils.proceedWhen
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class FilterDialogFragment : SuperBottomSheetFragment() {
 
     private lateinit var binding: FragmentFilterDialogBinding
 
-    private val viewModel: CourseViewModel by activityViewModel()
+    private val viewModel: CourseViewModel by lazy { requireParentFragment().getViewModel() }
 
     private val categoryAdapter: CategoryFilterAdapter by lazy {
         CategoryFilterAdapter(object : CategoryItemListener {
             override fun onCategoryChecked(category: Category) {
-                viewModel.addSelectedCategory(category.id)
+                viewModel.addSelectedCategory(category)
             }
-
             override fun onCategoryUnchecked(category: Category) {
-                viewModel.removeSelectedCategory(category.id)
+                viewModel.removeSelectedCategory(category)
             }
-
-            override fun getSelectedCategories(): List<Int>? {
+            override fun getSelectedCategories(): List<Category>? {
                 return viewModel.selectedCategories.value
             }
         })
@@ -45,7 +43,7 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         fun onFilterApplied(
             search: String?,
             type: String?,
-            category: List<Int>?,
+            category: List<Category>?,
             level: List<String>?,
             sortBy: String?
         )
@@ -56,7 +54,8 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -81,7 +80,6 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         setClickListener()
     }
 
-
     private fun setClickListener() {
         binding.ivClose.setOnClickListener {
             dismiss()
@@ -98,7 +96,7 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
     private fun resetFilter() {
         val searchQuery = null
         val selectedType = null
-        val selectedCategories = emptyList<Int>()
+        val selectedCategories = emptyList<Category>()
         viewModel.clearSelectedCategories()
 
         val selectedLevels = mutableListOf<String>().apply {
@@ -121,7 +119,7 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         val selectedType = viewModel.selectedType.value
         val selectedCategories = viewModel.selectedCategories.value
         val selectedLevels = mutableListOf<String>().apply {
-            if ( binding.cbBeginner.isChecked) add(BEGINNER_LEVEL)
+            if (binding.cbBeginner.isChecked) add(BEGINNER_LEVEL)
             if (binding.cbIntermediate.isChecked) add(INTERMEDIATE_LEVEL)
             if (binding.cbAdvance.isChecked) add(ADVANCED_LEVEL)
         }
@@ -134,8 +132,6 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         filterListener?.onFilterApplied(searchQuery, selectedType, selectedCategories, selectedLevels, selectedSortBy)
         dismiss()
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

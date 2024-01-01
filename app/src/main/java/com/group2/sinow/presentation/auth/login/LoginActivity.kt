@@ -1,9 +1,9 @@
 package com.group2.sinow.presentation.auth.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityLoginBinding
@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
-        viewModel.loginResult.observe(this){result ->
+        viewModel.loginResult.observe(this) { result ->
             result.proceedWhen(
                 doOnSuccess = {
                     binding.btnLogin.isVisible = true
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 doOnError = {
                     binding.btnLogin.isVisible = true
                     binding.pbLoading.isVisible = false
-                    if (it.exception is ApiException){
+                    if (it.exception is ApiException) {
                         FancyToast.makeText(
                             this,
                             it.exception.getParsedError()?.message,
@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             )
         }
-        viewModel.userToken.observe(this){token ->
+        viewModel.userToken.observe(this) { token ->
             if (token != null) navigateToHome()
         }
     }
@@ -83,14 +83,13 @@ class LoginActivity : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         startActivity(intent)
-
     }
 
     private fun setOnClickListener() {
         binding.btnLogin.setOnClickListener {
             doLogin()
         }
-        binding.tvNavigateToRegister.highLightWord(getString(R.string.text_register_here)){
+        binding.tvNavigateToRegister.highLightWord(getString(R.string.text_register_here)) {
             navigateToRegister()
         }
         binding.tvLoginWithoutLogin.setOnClickListener {
@@ -102,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun doLogin() {
-        if(isFormValid()){
+        if (isFormValid()) {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
             viewModel.doLogin(email, password)

@@ -1,7 +1,6 @@
 package com.group2.sinow.presentation.auth.otp
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,7 +14,7 @@ import androidx.core.view.isVisible
 import com.group2.sinow.R
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.databinding.ActivityOtpBinding
-import com.group2.sinow.presentation.bottom_dialog.RegistrationSuccessDialogFragment
+import com.group2.sinow.presentation.bottomdialog.RegistrationSuccessDialogFragment
 import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
@@ -23,7 +22,6 @@ import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OTPActivity : AppCompatActivity() {
-
     private val viewModel: OTPViewModel by viewModel()
 
     private val binding: ActivityOtpBinding by lazy {
@@ -42,46 +40,48 @@ class OTPActivity : AppCompatActivity() {
 
     private fun startCountdownTimer() {
         timer?.cancel() // Cancel any existing timer
-        timer = object : CountDownTimer(60000, 1000) { // 60 seconds, 1 second tick
-            override fun onTick(millisUntilFinished: Long) {
-                val timeLeft = millisUntilFinished / 1000
-                val countdownText = getString(R.string.text_repeat_send_otp_in)
-                val timeLeftText = getString(R.string.second, timeLeft)
-                val fullText = countdownText + timeLeftText
+        timer =
+            object : CountDownTimer(60000, 1000) { // 60 seconds, 1 second tick
+                override fun onTick(millisUntilFinished: Long) {
+                    val timeLeft = millisUntilFinished / 1000
+                    val countdownText = getString(R.string.text_repeat_send_otp_in)
+                    val timeLeftText = getString(R.string.second, timeLeft)
+                    val fullText = "$countdownText $timeLeftText"
 
-                val spannableString = SpannableStringBuilder(fullText).apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(this@OTPActivity, R.color.app_color_primary)),
-                        countdownText.length,
-                        fullText.length,
-                        Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                    )
+                    val spannableString =
+                        SpannableStringBuilder(fullText).apply {
+                            setSpan(
+                                ForegroundColorSpan(ContextCompat.getColor(this@OTPActivity, R.color.app_color_primary)),
+                                countdownText.length,
+                                fullText.length,
+                                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                            )
+                        }
+                    binding.tvCountdownTimer.text = spannableString
                 }
-                binding.tvCountdownTimer.text = spannableString
-            }
 
-            override fun onFinish() {
-                val finishText = getString(R.string.text_repeat_send)
-                val spannableString = SpannableStringBuilder(finishText).apply {
-                    setSpan(
-                        ForegroundColorSpan(Color.RED),
-                        0,
-                        finishText.length,
-                        Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                    )
-                    setSpan(
-                        StyleSpan(Typeface.BOLD),
-                        0,
-                        finishText.length,
-                        Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                    )
+                override fun onFinish() {
+                    val finishText = getString(R.string.text_repeat_send)
+                    val spannableString =
+                        SpannableStringBuilder(finishText).apply {
+                            setSpan(
+                                ForegroundColorSpan(resources.getColor(R.color.app_color_error)),
+                                0,
+                                finishText.length,
+                                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                            )
+                            setSpan(
+                                StyleSpan(Typeface.BOLD),
+                                0,
+                                finishText.length,
+                                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                            )
+                        }
+                    binding.tvCountdownTimer.text = spannableString
+                    binding.tvResendOtp.isVisible = true
                 }
-                binding.tvCountdownTimer.text = spannableString
-                binding.tvResendOtp.isVisible = true
-            }
-        }.start()
+            }.start()
     }
-
 
     private fun displayEmail() {
         val email = intent.getStringExtra("email") ?: ""
@@ -140,10 +140,12 @@ class OTPActivity : AppCompatActivity() {
                         }
                     }
                     showRegistrationSuccessDialog()
-                }, doOnLoading = {
+                },
+                doOnLoading = {
                     binding.btnSendOtp.isVisible = false
                     binding.progressBar.isVisible = true
-                }, doOnError = {
+                },
+                doOnError = {
                     binding.btnSendOtp.isVisible = true
                     binding.progressBar.isVisible = false
                     if (it.exception is ApiException) {
@@ -192,10 +194,10 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        }
+        val intent =
+            Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
         startActivity(intent)
     }
-
 }

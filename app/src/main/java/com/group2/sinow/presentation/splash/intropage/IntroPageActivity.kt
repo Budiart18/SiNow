@@ -1,11 +1,11 @@
 package com.group2.sinow.presentation.splash.intropage
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
@@ -23,9 +23,9 @@ class IntroPageActivity : AppCompatActivity() {
         ActivityIntroSliderBinding.inflate(layoutInflater)
     }
 
-    private val viewModel : SplashViewModel by viewModel()
+    private val viewModel: SplashViewModel by viewModel()
 
-    private val introPageAdapter : IntroPageAdapter by lazy {
+    private val introPageAdapter: IntroPageAdapter by lazy {
         IntroPageAdapter(viewModel.getIntroPageData())
     }
 

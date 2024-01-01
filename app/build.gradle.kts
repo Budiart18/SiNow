@@ -133,24 +133,25 @@ dependencies {
     // viewpager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     // super bottom sheet
-    implementation ("com.github.andrefrsousa:SuperBottomSheet:2.0.0")
+    implementation("com.github.andrefrsousa:SuperBottomSheet:2.0.0")
     // Smooth Bottom Bar
-    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     // Groupie
-    implementation ("com.github.lisawray.groupie:groupie:2.10.1")
-    implementation ("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
-    //Media3 Exoplayer
-    implementation ("androidx.media3:media3-exoplayer:1.2.0")
-    implementation ("androidx.media3:media3-exoplayer-dash:1.2.0")
-    implementation ("androidx.media3:media3-ui:1.2.0")
+    implementation("com.github.lisawray.groupie:groupie:2.10.1")
+    implementation("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
+    // Media3 Exoplayer
+    implementation("androidx.media3:media3-exoplayer:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
+    implementation("androidx.media3:media3-ui:1.2.0")
     // Skeleton layout
-    implementation ("com.faltenreich:skeletonlayout:5.0.0")
+    implementation("com.faltenreich:skeletonlayout:5.0.0")
 
     // OTP View
-    implementation ("io.github.chaosleung:pinview:1.4.4")
-    //Swipe Refresh Layout
-    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-    //FancyToast
-    implementation ("io.github.shashank02051997:FancyToast:2.0.2")
-
+    implementation("io.github.chaosleung:pinview:1.4.4")
+    // Swipe Refresh Layout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+    // FancyToast
+    implementation("io.github.shashank02051997:FancyToast:2.0.2")
+    // Chips
+    implementation("com.google.android.material:material:1.12.0-alpha02")
 }

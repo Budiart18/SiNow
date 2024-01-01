@@ -21,9 +21,9 @@ import com.group2.sinow.data.network.api.model.resendotp.ResendOtpRequest
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordRequest
 import com.group2.sinow.data.network.api.model.resetpassword.ResetPasswordResponse
-import com.group2.sinow.data.network.api.model.transactionhistory.DeleteTransactionResponse
 import com.group2.sinow.data.network.api.model.transaction.TransactionRequest
 import com.group2.sinow.data.network.api.model.transaction.TransactionResponse
+import com.group2.sinow.data.network.api.model.transactionhistory.DeleteTransactionResponse
 import com.group2.sinow.data.network.api.model.transactionhistory.TransactionDetailResponse
 import com.group2.sinow.data.network.api.model.transactionhistory.TransactionsHistoryResponse
 import com.group2.sinow.data.network.api.model.updateprofile.UpdateUserDataResponse
@@ -50,7 +50,6 @@ import java.util.concurrent.TimeUnit
 
 interface SinowApiService {
 
-
     // Login
     @POST("auth/login")
     suspend fun doLogin(@Body loginRequest: LoginRequest): LoginResponse
@@ -58,7 +57,6 @@ interface SinowApiService {
     // Token
     @GET("auth/check-token")
     suspend fun checkToken(@Header("Authorization") token: String): LoginResponse
-
 
     // Register
     @POST("auth/register")
@@ -75,7 +73,6 @@ interface SinowApiService {
     // Reset Password
     @POST("auth/reset-password")
     suspend fun resetPassword(@Body resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse
-
 
     @GET("category")
     suspend fun getCategories(): CategoriesResponse
@@ -135,7 +132,6 @@ interface SinowApiService {
     @GET("user/transaction/{transactionId}")
     suspend fun getUserDetailTransaction(@Path("transactionId") id: String): TransactionDetailResponse
 
-
     @GET("user/my-courses/{courseId}")
     suspend fun getCourseDetail(@Path("courseId") id: Int): DataResponse
 
@@ -174,7 +170,5 @@ interface SinowApiService {
                 .build()
             return retrofit.create(SinowApiService::class.java)
         }
-
     }
-
 }

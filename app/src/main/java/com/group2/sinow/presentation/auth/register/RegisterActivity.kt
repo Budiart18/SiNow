@@ -22,7 +22,6 @@ class RegisterActivity : AppCompatActivity() {
     }
     private val viewModel: RegisterViewModel by viewModel()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -37,11 +36,12 @@ class RegisterActivity : AppCompatActivity() {
                     binding.pbLoading.isVisible = false
                     binding.btnRegister.isVisible = true
                     navigateToOTP()
-                }, doOnLoading = {
+                },
+                doOnLoading = {
                     binding.btnRegister.isVisible = false
                     binding.pbLoading.isVisible = true
-
-                }, doOnError = {
+                },
+                doOnError = {
                     binding.btnRegister.isVisible = true
                     binding.pbLoading.isVisible = false
                     if (it.exception is ApiException) {
@@ -57,7 +57,6 @@ class RegisterActivity : AppCompatActivity() {
             )
         }
     }
-
 
     private fun navigateToOTP() {
         val email = binding.etEmail.text.toString().trim()
@@ -80,8 +79,6 @@ class RegisterActivity : AppCompatActivity() {
         binding.tvNavigateToLogin.setOnClickListener {
             navigateToLogin()
         }
-
-
     }
 
     private fun navigateToLogin() {
@@ -90,7 +87,6 @@ class RegisterActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
-
 
     private fun isFormValid(): Boolean {
         val fullName = binding.etName.text.toString().trim()
@@ -130,7 +126,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkPhoneNumberValidation(
-        phoneNumber: String,
+        phoneNumber: String
     ): Boolean {
         return if (phoneNumber.isEmpty()) {
             binding.etlNoTelp.isErrorEnabled = true
@@ -161,7 +157,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-
     private fun doRegister() {
         if (isFormValid()) {
             val name = binding.etName.text.toString().trim()
@@ -173,6 +168,4 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.register(registerRequest)
         }
     }
-
-
 }

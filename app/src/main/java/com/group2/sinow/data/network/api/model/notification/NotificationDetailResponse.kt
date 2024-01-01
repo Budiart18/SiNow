@@ -1,8 +1,7 @@
 package com.group2.sinow.data.network.api.model.notification
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 
 @Keep
 data class NotificationDetailResponse(

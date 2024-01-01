@@ -18,10 +18,9 @@ class NotificationViewModel(private val repository: NotificationRepository) : Vi
 
     fun getNotifications() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getNotification().collect{
+            repository.getNotification().collect {
                 _notifications.postValue(it)
             }
         }
     }
-
 }

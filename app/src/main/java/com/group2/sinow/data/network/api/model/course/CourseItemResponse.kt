@@ -1,8 +1,7 @@
 package com.group2.sinow.data.network.api.model.course
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.course.Course
 
 @Keep
@@ -50,7 +49,7 @@ data class CourseItemResponse(
     @SerializedName("courseCreator")
     val courseCreator: CourseCreatorResponse?,
     @SerializedName("benefits")
-    val benefits: List<CourseBenefitResponse>?,
+    val benefits: List<CourseBenefitResponse>?
 )
 
 fun CourseItemResponse.toCourse() = Course(

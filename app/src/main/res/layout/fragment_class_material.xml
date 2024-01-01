@@ -14,7 +14,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:text="@string/text_study_materials"
-        android:textColor="@color/app_color_secondary"
+        android:textColor="?attr/colorOnPrimaryContainer"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +23,8 @@
         android:id="@+id/rv_user_module"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="50dp"
+        android:clipToPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_study_materials" />
 

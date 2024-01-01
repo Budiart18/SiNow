@@ -2,9 +2,6 @@
 <resources>
     <string name="text_class_topic">Topik Kelas</string>
     <string name="text_filter">Filter</string>
-    <string name="tab_all">all</string>
-    <string name="tab_premium">premium</string>
-    <string name="tab_free">gratis</string>
     <string name="format_course_progress">%d%%</string>
     <string name="format_course_level">%s Level</string>
     <string name="tv_discount_course">Diskon Kursus %d%%</string>

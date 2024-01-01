@@ -9,6 +9,7 @@ import coil.load
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ItemListCourseBinding
 import com.group2.sinow.model.course.Course
+import com.group2.sinow.utils.formatSecondsToMinutes
 import com.group2.sinow.utils.toCurrencyFormat
 
 class PopularCourseAdapter(
@@ -50,8 +51,6 @@ class PopularCourseAdapter(
     fun submitData(data: List<Course>) {
         dataDiffer.submitList(data)
     }
-
-
 }
 
 class ItemListCourseViewHolder(
@@ -71,25 +70,28 @@ class ItemListCourseViewHolder(
                 R.string.format_course_by,
                 item.courseBy
             )
-            binding.tvCourseLevel.text = item.level?.replaceFirstChar{
+            binding.tvCourseLevel.text = item.level?.replaceFirstChar {
                 it.uppercase()
             }
             binding.tvCourseDuration.text = itemView.rootView.context.getString(
                 R.string.format_course_duration,
-                item.totalDuration
+                item.totalDuration?.let { formatSecondsToMinutes(it) }
             )
             binding.tvCourseModules.text = itemView.rootView.context.getString(
                 R.string.format_course_module,
                 item.totalModule
             )
-            binding.tvBtnBuy.text = itemView.rootView.context.getString(
-                R.string.format_btn_buy,
-                item.price?.toDouble()?.toCurrencyFormat()
-            )
+            if (item.price == 0) {
+                binding.tvBtnBuy.text = itemView.rootView.context.getString(R.string.text_free)
+            } else {
+                binding.tvBtnBuy.text = itemView.rootView.context.getString(
+                    R.string.format_btn_buy,
+                    item.price?.toDouble()?.toCurrencyFormat()
+                )
+            }
             itemView.setOnClickListener {
                 itemClick(this)
             }
         }
     }
-
 }

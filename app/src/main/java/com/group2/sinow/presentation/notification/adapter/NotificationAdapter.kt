@@ -16,7 +16,7 @@ class NotificationAdapter(private val itemClick: (Notification) -> Unit) :
     private val dataDiffer =
         AsyncListDiffer(
             this,
-            object  : DiffUtil.ItemCallback<Notification>() {
+            object : DiffUtil.ItemCallback<Notification>() {
                 override fun areItemsTheSame(
                     oldItem: Notification,
                     newItem: Notification
@@ -30,7 +30,6 @@ class NotificationAdapter(private val itemClick: (Notification) -> Unit) :
                 ): Boolean {
                     return oldItem.hashCode() == newItem.hashCode()
                 }
-
             }
         )
 
@@ -48,7 +47,6 @@ class NotificationAdapter(private val itemClick: (Notification) -> Unit) :
     fun submitData(data: List<Notification>) {
         dataDiffer.submitList(data)
     }
-
 }
 
 class ItemNotificationViewHolder(
@@ -56,7 +54,7 @@ class ItemNotificationViewHolder(
     val itemClick: (Notification) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Notification){
+    fun bind(item: Notification) {
         binding.tvNotificationTitle.text = item.title
         binding.tvNotificationCategory.text = item.type
         binding.tvNotificationDesc.text = item.content
@@ -65,11 +63,10 @@ class ItemNotificationViewHolder(
         )
         binding.tvNotificationTime.text = changeFormatTime(item.createdAt.toString())
         binding.root.setBackgroundResource(
-            if (item.isRead == true) android.R.color.transparent else R.color.app_color_primary_container
+            if (item.isRead == true) android.R.color.transparent else R.drawable.bg_notification_list
         )
         binding.root.setOnClickListener {
             itemClick.invoke(item)
         }
     }
-
 }

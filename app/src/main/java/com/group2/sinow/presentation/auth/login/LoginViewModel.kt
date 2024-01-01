@@ -25,7 +25,7 @@ class LoginViewModel(
 
     fun doLogin(email: String, password: String) {
         viewModelScope.launch {
-            repository.doLogin(email, password).collect{
+            repository.doLogin(email, password).collect {
                 _loginResult.postValue(it)
             }
         }
@@ -42,5 +42,4 @@ class LoginViewModel(
             userPreferenceDataSource.getUserTokenFlow()
         }
     }
-
 }

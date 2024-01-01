@@ -43,14 +43,12 @@ interface CourseRepository {
 
     fun followCourse(courseId: Int?): Flow<ResultWrapper<FollowCourseResponse>>
 
-    fun buyPremiumCourse(courseId: Int?) : Flow<ResultWrapper<TransactionData>>
-
+    fun buyPremiumCourse(courseId: Int?): Flow<ResultWrapper<TransactionData>>
 }
 
 class CourseRepositoryImpl(
     private val dataSource: SinowDataSource
 ) : CourseRepository {
-
 
     override fun getCategories(): Flow<ResultWrapper<List<Category>>> {
         return proceedFlow {
@@ -69,7 +67,6 @@ class CourseRepositoryImpl(
             dataSource.getCourses(search, type, category, level, sortBy).data?.toCourseList() ?: emptyList()
         }
     }
-
 
     override fun getCourses(
         search: String?,
@@ -110,6 +107,4 @@ class CourseRepositoryImpl(
             dataSource.buyPremiumCourse(transactionRequest).data.toTransactionData()
         }
     }
-
-
 }

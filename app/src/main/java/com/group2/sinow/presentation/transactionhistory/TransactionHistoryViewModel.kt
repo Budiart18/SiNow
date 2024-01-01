@@ -10,7 +10,8 @@ import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TransactionHistoryViewModel(private val repository: UserRepository
+class TransactionHistoryViewModel(
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _transaction = MutableLiveData<ResultWrapper<List<TransactionUser>>>()

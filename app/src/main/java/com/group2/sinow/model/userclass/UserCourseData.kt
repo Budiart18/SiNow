@@ -1,6 +1,5 @@
 package com.group2.sinow.model.userclass
 
-
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -16,4 +15,4 @@ data class UserCourseData(
     val createdAt: String?,
     val updatedAt: String?,
     val course: UserCourses?
-):Parcelable
+) : Parcelable

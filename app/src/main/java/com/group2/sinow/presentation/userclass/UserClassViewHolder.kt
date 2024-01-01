@@ -5,11 +5,13 @@ import coil.load
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ItemListCourseProgressBinding
 import com.group2.sinow.model.userclass.UserCourseData
+import com.group2.sinow.utils.formatSecondsToMinutes
 
 class UserClassViewHolder(
     val binding: ItemListCourseProgressBinding,
-    val itemClick: (UserCourseData) -> Unit)
-    : RecyclerView.ViewHolder(binding.root) {
+    val itemClick: (UserCourseData) -> Unit
+) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: UserCourseData) {
         with(item) {
@@ -35,7 +37,7 @@ class UserClassViewHolder(
             )
             binding.tvCourseDuration.text = itemView.rootView.context.getString(
                 R.string.format_course_duration,
-                item.course?.totalDuration
+                item.course?.totalDuration?.let { formatSecondsToMinutes(it) }
             )
             binding.tvProgress.text = itemView.rootView.context.getString(
                 R.string.format_course_progress,
@@ -45,8 +47,6 @@ class UserClassViewHolder(
             itemView.setOnClickListener {
                 itemClick(this)
             }
-
         }
     }
 }
-

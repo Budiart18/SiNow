@@ -33,7 +33,6 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
     val searchQuery: LiveData<String>
         get() = _searchQuery
 
-
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getCategories().collect { result ->
@@ -61,7 +60,6 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
         }
     }
 
-
     fun changeSelectedCategory(newCategory: Category) {
         _selectedCategory.value = newCategory
     }
@@ -69,6 +67,4 @@ class AllPopularCourseViewModel(private val repository: CourseRepository) : View
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
     }
-
-
 }

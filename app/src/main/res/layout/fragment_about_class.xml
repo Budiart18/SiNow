@@ -13,8 +13,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/text_about_class"
-        android:textColor="@color/app_color_secondary"
-        android:textSize="24dp"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +40,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/text_benefit_follow_this_class"
-        android:textColor="@color/app_color_secondary"
-        android:textSize="24dp"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_content_about_class" />

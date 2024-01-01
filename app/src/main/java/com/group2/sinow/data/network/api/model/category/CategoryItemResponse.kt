@@ -1,8 +1,7 @@
 package com.group2.sinow.data.network.api.model.category
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.category.Category
 
 @Keep

@@ -1,9 +1,7 @@
 package com.group2.sinow.model.paymenthistory
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
 
 @Parcelize
 data class TransactionUser(
@@ -25,4 +23,4 @@ data class TransactionUser(
     val createdAt: String?,
     val paymentUrl: String?,
     val courseUser: CourseUser?
-): Parcelable
+) : Parcelable

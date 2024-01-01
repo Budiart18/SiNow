@@ -58,8 +58,14 @@ class PopularCourseCategoryAdapter(private val itemClick: (Category) -> Unit) :
     }
 
     fun setSelectedCategory(selectedCategory: Category?) {
+        val previousPosition = this.selectedPosition
         this.selectedPosition = selectedCategory?.id
-        notifyDataSetChanged()
-    }
 
+        if (previousPosition != null) {
+            notifyItemChanged(previousPosition)
+        }
+        if (selectedCategory != null) {
+            notifyItemChanged(selectedCategory.id)
+        }
+    }
 }

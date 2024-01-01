@@ -7,14 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.repository.CourseRepository
 import com.group2.sinow.model.category.Category
 import com.group2.sinow.model.course.Course
-import com.group2.sinow.model.filter.Filter
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
-
-
+class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
 
@@ -34,10 +31,14 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
     val selectedType: LiveData<String>
         get() = _selectedType
 
-    private val _selectedCategories = MutableLiveData<List<Int>>()
-    val selectedCategories: LiveData<List<Int>?>
+    private val _selectedCategories = MutableLiveData<List<Category>>()
+    val selectedCategories: LiveData<List<Category>?>
         get() = _selectedCategories
 
+    fun resetFilter() {
+        _selectedCategories.postValue(listOf())
+        _selectedType.postValue("")
+    }
 
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,7 +58,7 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
         viewModelScope.launch {
             repository.getCourses(
                 search = search,
-                type = if(type == "all") null else type,
+                type = if (type == "all") null else type,
                 category = category,
                 level = level,
                 sortBy = sortBy
@@ -67,13 +68,13 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
         }
     }
 
-    fun addSelectedCategory(category: Int) {
+    fun addSelectedCategory(category: Category) {
         val updatedList = _selectedCategories.value.orEmpty().toMutableList()
         updatedList.add(category)
         _selectedCategories.value = updatedList.distinct()
     }
 
-    fun removeSelectedCategory(category: Int) {
+    fun removeSelectedCategory(category: Category) {
         val updatedList = _selectedCategories.value.orEmpty().toMutableList()
         updatedList.remove(category)
         _selectedCategories.value = updatedList.distinct()
@@ -90,6 +91,4 @@ class CourseViewModel (private val repository: CourseRepository) : ViewModel() {
     fun setSelectedType(type: String) {
         _selectedType.value = type
     }
-
-
 }

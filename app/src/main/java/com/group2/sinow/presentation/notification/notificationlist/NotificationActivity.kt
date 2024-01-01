@@ -1,13 +1,13 @@
 package com.group2.sinow.presentation.notification.notificationlist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityNotificationBinding
 import com.group2.sinow.model.notification.Notification
-import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
 import com.group2.sinow.presentation.notification.adapter.NotificationAdapter
+import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -94,5 +94,4 @@ class NotificationActivity : AppCompatActivity() {
             )
         }
     }
-
 }

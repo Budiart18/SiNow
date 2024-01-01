@@ -34,7 +34,7 @@ class CategoryFilterAdapter(private val listener: CategoryItemListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryFilterViewHolder {
         val binding =
             ItemCheckboxFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CategoryFilterViewHolder(binding,listener)
+        return CategoryFilterViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = dataDiffer.currentList.size
@@ -48,12 +48,11 @@ class CategoryFilterAdapter(private val listener: CategoryItemListener) :
     fun submitData(data: List<Category>) {
         dataDiffer.submitList(data)
     }
-
 }
 
 interface CategoryItemListener {
     fun onCategoryChecked(category: Category)
     fun onCategoryUnchecked(category: Category)
 
-    fun getSelectedCategories() : List<Int>?
+    fun getSelectedCategories(): List<Category>?
 }

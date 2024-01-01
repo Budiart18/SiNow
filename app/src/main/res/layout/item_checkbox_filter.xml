@@ -6,8 +6,10 @@
 
     <CheckBox
         android:id="@+id/cb_item_category"
+        style="@style/Widget.App.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="UI/UX Design"/>
+        android:textColor="?attr/colorOnPrimaryContainer"
+        tools:text="UI/UX Design" />
 
 </LinearLayout>

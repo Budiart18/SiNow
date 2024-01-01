@@ -5,6 +5,7 @@ import coil.load
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ItemGridCourseBinding
 import com.group2.sinow.model.course.Course
+import com.group2.sinow.utils.formatSecondsToMinutes
 import com.group2.sinow.utils.toCurrencyFormat
 
 class ItemGridCourseViewHolder(
@@ -24,25 +25,28 @@ class ItemGridCourseViewHolder(
                 R.string.format_course_by,
                 item.courseBy
             )
-            binding.tvCourseLevel.text = item.level?.replaceFirstChar{
+            binding.tvCourseLevel.text = item.level?.replaceFirstChar {
                 it.uppercase()
             }
             binding.tvCourseDuration.text = itemView.rootView.context.getString(
                 R.string.format_course_duration,
-                item.totalDuration
+                item.totalDuration?.let { formatSecondsToMinutes(it) }
             )
             binding.tvCourseModules.text = itemView.rootView.context.getString(
                 R.string.format_course_module,
                 item.totalModule
             )
-            binding.btnBuy.text = itemView.rootView.context.getString(
-                R.string.format_btn_buy,
-                item.price?.toDouble()?.toCurrencyFormat()
-            )
+            if (item.price == 0) {
+                binding.btnBuy.text = itemView.rootView.context.getString(R.string.text_free)
+            } else {
+                binding.btnBuy.text = itemView.rootView.context.getString(
+                    R.string.format_btn_buy,
+                    item.price?.toDouble()?.toCurrencyFormat()
+                )
+            }
             itemView.setOnClickListener {
                 itemClick(this)
             }
         }
     }
-
 }

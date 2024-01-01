@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loading_animation"
+        android:id="@+id/loading_animation_course"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:visibility="gone"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Maaf, course tidak ditemukan"
+        android:text="@string/text_sorry_course_not_found"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         android:id="@+id/btn_search_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cari Course"
+        android:text="@string/text_find_course"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

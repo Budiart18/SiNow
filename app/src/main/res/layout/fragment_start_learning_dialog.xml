@@ -5,8 +5,9 @@
     android:id="@+id/cl_bottom_dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/superBottomSheet_backgroundColor"
     android:padding="24dp"
-    tools:context=".presentation.bottom_dialog.StartLearningDialogFragment">
+    tools:context=".presentation.bottomdialog.StartLearningDialogFragment">
 
     <ImageView
         android:id="@+id/iv_close"
@@ -47,21 +48,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/text_preparation_title"
+        android:textColor="?attr/colorOnPrimaryContainer"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_onboarding" />
-
-    <TextView
-        android:id="@+id/tv_preparation_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/text_preparation_description"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_preparation_title" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_onboarding" />
 
     <Button
         android:id="@+id/btn_join_class"
@@ -74,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_preparation_description"
+        app:layout_constraintTop_toBottomOf="@id/tv_preparation_title"
         app:layout_constraintWidth_percent="0.7" />
 
     <include
