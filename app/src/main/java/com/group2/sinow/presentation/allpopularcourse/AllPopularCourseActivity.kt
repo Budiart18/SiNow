@@ -1,6 +1,5 @@
 package com.group2.sinow.presentation.allpopularcourse
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
@@ -47,7 +46,6 @@ class AllPopularCourseActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun navigateToDetailCourse(courseId: Int?) {
         DetailCourseActivity.startActivity(this, courseId)

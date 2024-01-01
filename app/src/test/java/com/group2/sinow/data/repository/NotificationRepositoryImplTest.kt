@@ -20,7 +20,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-
 class NotificationRepositoryImplTest {
     @MockK
     lateinit var dataSource: SinowDataSource
@@ -243,7 +242,7 @@ class NotificationRepositoryImplTest {
     fun `deleteNotification, return success`() {
         val fakeResponse = DeleteNotificationResponse(
             status = "Success",
-            message = "Berhasil menghapus notifikasi",
+            message = "Berhasil menghapus notifikasi"
         )
 
         runTest {
@@ -303,7 +302,7 @@ class NotificationRepositoryImplTest {
     fun `deleteNotification, return empty`() {
         val fakeResponse = DeleteNotificationResponse(
             status = "Failed",
-            message = "Tidak ada notifikasi",
+            message = "Tidak ada notifikasi"
         )
 
         runTest {

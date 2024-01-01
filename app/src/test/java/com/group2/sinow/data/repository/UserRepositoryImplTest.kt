@@ -29,13 +29,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Before
 import org.junit.Test
 import java.io.File
-
 
 class UserRepositoryImplTest {
     @MockK
@@ -315,7 +313,7 @@ class UserRepositoryImplTest {
     fun `changePassword, result success`() {
         val fakeResponse = ChangePasswordResponse(
             status = "Success",
-            message = "Berhasil mengubah password",
+            message = "Berhasil mengubah password"
         )
 
         runTest {
@@ -421,7 +419,7 @@ class UserRepositoryImplTest {
     fun `changePassword, result empty`() {
         val fakeResponse = ChangePasswordResponse(
             status = "Failed",
-            message = "Gagal mengubah password",
+            message = "Gagal mengubah password"
         )
 
         runTest {
@@ -778,7 +776,7 @@ class UserRepositoryImplTest {
     fun `deleteTransaction, result success`() {
         val fakeResponse = DeleteTransactionResponse(
             status = "Success",
-            message = "Berhasil menghapus data",
+            message = "Berhasil menghapus data"
         )
 
         runTest {
@@ -836,7 +834,7 @@ class UserRepositoryImplTest {
     fun `deleteTransaction, result empty`() {
         val fakeResponse = DeleteTransactionResponse(
             status = "Failed",
-            message = "Gagal menghapus data",
+            message = "Gagal menghapus data"
         )
 
         runTest {

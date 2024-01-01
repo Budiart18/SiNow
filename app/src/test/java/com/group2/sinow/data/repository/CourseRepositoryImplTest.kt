@@ -30,7 +30,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-
 class CourseRepositoryImplTest {
 
     @MockK
@@ -46,7 +45,6 @@ class CourseRepositoryImplTest {
 
     @Test
     fun `getCategories, with result success`() {
-
         val fakeCategoryResponse = CategoriesResponse(
             status = "Success",
             message = "Berhasil mengambil data category",
@@ -124,7 +122,6 @@ class CourseRepositoryImplTest {
 
     @Test
     fun `getCourse, with result success`() {
-
         val fakeCourseResponse = CoursesResponse(
             status = "Success",
             message = "Berhasil mengambil data course",
@@ -151,17 +148,17 @@ class CourseRepositoryImplTest {
                     updatedAt = "2021-08-10T09:00:00.000000Z",
                     category = CourseCategoryResponse(
                         id = 1,
-                        name = "Teknologi",
+                        name = "Teknologi"
                     ),
                     courseCreator = CourseCreatorResponse(
                         id = 1,
-                        name = "Sinow",
+                        name = "Sinow"
                     ),
                     benefits = listOf(
                         CourseBenefitResponse(
                             id = 1,
                             courseId = 1,
-                            description = "Belajar Membuat Aplikasi Android untuk Pemula",
+                            description = "Belajar Membuat Aplikasi Android untuk Pemula"
                         )
                     )
                 ),
@@ -187,20 +184,20 @@ class CourseRepositoryImplTest {
                     updatedAt = "2021-08-10T09:00:00.000000Z",
                     category = CourseCategoryResponse(
                         id = 2,
-                        name = "Teknologi",
+                        name = "Teknologi"
                     ),
                     courseCreator = CourseCreatorResponse(
                         id = 2,
-                        name = "Sinow",
+                        name = "Sinow"
                     ),
                     benefits = listOf(
                         CourseBenefitResponse(
                             id = 2,
                             courseId = 2,
-                            description = "Belajar Membuat Aplikasi Android untuk Pemula",
+                            description = "Belajar Membuat Aplikasi Android untuk Pemula"
                         )
                     )
-                ),
+                )
             )
         )
 
@@ -278,7 +275,6 @@ class CourseRepositoryImplTest {
 
     @Test
     fun `getCourseFilter, with result success`() {
-
         val fakeCourseResponse = CoursesResponse(
             status = "Success",
             message = "Berhasil mengambil data course",
@@ -305,17 +301,17 @@ class CourseRepositoryImplTest {
                     updatedAt = "2021-08-10T09:00:00.000000Z",
                     category = CourseCategoryResponse(
                         id = 1,
-                        name = "Teknologi",
+                        name = "Teknologi"
                     ),
                     courseCreator = CourseCreatorResponse(
                         id = 1,
-                        name = "Sinow",
+                        name = "Sinow"
                     ),
                     benefits = listOf(
                         CourseBenefitResponse(
                             id = 1,
                             courseId = 1,
-                            description = "Belajar Membuat Aplikasi Android untuk Pemula",
+                            description = "Belajar Membuat Aplikasi Android untuk Pemula"
                         )
                     )
                 ),
@@ -341,26 +337,27 @@ class CourseRepositoryImplTest {
                     updatedAt = "2021-08-10T09:00:00.000000Z",
                     category = CourseCategoryResponse(
                         id = 2,
-                        name = "Teknologi",
+                        name = "Teknologi"
                     ),
                     courseCreator = CourseCreatorResponse(
                         id = 2,
-                        name = "Sinow",
+                        name = "Sinow"
                     ),
                     benefits = listOf(
                         CourseBenefitResponse(
                             id = 2,
                             courseId = 2,
-                            description = "Belajar Membuat Aplikasi Android untuk Pemula",
+                            description = "Belajar Membuat Aplikasi Android untuk Pemula"
                         )
                     )
-                ),
+                )
             )
         )
-
+        val mockCategories = mockk<List<Int>>()
+        val mockLevel = mockk<List<String>>()
         runTest {
-            coEvery { dataSource.getCoursesFilter() } returns fakeCourseResponse
-            repository.getCoursesFilter().map {
+            coEvery { dataSource.getCourses("ui", "gratis", listOf(1, 2), listOf("beginner"), "terbaru") } returns fakeCourseResponse
+            repository.getCourses("ui", "gratis", listOf(1, 2), listOf("beginner"), "terbaru").map {
                 delay(100)
                 it
             }.test {
@@ -369,7 +366,7 @@ class CourseRepositoryImplTest {
                 assertTrue(data is ResultWrapper.Success)
                 assertEquals(data.payload?.size, 2)
                 assertEquals(data.payload?.get(0)?.id, 1)
-                coVerify { dataSource.getCoursesFilter() }
+                coVerify { dataSource.getCourses("ui", "gratis", listOf(1, 2), listOf("beginner"), "terbaru") }
             }
         }
     }
@@ -377,15 +374,15 @@ class CourseRepositoryImplTest {
     @Test
     fun `getCourseFilter, with result error`() {
         runTest {
-            coEvery { dataSource.getCoursesFilter() } throws IllegalStateException("Mock error")
-            repository.getCoursesFilter().map {
+            coEvery { dataSource.getCourses() } throws IllegalStateException("Mock error")
+            repository.getCourses().map {
                 delay(100)
                 it
             }.test {
                 delay(220)
                 val data = expectMostRecentItem()
                 assertTrue(data is ResultWrapper.Error)
-                coVerify { dataSource.getCoursesFilter() }
+                coVerify { dataSource.getCourses() }
             }
         }
     }
@@ -399,15 +396,15 @@ class CourseRepositoryImplTest {
         )
 
         runTest {
-            coEvery { dataSource.getCoursesFilter() } returns fakeCourseResponse
-            repository.getCoursesFilter().map {
+            coEvery { dataSource.getCourses() } returns fakeCourseResponse
+            repository.getCourses().map {
                 delay(100)
                 it
             }.test {
                 delay(220)
                 val data = expectMostRecentItem()
                 assertTrue(data is ResultWrapper.Empty)
-                coVerify { dataSource.getCoursesFilter() }
+                coVerify { dataSource.getCourses() }
             }
         }
     }
@@ -417,15 +414,15 @@ class CourseRepositoryImplTest {
         val mockResponse = mockk<CoursesResponse>()
 
         runTest {
-            coEvery { dataSource.getCoursesFilter() } returns mockResponse
-            repository.getCoursesFilter().map {
+            coEvery { dataSource.getCourses() } returns mockResponse
+            repository.getCourses().map {
                 delay(100)
                 it
             }.test {
                 delay(100)
                 val data = expectMostRecentItem()
                 assertTrue(data is ResultWrapper.Loading)
-                coVerify { dataSource.getCoursesFilter() }
+                coVerify { dataSource.getCourses() }
             }
         }
     }
@@ -559,7 +556,7 @@ class CourseRepositoryImplTest {
     fun `followCourse, with result success`() {
         val fakeDataResponse = FollowCourseResponse(
             status = "Success",
-            message = "Berhasil mengambil data follow course",
+            message = "Berhasil mengambil data follow course"
         )
 
         runTest {
@@ -615,7 +612,7 @@ class CourseRepositoryImplTest {
     fun `followCourse, with result empty`() {
         val fakeDataResponse = FollowCourseResponse(
             status = "Failed",
-            message = "Data follow course tidak ditemukan",
+            message = "Data follow course tidak ditemukan"
         )
 
         runTest {
@@ -648,7 +645,7 @@ class CourseRepositoryImplTest {
             coEvery {
                 dataSource.buyPremiumCourse(
                     TransactionRequest(
-                        courseId = 1,
+                        courseId = 1
                     )
                 )
             } returns fakeDataResponse
@@ -679,7 +676,7 @@ class CourseRepositoryImplTest {
             coEvery {
                 dataSource.buyPremiumCourse(
                     TransactionRequest(
-                        courseId = 1,
+                        courseId = 1
                     )
                 )
             } returns mockResponse
@@ -707,7 +704,7 @@ class CourseRepositoryImplTest {
             coEvery {
                 dataSource.buyPremiumCourse(
                     TransactionRequest(
-                        courseId = 1,
+                        courseId = 1
                     )
                 )
             } throws IllegalStateException("Mock error")

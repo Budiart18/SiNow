@@ -224,49 +224,24 @@ class SinowApiDataSourceTest {
     }
 
     @Test
-    fun `getCourses gets called`() {
+    fun `getCourses with query single category`() {
         runTest {
             val mockResponse = mockk<CoursesResponse>()
-            coEvery { service.getCourses() } returns mockResponse
-            val response = dataSource.getCourses()
-            coVerify { service.getCourses() } // memverifikasi apakah service sudah terpanggil
-            assertEquals(response, mockResponse) // mencocokan hasil antara actual dengan expected
+            coEvery { service.getCourses("ui", "gratis", 1, "beginner", "terbaru") } returns mockResponse
+            val response = dataSource.getCourses("ui", "gratis", 1, "beginner", "terbaru")
+            coVerify { service.getCourses("ui", "gratis", 1, "beginner", "terbaru") }
+            assertEquals(response, mockResponse)
         }
     }
 
     @Test
-    fun `getCoursesFilter gets called`() {
+    fun `getCourses with query category list`() {
         runTest {
             val mockResponse = mockk<CoursesResponse>()
-            coEvery {
-                service.getCoursesFilter(
-                    search = any(),
-                    type = any(),
-                    category = any(),
-                    level = any(),
-                    sortBy = any()
-                )
-            } returns mockResponse
-
-            val response = dataSource.getCoursesFilter(
-                search = "search",
-                type = "type",
-                category = listOf(1, 2, 3),
-                level = listOf("level1", "level2", "level3"),
-                sortBy = "sortBy"
-            )
-
-            coVerify {
-                service.getCoursesFilter(
-                    search = any(),
-                    type = any(),
-                    category = any(),
-                    level = any(),
-                    sortBy = any()
-                )
-            } // memverifikasi apakah service sudah terpanggil
-
-            assertEquals(response, mockResponse) // mencocokan hasil antara actual dengan expected
+            coEvery { service.getCourses("ui", "gratis", listOf(1, 2), listOf("beginner"), "terbaru") } returns mockResponse
+            val response = dataSource.getCourses("ui", "gratis", listOf(1, 2), listOf("beginner"), "terbaru")
+            coVerify { service.getCourses("ui", "gratis", listOf(1, 2), listOf("beginner"), "terbaru") }
+            assertEquals(response, mockResponse)
         }
     }
 
