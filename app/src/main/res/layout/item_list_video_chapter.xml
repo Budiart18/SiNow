@@ -22,12 +22,13 @@
     <TextView
         android:id="@+id/tv_title_unlock"
         style="@style/TextAppearance.Material3.BodyMedium"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textColor="@color/app_color_secondary"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="8dp"
+        android:maxLines="2"
+        android:textColor="?attr/colorOnPrimaryContainer"
         app:layout_constraintBottom_toBottomOf="@id/tv_number"
+        app:layout_constraintEnd_toStartOf="@id/iv_play_video"
         app:layout_constraintStart_toEndOf="@id/tv_number"
         app:layout_constraintTop_toTopOf="@id/tv_number"
         tools:text="Tujuan Mengikuti Kelas Design System" />

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.group2.sinow.databinding.ItemListBenefitCourseBinding
 import com.group2.sinow.model.detailcourse.BenefitData
-import com.group2.sinow.model.notification.Notification
 
 class BenefitListAdapter() : RecyclerView.Adapter<BenefitListViewHolder>() {
 
@@ -39,7 +38,6 @@ class BenefitListAdapter() : RecyclerView.Adapter<BenefitListViewHolder>() {
     override fun getItemCount(): Int = dataDiffer.currentList.size
 
     override fun onBindViewHolder(holder: BenefitListViewHolder, position: Int) {
-
         val currentItem = dataDiffer.currentList[position]
         holder.bind(currentItem)
     }
@@ -47,7 +45,6 @@ class BenefitListAdapter() : RecyclerView.Adapter<BenefitListViewHolder>() {
     fun submitData(data: List<BenefitData>) {
         dataDiffer.submitList(data)
     }
-
 }
 
 class BenefitListViewHolder(
@@ -58,5 +55,4 @@ class BenefitListViewHolder(
         binding.tvBenefitContent.text = item.description
         binding.tvNumber.text = item.no.toString()
     }
-
 }

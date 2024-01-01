@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.data.network.api.model.resendotp.ResendOtpResponse
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailRequest
 import com.group2.sinow.data.network.api.model.verifyemail.VerifyEmailResponse
 import com.group2.sinow.data.repository.AuthRepository
-import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.launch
 
-class OTPViewModel(private val repository: AuthRepository, private val userPreferenceDataSource: UserPreferenceDataSource): ViewModel() {
+class OTPViewModel(private val repository: AuthRepository, private val userPreferenceDataSource: UserPreferenceDataSource) : ViewModel() {
 
     private val _verificationState = MutableLiveData<ResultWrapper<VerifyEmailResponse>>()
     val verificationState: LiveData<ResultWrapper<VerifyEmailResponse>>
@@ -29,7 +29,7 @@ class OTPViewModel(private val repository: AuthRepository, private val userPrefe
         }
     }
 
-    fun resendOtp(email: String){
+    fun resendOtp(email: String) {
         viewModelScope.launch {
             repository.resendOtp(email).collect { result ->
                 _resendOtpStatus.postValue(result)

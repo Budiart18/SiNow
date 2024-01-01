@@ -1,129 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.userclass.UserClassFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
+        android:id="@+id/search_bar"
+        layout="@layout/layout_content_search_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/search_bar"
-            layout="@layout/layout_content_search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_progress_class"
-            style="@style/TextAppearance.Material3.TitleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="@string/tv_current_class"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar" />
+    <TextView
+        android:id="@+id/tv_progress_class"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/tv_current_class"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
 
-        <RadioGroup
-            android:id="@+id/tab_selection"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="4dp"
-            android:checkedButton="@id/btn_all"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/sv_list_user_course"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_progress_class">
+    <RadioGroup
+        android:id="@+id/tab_selection"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
+        android:checkedButton="@id/btn_all"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/swipe_refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_progress_class">
 
-            <RadioButton
-                android:id="@+id/btn_all"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/radio_btn_selector"
-                android:button="@drawable/null_radio_btn"
-                android:gravity="center"
-                android:text="@string/tv_btn_all"
-                android:textColor="@drawable/radio_btn_text_selected" />
+        <RadioButton
+            android:id="@+id/btn_all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/radio_btn_selector"
+            android:button="@drawable/null_radio_btn"
+            android:gravity="center"
+            android:text="@string/tv_btn_all"
+            android:textColor="@drawable/radio_btn_text_selected" />
 
-            <RadioButton
-                android:id="@+id/btn_in_progress"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/radio_btn_selector"
-                android:button="@drawable/null_radio_btn"
-                android:gravity="center"
-                android:text="@string/tv_btn_in_progress"
-                android:textColor="@drawable/radio_btn_text_selected" />
+        <RadioButton
+            android:id="@+id/btn_in_progress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/radio_btn_selector"
+            android:button="@drawable/null_radio_btn"
+            android:gravity="center"
+            android:text="@string/tv_btn_in_progress"
+            android:textColor="@drawable/radio_btn_text_selected" />
 
-            <RadioButton
-                android:id="@+id/btn_finish"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/radio_btn_selector"
-                android:button="@drawable/null_radio_btn"
-                android:gravity="center"
-                android:text="@string/tv_btn_finish"
-                android:textColor="@drawable/radio_btn_text_selected" />
+        <RadioButton
+            android:id="@+id/btn_finish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/radio_btn_selector"
+            android:button="@drawable/null_radio_btn"
+            android:gravity="center"
+            android:text="@string/tv_btn_finish"
+            android:textColor="@drawable/radio_btn_text_selected" />
 
-        </RadioGroup>
+    </RadioGroup>
 
-        <include
-            android:id="@+id/layout_course_empty"
-            layout="@layout/layout_content_course_empty"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tab_selection"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="gone" />
+    <include
+        android:id="@+id/layout_course_empty"
+        layout="@layout/layout_content_course_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_selection"
+        tools:visibility="gone" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_selection">
 
         <ScrollView
             android:id="@+id/sv_list_user_course"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_selection">
+            android:layout_height="match_parent">
 
-            <FrameLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_user_course"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_list_course_progress" />
+                    android:layout_height="match_parent">
 
-                <include
-                    android:id="@+id/layout_state_class_user"
-                    layout="@layout/common_layout_content_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_list_user_course"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_list_course_progress" />
 
-            </FrameLayout>
+                    <include
+                        android:id="@+id/layout_state_class_user"
+                        layout="@layout/common_layout_content_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

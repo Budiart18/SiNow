@@ -32,6 +32,5 @@ class IntroPageAdapter(
             binding.tvSecondText.text = introSliderItem.desc
             binding.ivSlideIcon.setImageResource(introSliderItem.icon)
         }
-
     }
 }

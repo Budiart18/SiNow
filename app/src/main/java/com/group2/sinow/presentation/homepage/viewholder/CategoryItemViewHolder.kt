@@ -20,7 +20,6 @@ class ItemGridCategoryViewHolder(
             }
         }
     }
-
 }
 
 class ItemListCategoryViewHolder(
@@ -36,5 +35,4 @@ class ItemListCategoryViewHolder(
             }
         }
     }
-
 }

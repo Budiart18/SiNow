@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.bottom_dialog
+package com.group2.sinow.presentation.bottomdialog
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -16,14 +16,14 @@ import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class StartLearningDialogFragment : SuperBottomSheetFragment() {
-
     private lateinit var binding: FragmentStartLearningDialogBinding
 
     private val sharedViewModel: DetailCourseViewModel by activityViewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentStartLearningDialogBinding.inflate(inflater, container, false)
@@ -35,12 +35,15 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenHeight = displayMetrics.heightPixels
         println(screenHeight)
-        return (screenHeight * 0.9).toInt()
+        return (screenHeight * 0.6).toInt()
     }
 
     override fun isSheetAlwaysExpanded(): Boolean = true
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
         observeCourseData()
@@ -58,7 +61,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
             resultWrapper.proceedWhen(
                 doOnSuccess = {
                     binding.layoutState.root.isVisible = false
-                    binding.btnJoinClass.setOnClickListener { _ , ->
+                    binding.btnJoinClass.setOnClickListener { _ ->
                         followCourse(it.payload?.courseId)
                     }
                 },
@@ -75,7 +78,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
                         binding.layoutState.tvError.text =
                             it.exception.getParsedError()?.message.orEmpty()
                     }
-                }
+                },
             )
         }
     }
@@ -84,8 +87,11 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
         sharedViewModel.isFollowingCourse.observe(this) { resultWrapper ->
             resultWrapper.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.tv_toast_success_follow_class), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.tv_toast_success_follow_class),
+                        Toast.LENGTH_SHORT,
+                    ).show()
                     dismiss()
                 },
                 doOnError = {
@@ -93,10 +99,10 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
                         Toast.makeText(
                             requireContext(),
                             it.exception.getParsedError()?.message,
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_SHORT,
                         ).show()
                     }
-                }
+                },
             )
         }
     }
@@ -104,5 +110,4 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
     private fun followCourse(courseId: Int?) {
         sharedViewModel.followCourse(courseId)
     }
-
 }

@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentCourseBinding
 import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.course.filtercourse.FilterDialogFragment
 import com.group2.sinow.presentation.detail.DetailCourseActivity
 import com.group2.sinow.presentation.homepage.NonLoginUserDialogFragment
-import com.group2.sinow.presentation.profile.ProfileViewModel
+import com.group2.sinow.presentation.main.MainViewModel
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -33,7 +31,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
 
     private val viewModel: CourseViewModel by viewModel()
 
-    private val profileViewModel: ProfileViewModel by activityViewModel()
+    private val mainViewModel: MainViewModel by activityViewModel()
 
     private var searchQuery: String? = null
     private var selectedType: String? = null
@@ -48,7 +46,7 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     private fun itemCourseListener(courseId: Int?) {
-        profileViewModel.userData.observe(viewLifecycleOwner) { resultWrapper ->
+        mainViewModel.userData.observe(viewLifecycleOwner) { resultWrapper ->
             if (resultWrapper.payload != null) {
                 navigateToDetailCourse(courseId)
             } else {
@@ -66,7 +64,8 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCourseBinding.inflate(inflater, container, false)
@@ -86,7 +85,6 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         viewModel.resetFilter()
     }
     private fun buildChipItem() {
-        if (searchQuery != null) addChipToGroup(searchQuery)
         if (selectedCategories != null) {
             selectedCategories?.map {
                 addChipToGroup(it.categoryName)
@@ -101,14 +99,14 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
     }
 
     private fun addChipToGroup(chipItem: String?) {
-        val chip = Chip(context)
-        chip.text = chipItem
-        chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
-        chip.isChipIconVisible = false
-        chip.isCheckable = false
-        binding.chipGroup.addView(chip as View)
+        if (!chipItem.isNullOrBlank()) {
+            val chip = Chip(context, null, R.attr.CustomChipChoiceStyle)
+            chip.text = chipItem
+            chip.isChipIconVisible = false
+            chip.isCheckable = false
+            binding.chipGroup.addView(chip as View)
+        }
     }
-
 
     private fun refreshData() {
         binding.swipeRefresh.setOnRefreshListener {
@@ -129,10 +127,12 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         if (!query.isNullOrEmpty()) {
             searchQuery = query
             viewModel.setSearchQuery(query)
+            binding.searchBar.etSearchBar.setText(query)
         } else {
             searchQuery = null
         }
         getData(searchQuery, selectedType, selectedCategories, selectedLevel, selectedSortBy)
+        arguments = null
     }
 
     private fun observeFilterData() {
@@ -188,7 +188,6 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
             this.searchQuery = searchQuery
         }
     }
-
 
     private fun observeCourseList() {
         viewModel.courses.observe(viewLifecycleOwner) {
@@ -254,7 +253,6 @@ class CourseFragment : Fragment(), FilterDialogFragment.OnFilterListener {
         binding.chipGroup.removeAllViews()
         buildChipItem()
     }
-
 
     companion object {
         const val TYPE_ALL = "all"

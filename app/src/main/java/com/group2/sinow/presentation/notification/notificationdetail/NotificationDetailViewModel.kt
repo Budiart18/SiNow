@@ -28,7 +28,7 @@ class NotificationDetailViewModel(
 
     fun getNotification() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getNotificationDetail(notification?.id ?: 0).collect{
+            repository.getNotificationDetail(notification?.id ?: 0).collect {
                 _notification.postValue(it)
             }
         }
@@ -36,10 +36,9 @@ class NotificationDetailViewModel(
 
     fun deleteNotification() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteNotification(notification?.id ?: 0).collect{
+            repository.deleteNotification(notification?.id ?: 0).collect {
                 _deleteNotificationResult.postValue(it)
             }
         }
     }
-
 }

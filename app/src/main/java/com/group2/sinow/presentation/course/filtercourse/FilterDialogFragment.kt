@@ -11,7 +11,6 @@ import com.group2.sinow.databinding.FragmentFilterDialogBinding
 import com.group2.sinow.model.category.Category
 import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.utils.proceedWhen
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class FilterDialogFragment : SuperBottomSheetFragment() {
@@ -55,7 +54,8 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -79,7 +79,6 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         observeCategoryList()
         setClickListener()
     }
-
 
     private fun setClickListener() {
         binding.ivClose.setOnClickListener {
@@ -120,7 +119,7 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         val selectedType = viewModel.selectedType.value
         val selectedCategories = viewModel.selectedCategories.value
         val selectedLevels = mutableListOf<String>().apply {
-            if ( binding.cbBeginner.isChecked) add(BEGINNER_LEVEL)
+            if (binding.cbBeginner.isChecked) add(BEGINNER_LEVEL)
             if (binding.cbIntermediate.isChecked) add(INTERMEDIATE_LEVEL)
             if (binding.cbAdvance.isChecked) add(ADVANCED_LEVEL)
         }
@@ -133,8 +132,6 @@ class FilterDialogFragment : SuperBottomSheetFragment() {
         filterListener?.onFilterApplied(searchQuery, selectedType, selectedCategories, selectedLevels, selectedSortBy)
         dismiss()
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

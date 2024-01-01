@@ -1,7 +1,7 @@
 package com.group2.sinow.data.network.api.model.transactionhistory
 
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.paymenthistory.TransactionUser
 
 @Keep
@@ -51,7 +51,7 @@ fun Transaction.toItemTransaction() = TransactionUser(
     courseId = this.courseId ?: 0,
     coursePrice = this.coursePrice ?: 0,
     discountPrice = this.discountPrice ?: 0,
-    taxPrice = this.taxPrice ?: 0 ,
+    taxPrice = this.taxPrice ?: 0,
     totalPrice = this.totalPrice ?: 0,
     promoDiscountPercentage = this.promoDiscountPercentage ?: 0,
     taxPercentage = this.taxPercentage ?: 0,

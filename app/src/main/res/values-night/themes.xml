@@ -4,31 +4,43 @@
     <style name="Base.Theme.SiNow" parent="Theme.Material3.DayNight.NoActionBar">
 
         <!-- Customize your dark theme here. -->
-        <item name="android:windowBackground">@color/color_background_dark_mode</item>
+        <item name="android:windowBackground">@color/app_color_primary_container_dark</item>
         <item name="colorPrimary">@color/app_color_primary</item>
         <item name="colorOnPrimary">@color/app_color_on_primary</item>
-        <item name="colorPrimaryContainer">@color/app_color_primary_container</item>
-        <item name="colorOnPrimaryContainer">@color/app_color_on_primary_container</item>
+        <item name="colorPrimaryContainer">@color/app_color_primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/app_color_on_primary_container_dark</item>
 
         <item name="colorSecondary">@color/app_color_secondary</item>
         <item name="colorOnSecondary">@color/app_color_on_secondary</item>
-        <item name="colorSecondaryContainer">@color/app_color_secondary_container</item>
-        <item name="colorOnSecondaryContainer">@color/app_color_on_secondary_container</item>
+        <item name="colorSecondaryContainer">@color/app_color_secondary_container_dark</item>
+        <item name="colorOnSecondaryContainer">@color/app_color_on_secondary_container_dark</item>
 
         <item name="colorTertiary">@color/app_color_tertiary</item>
         <item name="colorOnTertiary">@color/app_color_on_tertiary</item>
-        <item name="colorTertiaryContainer">@color/app_color_tertiary_container</item>
-        <item name="colorOnTertiaryContainer">@color/app_color_on_tertiary_container</item>
+        <item name="colorTertiaryContainer">@color/app_color_tertiary_container_dark</item>
+        <item name="colorOnTertiaryContainer">@color/app_color_on_tertiary_container_dark</item>
 
         <item name="colorError">@color/app_color_error</item>
         <item name="colorOnError">@color/app_color_on_error</item>
-        <item name="colorErrorContainer">@color/app_color_error_container</item>
-        <item name="colorOnErrorContainer">@color/app_color_on_error_container</item>
+        <item name="colorErrorContainer">@color/app_color_error_container_dark</item>
+        <item name="colorOnErrorContainer">@color/app_color_on_error_container_dark</item>
+
+        <item name="colorAccent">@color/app_color_accent_dark</item>
+
+        <item name="CustomChipChoiceStyle">@style/ChipCustomStyle</item>
+        <item name="superBottomSheet_backgroundColor">@color/app_color_accent_dark</item>
+
     </style>
 
     <!-- Style for ShapeableImageView-->
     <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
         <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="ChipCustomStyle" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/app_color_accent_dark</item>
+        <item name="android:textColor">@color/app_color_on_primary_container_dark</item>
+        <item name="chipCornerRadius">8dp</item>
     </style>
 
     <style name="Theme.SiNow" parent="Base.Theme.SiNow" />

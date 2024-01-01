@@ -11,7 +11,7 @@ data class UserCourses(
     val videoPreviewUrl: String?,
     val level: String?,
     val rating: Double?,
-    val categoryId : Int?,
+    val categoryId: Int?,
     val description: String?,
     val classCode: String?,
     val totalModule: Int?,
@@ -25,4 +25,4 @@ data class UserCourses(
     val createdAt: String?,
     val updatedAt: String?,
     val category: CategoryCourse?
-): Parcelable
+) : Parcelable

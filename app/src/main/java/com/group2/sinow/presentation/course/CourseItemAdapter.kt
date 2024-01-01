@@ -10,6 +10,7 @@ import coil.load
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ItemListCourseBinding
 import com.group2.sinow.model.course.Course
+import com.group2.sinow.utils.formatSecondsToMinutes
 
 class CourseItemAdapter(
     private val itemClick: (Course) -> Unit
@@ -50,8 +51,6 @@ class CourseItemAdapter(
     fun submitData(data: List<Course>) {
         dataDiffer.submitList(data)
     }
-
-
 }
 
 class ItemListCourseViewHolder(
@@ -71,12 +70,12 @@ class ItemListCourseViewHolder(
                 R.string.format_course_by,
                 item.courseBy
             )
-            binding.tvCourseLevel.text = item.level?.replaceFirstChar{
+            binding.tvCourseLevel.text = item.level?.replaceFirstChar {
                 it.uppercase()
             }
             binding.tvCourseDuration.text = itemView.rootView.context.getString(
                 R.string.format_course_duration,
-                item.totalDuration
+                item.totalDuration?.let { formatSecondsToMinutes(it) }
             )
             binding.tvCourseModules.text = itemView.rootView.context.getString(
                 R.string.format_course_module,
@@ -99,5 +98,4 @@ class ItemListCourseViewHolder(
     companion object {
         const val TYPE_PREMIUM = "premium"
     }
-
 }

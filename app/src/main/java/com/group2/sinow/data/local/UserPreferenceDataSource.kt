@@ -19,7 +19,6 @@ interface UserPreferenceDataSource {
     suspend fun setShouldShowIntroPage(isFirstTime: Boolean)
 
     fun getShouldShowIntroPage(): Flow<Boolean>
-
 }
 
 class UserPreferenceDataSourceImpl(private val preferenceHelper: PreferenceDataStoreHelper) :
@@ -65,11 +64,9 @@ class UserPreferenceDataSourceImpl(private val preferenceHelper: PreferenceDataS
         return preferenceHelper.removePreference(PREF_USER_DARK_MODE)
     }
 
-
     companion object {
         val PREF_USER_TOKEN = stringPreferencesKey("PREF_USER_TOKEN")
         val PREF_SHOW_INTRO_PAGE = booleanPreferencesKey("PREF_SHOW_INTRO_PAGE")
         val PREF_USER_DARK_MODE = booleanPreferencesKey("PREF_USER_DARK_MODE")
     }
-
 }

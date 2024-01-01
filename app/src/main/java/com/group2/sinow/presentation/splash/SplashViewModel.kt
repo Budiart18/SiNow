@@ -3,7 +3,6 @@ package com.group2.sinow.presentation.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.dummy.IntroPageDataSource
 import com.group2.sinow.data.local.UserPreferenceDataSource
@@ -25,17 +24,16 @@ class SplashViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            delay(2000)
-            userPreferenceDataSource.getShouldShowIntroPage().collect{
+            delay(1000)
+            userPreferenceDataSource.getShouldShowIntroPage().collect {
                 _isFirstTime.postValue(it)
             }
         }
     }
 
-    fun setShouldShowIntroPage(isFirstTime: Boolean){
+    fun setShouldShowIntroPage(isFirstTime: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             userPreferenceDataSource.setShouldShowIntroPage(isFirstTime)
         }
     }
-
 }

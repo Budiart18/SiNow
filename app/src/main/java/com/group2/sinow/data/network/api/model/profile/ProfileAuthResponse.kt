@@ -1,8 +1,7 @@
 package com.group2.sinow.data.network.api.model.profile
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.profile.ProfileAuth
 
 @Keep
@@ -33,5 +32,5 @@ fun ProfileAuthResponse.toProfileAuth() = ProfileAuth(
     userId = this.userId ?: 0,
     isEmailVerified = this.isEmailVerified ?: false,
     createdAt = this.createdAt.orEmpty(),
-    updatedAt = this.updatedAt.orEmpty(),
+    updatedAt = this.updatedAt.orEmpty()
 )

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.group2.sinow.data.repository.UserRepository
-import com.group2.sinow.model.paymenthistory.DataDetailTransactionUser
 import com.group2.sinow.model.paymenthistory.TransactionUser
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +27,7 @@ class DetailTransactionHistoryViewModel(
     val deleteTransactionResult: LiveData<ResultWrapper<Boolean>>
         get() = _deleteTransactionResult
 
-    fun getTransaction(id : String) {
+    fun getTransaction(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getUserDetailTransaction(id).collect {
                 _transaction.postValue(it)
@@ -38,7 +37,7 @@ class DetailTransactionHistoryViewModel(
 
     fun deleteTransaction(transactionId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteTransaction(transactionId).collect{
+            repository.deleteTransaction(transactionId).collect {
                 _deleteTransactionResult.postValue(it)
             }
         }

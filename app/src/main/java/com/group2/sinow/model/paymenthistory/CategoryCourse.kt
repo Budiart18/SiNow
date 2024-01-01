@@ -3,7 +3,6 @@ package com.group2.sinow.model.paymenthistory
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class CategoryCourse(
     val id: Int?,
@@ -11,4 +10,4 @@ data class CategoryCourse(
     val imageUrl: String?,
     val createdAt: String?,
     val updatedAt: String?
-): Parcelable
+) : Parcelable

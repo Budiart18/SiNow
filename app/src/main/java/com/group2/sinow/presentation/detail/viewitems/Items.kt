@@ -16,7 +16,6 @@ class HeaderItemVideoChapter(
         viewBinding.tvChapterMaterials.text = title
         viewBinding.tvDuration.text = String.format("%d Menit", duration)
         viewBinding.root.setOnClickListener { onHeaderClick.invoke(title.toString()) }
-
     }
 
     override fun getLayout(): Int = R.layout.item_header_class_material

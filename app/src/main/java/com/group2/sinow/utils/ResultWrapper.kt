@@ -60,9 +60,9 @@ fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
             }
         )
     }.catch { e ->
-        val exception = when(e){
+        val exception = when (e) {
             is IOException -> NoInternetException()
-            is HttpException -> ApiException(e.message().orEmpty(),e.code(),e.response())
+            is HttpException -> ApiException(e.message().orEmpty(), e.code(), e.response())
             else -> Exception(e)
         }
         emit(ResultWrapper.Error<T>(exception = exception))

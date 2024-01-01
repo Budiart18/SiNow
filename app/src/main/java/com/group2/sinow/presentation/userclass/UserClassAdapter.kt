@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.group2.sinow.databinding.ItemListCourseProgressBinding
-import com.group2.sinow.model.course.Course
 import com.group2.sinow.model.userclass.UserCourseData
 
 class UserClassAdapter(
     val itemClick: (UserCourseData) -> Unit
-): RecyclerView.Adapter<UserClassViewHolder>(){
+) : RecyclerView.Adapter<UserClassViewHolder>() {
 
     private val dataDiffer =
         AsyncListDiffer(
@@ -47,6 +46,4 @@ class UserClassAdapter(
     fun submitData(data: List<UserCourseData>) {
         dataDiffer.submitList(data)
     }
-
-
 }

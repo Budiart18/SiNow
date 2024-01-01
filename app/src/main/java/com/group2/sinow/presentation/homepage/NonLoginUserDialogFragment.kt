@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.group2.sinow.presentation.main.MainActivity
 import com.group2.sinow.databinding.FragmentNonLoginUserDialogBinding
 import com.group2.sinow.presentation.auth.login.LoginActivity
 
@@ -16,7 +15,8 @@ class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
     private lateinit var binding: FragmentNonLoginUserDialogBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -52,5 +52,4 @@ class NonLoginUserDialogFragment : SuperBottomSheetFragment() {
         val intent = Intent(requireContext(), LoginActivity::class.java)
         startActivity(intent)
     }
-
 }

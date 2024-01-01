@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".presentation.bottom_dialog.RegistrationSuccessDialogFragment">
+    android:background="?attr/superBottomSheet_backgroundColor"
+    tools:context=".presentation.bottomdialog.RegistrationSuccessDialogFragment">
 
     <ImageView
         android:id="@+id/iv_close"
@@ -23,7 +24,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/text_registration_success"
         android:textAlignment="center"
-        android:textColor="@color/app_color_primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/iv_close" />
@@ -49,9 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="36dp"
-        android:backgroundTint="@color/app_color_primary"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="@string/text_home"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

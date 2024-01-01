@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">SiNow</string>
+    <string name="app_name">SINOW</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tv_oopps">Oopps!</string>
+    <string name="tv_oopps">Ooppss!</string>
     <string name="tv_user_must_login_first">Maaf, Anda harus login terlebih dahulu!</string>
     <string name="tv_login">Masuk</string>
     <string name="text_category">Kategori</string>
@@ -40,7 +40,7 @@
     <string name="text_enter_password">Masukkan Password</string>
     <string name="text_dont_have_an_acc_create">Belum punya akun? Daftar di sini</string>
     <string name="text_register_here">Daftar di sini</string>
-    <string name="text_login_without_login">Masuk Tanpa Login</string>
+    <string name="text_login_without_account">Masuk Tanpa Akun</string>
     <string name="text_hint_email">Contoh: sinow@gmail.com</string>
     <string name="text_register">Daftar</string>
     <string name="text_name">Nama</string>
@@ -70,7 +70,7 @@
     <string name="text_error_password_less_than_8_char">Password minimal 8 karakter!</string>
     <string name="text_email_not_registered">Email tidak terdaftar!</string>
     <string name="text_error_phone_cannot_empty">Nomor telepon tidak boleh kosong!</string>
-    <string name="text_hi_user">Hi, %s</string>
+    <string name="text_hi_user">Hai, %s</string>
     <string name="text_sizian">Sizian</string>
     <string name="text_study_materials">Materi Belajar</string>
     <string name="text_about_class">Tentang Kelas</string>
@@ -144,9 +144,9 @@
     <string name="text_premium_class">Kelas Premium</string>
     <string name="text_buy_now">Beli Sekarang</string>
     <string name="text_follow_class">Ikuti Kelas</string>
-    <string name="text_buy_class">Beli Kelas - %s</string>
+    <string name="text_buy_class">Beli Kelas</string>
     <string name="text_onboarding">Onboarding...</string>
-    <string name="text_preparation_title">Persiapkan hal berikut untuk belajar maksimal:</string>
+    <string name="text_preparation_title">Persiapkan dirimu untuk melaju menuju dunia yang tertuju!</string>
     <string name="text_preparation_description">Mempunyai akun Figma atau install Adobe XD, Menggunakan Internet minimal kecepatan 2Mbps, Belajar di tempat yang nyaman</string>
     <string name="text_cancel">Batalkan</string>
     <string name="text_cancel_payment_confirmation">Apakah Anda yakin untuk membatalkan pembayaran ini?</string>
@@ -188,4 +188,14 @@
     <string name="tv_toast_success_update_data_user">Berhasil mengupdate data user</string>
     <string name="tv_toast_you_have_to_pay_first">Anda harus bayar dahulu</string>
     <string name="tv_toast_success_follow_class">Berhasil Mengikuti Course</string>
+    <string name="text_free">Gratis</string>
+    <string name="text_sorry_course_not_found">Maaf, course tidak ditemukan</string>
+    <string name="text_find_course">Cari Course</string>
+    <string name="text_total_price">Total Harga</string>
+    <string name="text_close">Tutup</string>
+    <string name="text_congratulation">Selamat !</string>
+    <string name="text_payment_transaction_success">Transaksi pembayaran kelas premium berhasil !</string>
+    <string name="text_receipt_sended_to_email">E-receipt telah dikirimkan ke email.</string>
+    <string name="text_start_learning">Mulai Belajar</string>
+    <string name="text_back_to_home">Kembali ke Beranda</string>
 </resources>

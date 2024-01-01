@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.bottom_dialog
+package com.group2.sinow.presentation.bottomdialog
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,14 +22,14 @@ import com.shashank.sony.fancytoastlib.FancyToast
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
-
     private lateinit var binding: FragmentBuyPremiumCourseDialogBinding
 
     private val sharedViewModel: DetailCourseViewModel by activityViewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBuyPremiumCourseDialogBinding.inflate(inflater, container, false)
@@ -40,12 +40,15 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
         val displayMetrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenHeight = displayMetrics.heightPixels
-        return (screenHeight * 0.7).toInt()
+        return (screenHeight * 0.6).toInt()
     }
 
     override fun isSheetAlwaysExpanded(): Boolean = true
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
         observeCourseData()
@@ -78,7 +81,7 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
                         binding.layoutState.tvError.text =
                             it.exception.getParsedError()?.message.orEmpty()
                     }
-                }
+                },
             )
         }
     }
@@ -89,21 +92,25 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
             binding.courseCard.tvCourseCategory.text = item.course?.category?.name
             binding.courseCard.tvCourseName.text = item.course?.name
             binding.courseCard.tvCourseRate.text = item.course?.rating.toString()
-            binding.courseCard.tvCourseAuthor.text = getString(
-                R.string.format_course_by,
-                item.course?.courseBy
-            )
-            binding.courseCard.tvCourseLevel.text = item.course?.level?.replaceFirstChar {
-                it.uppercase()
-            }
-            binding.courseCard.tvCourseModules.text = getString(
-                R.string.format_course_module,
-                item.course?.totalModule
-            )
-            binding.courseCard.tvCourseDuration.text = getString(
-                R.string.format_course_duration,
-                item.course?.totalDuration
-            )
+            binding.courseCard.tvCourseAuthor.text =
+                getString(
+                    R.string.format_course_by,
+                    item.course?.courseBy,
+                )
+            binding.courseCard.tvCourseLevel.text =
+                item.course?.level?.replaceFirstChar {
+                    it.uppercase()
+                }
+            binding.courseCard.tvCourseModules.text =
+                getString(
+                    R.string.format_course_module,
+                    item.course?.totalModule,
+                )
+            binding.courseCard.tvCourseDuration.text =
+                getString(
+                    R.string.format_course_duration,
+                    item.course?.totalDuration,
+                )
             binding.courseCard.tvBtnBuy.text = item.course?.price?.toDouble()?.toCurrencyFormat()
             binding.courseCard.ivPremium.isVisible = true
             binding.btnBuyNow.setOnClickListener {
@@ -129,13 +136,13 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
                             it.exception.getParsedError()?.message.orEmpty(),
                             FancyToast.LENGTH_SHORT,
                             FancyToast.ERROR,
-                            false
+                            false,
                         ).show()
                         if (it.exception.httpCode == 400) {
                             navigateTolPaymentHistory()
                         }
                     }
-                }
+                },
             )
         }
     }
@@ -145,16 +152,15 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
         startActivity(intent)
     }
 
-
     private fun navigateToPayment(redirectUrl: String?) {
-        val intent = Intent(requireContext(), PaymentActivity::class.java).apply {
-            putExtra(URL, redirectUrl)
-        }
+        val intent =
+            Intent(requireContext(), PaymentActivity::class.java).apply {
+                putExtra(URL, redirectUrl)
+            }
         startActivity(intent)
     }
 
     companion object {
         const val URL = "URL"
     }
-
 }

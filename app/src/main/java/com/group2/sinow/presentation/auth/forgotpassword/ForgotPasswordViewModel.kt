@@ -9,19 +9,17 @@ import com.group2.sinow.data.repository.AuthRepository
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.launch
 
-class ForgotPasswordViewModel(private val repository: AuthRepository): ViewModel() {
+class ForgotPasswordViewModel(private val repository: AuthRepository) : ViewModel() {
 
     private val _resetStatus = MutableLiveData<ResultWrapper<ResetPasswordResponse>>()
     val resetStatus: LiveData<ResultWrapper<ResetPasswordResponse>>
         get() = _resetStatus
 
-
-    fun resetPassword(email: String){
+    fun resetPassword(email: String) {
         viewModelScope.launch {
             repository.resetPassword(email).collect { result ->
                 _resetStatus.postValue(result)
             }
         }
     }
-
 }

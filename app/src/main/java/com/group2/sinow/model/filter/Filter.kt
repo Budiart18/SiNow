@@ -5,4 +5,3 @@ data class Filter(
     val selectedLevels: List<String>? = null,
     val sortBy: String? = null
 )
-

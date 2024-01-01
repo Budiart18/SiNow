@@ -1,8 +1,7 @@
 package com.group2.sinow.data.network.api.model.usermodule
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.group2.sinow.model.usermodule.DataUserModule
 
 @Keep
@@ -11,6 +10,6 @@ data class DataResponse(
     val module: ModuleResponse?
 )
 
-fun DataResponse.toDataUserModule () = DataUserModule(
+fun DataResponse.toDataUserModule() = DataUserModule(
     module = this.module?.toModuleData()
 )

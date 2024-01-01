@@ -9,11 +9,9 @@ import com.group2.sinow.model.category.Category
 import com.group2.sinow.model.course.Course
 import com.group2.sinow.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
-
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
 
@@ -36,7 +34,6 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
     private val _selectedCategories = MutableLiveData<List<Category>>()
     val selectedCategories: LiveData<List<Category>?>
         get() = _selectedCategories
-
 
     fun resetFilter() {
         _selectedCategories.postValue(listOf())
@@ -94,6 +91,4 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
     fun setSelectedType(type: String) {
         _selectedType.value = type
     }
-
-
 }

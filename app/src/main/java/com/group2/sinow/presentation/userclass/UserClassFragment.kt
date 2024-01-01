@@ -1,23 +1,16 @@
 package com.group2.sinow.presentation.userclass
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import com.group2.sinow.R
 import com.group2.sinow.databinding.FragmentUserClassBinding
-import com.group2.sinow.presentation.course.CourseFragment
-import com.group2.sinow.presentation.course.CourseViewModel
 import com.group2.sinow.presentation.detail.DetailCourseActivity
-import com.group2.sinow.presentation.notification.notificationdetail.NotificationDetailActivity
-import com.group2.sinow.presentation.notification.notificationlist.NotificationActivity
 import com.group2.sinow.utils.exceptions.ApiException
 import com.group2.sinow.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +20,7 @@ class UserClassFragment : Fragment() {
     private lateinit var binding: FragmentUserClassBinding
 
     private val userClassAdapter: UserClassAdapter by lazy {
-        UserClassAdapter{
+        UserClassAdapter {
             itemCourseListener(it.courseId)
         }
     }
@@ -36,14 +29,14 @@ class UserClassFragment : Fragment() {
         DetailCourseActivity.startActivity(requireContext(), courseId)
     }
 
-
     private val viewModel: UserClassViewModel by viewModel()
 
     private var searchQuery: String? = null
     private var selectedProgress: String? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserClassBinding.inflate(inflater, container, false)
@@ -100,7 +93,6 @@ class UserClassFragment : Fragment() {
         }
     }
 
-
     private fun setupSearch() {
         binding.searchBar.etSearchBar.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -118,7 +110,7 @@ class UserClassFragment : Fragment() {
     }
 
     private fun observeCourseList() {
-        viewModel.courses.observe(viewLifecycleOwner){
+        viewModel.courses.observe(viewLifecycleOwner) {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStateClassUser.root.isVisible = false
@@ -144,11 +136,11 @@ class UserClassFragment : Fragment() {
                     binding.layoutStateClassUser.root.isVisible = true
                     binding.layoutStateClassUser.loadingAnimation.isVisible = false
                     binding.rvListUserCourse.isVisible = false
-                    if(it.exception is ApiException){
-                        if(it.exception.httpCode == 401){
+                    if (it.exception is ApiException) {
+                        if (it.exception.httpCode == 401) {
                             binding.layoutCourseEmpty.root.isVisible = true
                             binding.layoutCourseEmpty.tvNotificationEmpty.text = getString(R.string.tv_user_must_login_first)
-                        }else{
+                        } else {
                             binding.layoutCourseEmpty.root.isVisible = true
                             binding.layoutCourseEmpty.tvNotificationEmpty.text = getString(R.string.tv_you_havent_taken_course_yet)
                         }
@@ -163,5 +155,4 @@ class UserClassFragment : Fragment() {
         const val ON_PROGRESS = "inProgress"
         const val PROGRESS_FINISH = "completed"
     }
-
 }

@@ -3,9 +3,9 @@ package com.group2.sinow.presentation.notification.notificationdetail
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.group2.sinow.R
@@ -31,7 +31,6 @@ class NotificationDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        bindNotification(viewModel.notification)
         observeData()
         getData()
         setClickListener()
@@ -81,6 +80,7 @@ class NotificationDetailActivity : AppCompatActivity() {
                     binding.layoutStateNotification.root.isVisible = false
                     binding.layoutStateNotification.loadingAnimation.isVisible = false
                     binding.layoutStateNotification.tvError.isVisible = false
+                    bindNotification(it.payload)
                 },
                 doOnLoading = {
                     binding.layoutStateNotification.root.isVisible = true
@@ -137,5 +137,4 @@ class NotificationDetailActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-
 }

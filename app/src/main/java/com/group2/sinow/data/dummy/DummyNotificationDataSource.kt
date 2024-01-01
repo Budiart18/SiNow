@@ -3,7 +3,7 @@ package com.group2.sinow.data.dummy
 import com.group2.sinow.model.notification.Notification
 
 interface DummyNotificationDataSource {
-    fun getNotificationData() : List<Notification>
+    fun getNotificationData(): List<Notification>
 }
 
 class DummyNotificationDataSourceImpl() : DummyNotificationDataSource {
@@ -112,5 +112,4 @@ class DummyNotificationDataSourceImpl() : DummyNotificationDataSource {
             )
         )
     }
-
 }

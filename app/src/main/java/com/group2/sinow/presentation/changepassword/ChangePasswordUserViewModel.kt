@@ -1,4 +1,4 @@
-package com.group2.sinow.presentation.change_password
+package com.group2.sinow.presentation.changepassword
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +21,7 @@ class ChangePasswordUserViewModel(private val repository: UserRepository) : View
         confirmNewPassword: String?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.changePassword(oldPassword, newPassword, confirmNewPassword).collect{
+            repository.changePassword(oldPassword, newPassword, confirmNewPassword).collect {
                 _changePasswordResult.postValue(it)
             }
         }

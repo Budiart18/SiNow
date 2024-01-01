@@ -3,10 +3,10 @@ package com.group2.sinow.presentation.transactionhistory.detailtransactionhistor
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.group2.sinow.R
@@ -26,7 +26,6 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
 
     private val binding: ActivityDetailPaymentHistoryBinding by lazy {
         ActivityDetailPaymentHistoryBinding.inflate(layoutInflater)
-
     }
 
     private val viewModel: DetailTransactionHistoryViewModel by viewModel {
@@ -55,10 +54,7 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
             getData()
             binding.swipeRefresh.isRefreshing = false
         }
-
-
     }
-
 
     private fun getData() {
         val transactionId = intent.getStringExtra(EXTRA_TRANSACTION)
@@ -130,7 +126,6 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
             }.create()
         dialog.show()
     }
-
 
     private fun bindHistoryTransaction(transaction: TransactionUser?) {
         transaction?.let {
@@ -221,9 +216,7 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
                 binding.itemInformation.tvResultExpiredTime.text =
                     changeFormatTime(it.expiredAt.toString())
             }
-
         }
-
     }
 
     private fun navigateToDetail(courseId: Int?) {
@@ -235,7 +228,6 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
             putExtra(URL, redirectUrl)
         }
         startActivity(intent)
-
     }
 
     companion object {
@@ -257,9 +249,4 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-
-
 }
-
-
-

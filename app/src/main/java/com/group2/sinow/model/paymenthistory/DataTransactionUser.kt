@@ -6,4 +6,4 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DataTransactionUser(
     val transactions: List<TransactionUser>?
-): Parcelable
+) : Parcelable

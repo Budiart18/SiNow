@@ -46,5 +46,4 @@ class CategoryAdapter(private val itemClick: (Category) -> Unit) :
     fun submitData(data: List<Category>) {
         dataDiffer.submitList(data)
     }
-
 }

@@ -67,7 +67,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins"
             android:text="@string/text_name"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_image" />
@@ -87,8 +87,7 @@
                 android:id="@+id/et_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_enter_your_name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +99,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins"
             android:text="@string/text_email"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_profile_name" />
@@ -121,8 +120,7 @@
                 android:id="@+id/et_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_enter_your_email" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,7 +132,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins"
             android:text="@string/text_phone_number"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_profile_email" />
@@ -154,8 +152,7 @@
                 android:id="@+id/et_profile_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_enter_your_phone" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -168,7 +165,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins"
             android:text="@string/text_country"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_profile_phone" />
@@ -187,9 +184,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_profile_country"
                 android:layout_width="match_parent"
-                android:backgroundTint="@color/white"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_enter_your_country" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,7 +197,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins"
             android:text="@string/text_city"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_profile_country" />
@@ -221,8 +217,7 @@
                 android:id="@+id/et_profile_city"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/text_enter_your_city" />
         </com.google.android.material.textfield.TextInputLayout>
 

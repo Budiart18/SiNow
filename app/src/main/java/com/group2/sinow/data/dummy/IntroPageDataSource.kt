@@ -12,7 +12,7 @@ class IntroPageDataSourceImpl() : IntroPageDataSource {
         return listOf(
             IntroSliderItem("SINOW", "Sinau dari pengalaman", R.drawable.introslider_icon1),
             IntroSliderItem("SINOW", "Sinau dari mentor", R.drawable.introslider_icon2),
-            IntroSliderItem("SINOW", "Sinau darimana saja", R.drawable.introslider_icon3),
+            IntroSliderItem("SINOW", "Sinau darimana saja", R.drawable.introslider_icon3)
         )
     }
 }

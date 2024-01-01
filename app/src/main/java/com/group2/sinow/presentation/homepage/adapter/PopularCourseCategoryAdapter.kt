@@ -61,5 +61,4 @@ class PopularCourseCategoryAdapter(private val itemClick: (Category) -> Unit) :
         this.selectedPosition = selectedCategory?.id
         notifyDataSetChanged()
     }
-
 }

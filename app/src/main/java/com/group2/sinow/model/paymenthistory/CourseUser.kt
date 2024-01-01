@@ -25,4 +25,4 @@ data class CourseUser(
     val createdAt: String?,
     val updatedAt: String?,
     val category: CategoryCourse?
-): Parcelable
+) : Parcelable

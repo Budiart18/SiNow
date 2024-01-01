@@ -15,7 +15,6 @@ interface NotificationRepository {
     fun getNotificationDetail(id: Int): Flow<ResultWrapper<Notification>>
 
     fun deleteNotification(id: Int): Flow<ResultWrapper<Boolean>>
-
 }
 
 class NotificationRepositoryImpl(
@@ -39,5 +38,4 @@ class NotificationRepositoryImpl(
             dataSource.deleteNotification(id).status == "Success"
         }
     }
-
 }

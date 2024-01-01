@@ -1,7 +1,7 @@
 package com.group2.sinow.presentation.transactionhistory
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ActivityPaymentHistoryBinding
@@ -12,14 +12,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TransactionHistoryActivity : AppCompatActivity() {
 
-    private val binding : ActivityPaymentHistoryBinding by lazy {
+    private val binding: ActivityPaymentHistoryBinding by lazy {
         ActivityPaymentHistoryBinding.inflate(layoutInflater)
     }
 
-    private val viewModel : TransactionHistoryViewModel by viewModel()
+    private val viewModel: TransactionHistoryViewModel by viewModel()
 
-    private val transactionAdapter : PaymentHistoryAdapter by lazy {
-        PaymentHistoryAdapter{ transactionUser ->
+    private val transactionAdapter: PaymentHistoryAdapter by lazy {
+        PaymentHistoryAdapter { transactionUser ->
             transactionUser.id?.let { id -> navigateToDetailPayment(id) }
         }
     }
@@ -27,7 +27,6 @@ class TransactionHistoryActivity : AppCompatActivity() {
     private fun navigateToDetailPayment(transactionId: String) {
         DetailTransactionHistoryActivity.startActivity(this, transactionId)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +56,7 @@ class TransactionHistoryActivity : AppCompatActivity() {
     }
 
     private fun observeTransactionList() {
-        viewModel.transaction.observe(this){
+        viewModel.transaction.observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.layoutStateClassTopic.root.isVisible = false
@@ -70,6 +69,7 @@ class TransactionHistoryActivity : AppCompatActivity() {
                     it.payload?.let { data -> transactionAdapter.submitData(data) }
                 },
                 doOnLoading = {
+                    binding.layoutTransactionEmpty.root.isVisible = false
                     binding.layoutStateClassTopic.root.isVisible = true
                     binding.layoutStateClassTopic.loadingAnimation.isVisible = true
                     binding.layoutStateClassTopic.tvError.isVisible = false
@@ -79,10 +79,10 @@ class TransactionHistoryActivity : AppCompatActivity() {
                     binding.layoutStateClassTopic.root.isVisible = true
                     binding.layoutStateClassTopic.loadingAnimation.isVisible = false
                     binding.rvListPaymentHistory.isVisible = false
-                    if(it.exception is ApiException){
-                        if(it.exception.httpCode == 401){
+                    if (it.exception is ApiException) {
+                        if (it.exception.httpCode == 401) {
                             binding.layoutTransactionEmpty.root.isVisible = true
-                        }else{
+                        } else {
                             binding.layoutTransactionEmpty.root.isVisible = true
                             binding.layoutTransactionEmpty.tvNotificationEmpty.text = getString(R.string.tv_you_dont_have_any_transaction)
                         }

@@ -1,8 +1,7 @@
-package com.group2.sinow.presentation.change_password
+package com.group2.sinow.presentation.changepassword
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputLayout
 import com.group2.sinow.R
