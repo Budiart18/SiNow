@@ -70,14 +70,20 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
                     binding.layoutStateTransaction.root.isVisible = false
                     binding.layoutStateTransaction.loadingAnimation.isVisible = false
                     binding.layoutStateTransaction.tvError.isVisible = false
+                    binding.itemPayment.root.isVisible = true
+                    binding.itemInformation.root.isVisible = true
                     bindHistoryTransaction(it.payload)
                 },
                 doOnLoading = {
                     binding.layoutStateTransaction.root.isVisible = true
                     binding.layoutStateTransaction.loadingAnimation.isVisible = true
                     binding.layoutStateTransaction.tvError.isVisible = false
+                    binding.itemPayment.root.isVisible = false
+                    binding.itemInformation.root.isVisible = false
                 },
                 doOnError = {
+                    binding.itemPayment.root.isVisible = false
+                    binding.itemInformation.root.isVisible = false
                     binding.layoutStateTransaction.root.isVisible = true
                     binding.layoutStateTransaction.loadingAnimation.isVisible = false
                     binding.layoutStateTransaction.tvError.isVisible = true
@@ -107,7 +113,9 @@ class DetailTransactionHistoryActivity : AppCompatActivity() {
     }
 
     private fun navigateToTransactionList() {
-        val intent = Intent(this, TransactionHistoryActivity::class.java)
+        val intent = Intent(this, TransactionHistoryActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
         startActivity(intent)
     }
 
