@@ -89,6 +89,7 @@ class DetailCourseActivity : AppCompatActivity() {
         params.height = 0
         params.dimensionRatio = "16:9"
         binding.clVideoPlayerContainer.layoutParams = params
+        binding.clBtnBuy.isVisible = true
     }
 
     private fun enterFullScreen() {
@@ -104,6 +105,7 @@ class DetailCourseActivity : AppCompatActivity() {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT
         params.height = ViewGroup.LayoutParams.MATCH_PARENT
         binding.clVideoPlayerContainer.layoutParams = params
+        binding.clBtnBuy.isVisible = false
     }
 
     fun changeOrientationToLandscape(shouldLandscape: Boolean) {
@@ -145,6 +147,7 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.root.isVisible = false
                     binding.layoutStateDetailCourse.loadingAnimation.isVisible = false
                     binding.layoutStateDetailCourse.tvError.isVisible = false
+                    binding.clBtnBuy.isVisible = true
                     bindDetailCourse(it.payload)
                 },
                 doOnLoading = {
@@ -153,6 +156,7 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.tvError.isVisible = false
                     binding.container.isVisible = false
                     binding.btnBuyClass.isVisible = false
+                    binding.clBtnBuy.isVisible = false
                 },
                 doOnError = {
                     binding.container.isVisible = false
@@ -160,6 +164,7 @@ class DetailCourseActivity : AppCompatActivity() {
                     binding.layoutStateDetailCourse.root.isVisible = true
                     binding.layoutStateDetailCourse.loadingAnimation.isVisible = false
                     binding.layoutStateDetailCourse.tvError.isVisible = true
+                    binding.clBtnBuy.isVisible = false
                     if (it.exception is ApiException) {
                         Toast.makeText(
                             this,

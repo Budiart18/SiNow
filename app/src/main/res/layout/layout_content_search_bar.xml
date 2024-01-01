@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_edit_text_no_border"
                 android:hint="@string/text_search_best_course"
+                android:importantForAutofill="no"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="parent"

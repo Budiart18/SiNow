@@ -1,14 +1,12 @@
 <resources>
     <string name="app_name">SINOW</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_oopps">Ooppss!</string>
     <string name="tv_user_must_login_first">Maaf, Anda harus login terlebih dahulu!</string>
     <string name="tv_login">Masuk</string>
-    <string name="text_category">Kategori</string>
     <string name="text_see_all">Lihat Semua</string>
     <string name="text_popular_course">Kursus Populer</string>
-    <string name="text_search_best_course">Cari Kursus terbaik...</string>
+    <string name="text_search_best_course">Cari Kursus terbaik&#8230;</string>
     <string name="text_notification">Notifikasi</string>
     <string name="format_course_by">by %s</string>
     <string name="format_course_module">%d Modul</string>
@@ -16,23 +14,6 @@
     <string name="format_course_duration">%d Menit</string>
     <string name="text_class_topic">Topik Kelas</string>
     <string name="text_filter">Filter</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="tab_all">all</string>
-    <string name="tab_premium">premium</string>
-    <string name="tab_free">gratis</string>
     <string name="text_login">Masuk</string>
     <string name="text_email_or_phone_number">Email</string>
     <string name="text_password">Password</string>
@@ -50,14 +31,9 @@
     <string name="text_hint_phone_numbeer">+62</string>
     <string name="text_create_password">Buat Password</string>
     <string name="text_hint_name_empty">Nama tidak boleh kosong</string>
-    <string name="text_hint_email_empty">Email tidak boleh kosong</string>
-    <string name="text_hint_email_format_invalid">Format email anda salah</string>
     <string name="text_hint_password_empty">Password tidak boleh kosong</string>
     <string name="text_hint_password_length">Password minimal 8 karakter</string>
     <string name="text_hint_phonenumber_length">Nomor telepon minimal 10 karakter</string>
-    <string name="text_course_not_found">Course tidak ditemukan</string>
-    <string name="text_clickable_to_register">Daftar di sini</string>
-    <string name="text_clickable_to_login">Masuk di sini</string>
     <string name="text_have_an_acc_login">Sudah punya akun? Masuk di sini</string>
     <string name="text_delete_notification_confirmation">Apakah kamu yakin akan menghapus pemberitahuan ini ?</string>
     <string name="text_yes">Ya</string>
@@ -68,7 +44,6 @@
     <string name="text_error_email_invalid">Format email anda salah</string>
     <string name="text_error_password_empty">Masukkan password!</string>
     <string name="text_error_password_less_than_8_char">Password minimal 8 karakter!</string>
-    <string name="text_email_not_registered">Email tidak terdaftar!</string>
     <string name="text_error_phone_cannot_empty">Nomor telepon tidak boleh kosong!</string>
     <string name="text_hi_user">Hai, %s</string>
     <string name="text_sizian">Sizian</string>
@@ -145,9 +120,8 @@
     <string name="text_buy_now">Beli Sekarang</string>
     <string name="text_follow_class">Ikuti Kelas</string>
     <string name="text_buy_class">Beli Kelas</string>
-    <string name="text_onboarding">Onboarding...</string>
+    <string name="text_onboarding">Onboarding&#8230;</string>
     <string name="text_preparation_title">Persiapkan dirimu untuk melaju menuju dunia yang tertuju!</string>
-    <string name="text_preparation_description">Mempunyai akun Figma atau install Adobe XD, Menggunakan Internet minimal kecepatan 2Mbps, Belajar di tempat yang nyaman</string>
     <string name="text_cancel">Batalkan</string>
     <string name="text_cancel_payment_confirmation">Apakah Anda yakin untuk membatalkan pembayaran ini?</string>
     <string name="text_history_payment">History Pembayaran</string>

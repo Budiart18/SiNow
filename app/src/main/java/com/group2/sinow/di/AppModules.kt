@@ -1,8 +1,8 @@
 package com.group2.sinow.di
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.group2.sinow.data.dummy.IntroPageDataSource
-import com.group2.sinow.data.dummy.IntroPageDataSourceImpl
+import com.group2.sinow.data.local.IntroPageDataSource
+import com.group2.sinow.data.local.IntroPageDataSourceImpl
 import com.group2.sinow.data.local.UserPreferenceDataSource
 import com.group2.sinow.data.local.UserPreferenceDataSourceImpl
 import com.group2.sinow.data.local.appDataStore

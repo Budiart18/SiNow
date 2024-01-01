@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.group2.sinow.data.dummy.IntroPageDataSource
+import com.group2.sinow.data.local.IntroPageDataSource
 import com.group2.sinow.data.local.UserPreferenceDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -1,4 +1,4 @@
-package com.group2.sinow.data.dummy
+package com.group2.sinow.data.local
 
 import com.group2.sinow.R
 import com.group2.sinow.model.introslider.IntroSliderItem

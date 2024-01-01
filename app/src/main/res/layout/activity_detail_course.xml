@@ -236,6 +236,8 @@
             android:id="@+id/cl_btn_buy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:background="?attr/colorPrimary"
             android:paddingVertical="8dp"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -254,10 +256,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="4dp"
                     android:textColor="?attr/colorOnPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     android:text="@string/text_total_price" />
 
                 <TextView
@@ -266,7 +270,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="4dp"
                     android:textColor="?attr/colorOnPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_total_price"

@@ -23,7 +23,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentStartLearningDialogBinding.inflate(inflater, container, false)
@@ -42,7 +42,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
 
     override fun onViewCreated(
         view: View,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
@@ -78,7 +78,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
                         binding.layoutState.tvError.text =
                             it.exception.getParsedError()?.message.orEmpty()
                     }
-                },
+                }
             )
         }
     }
@@ -90,7 +90,7 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.tv_toast_success_follow_class),
-                        Toast.LENGTH_SHORT,
+                        Toast.LENGTH_SHORT
                     ).show()
                     dismiss()
                 },
@@ -99,10 +99,10 @@ class StartLearningDialogFragment : SuperBottomSheetFragment() {
                         Toast.makeText(
                             requireContext(),
                             it.exception.getParsedError()?.message,
-                            Toast.LENGTH_SHORT,
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
-                },
+                }
             )
         }
     }

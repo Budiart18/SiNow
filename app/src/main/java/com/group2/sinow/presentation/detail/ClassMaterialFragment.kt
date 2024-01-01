@@ -29,7 +29,7 @@ class ClassMaterialFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentClassMaterialBinding.inflate(inflater, container, false)
         return binding.root
@@ -37,7 +37,7 @@ class ClassMaterialFragment : Fragment() {
 
     override fun onViewCreated(
         view: View,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
@@ -56,16 +56,16 @@ class ClassMaterialFragment : Fragment() {
                             Toast.makeText(
                                 requireActivity(),
                                 getString(R.string.tv_toast_you_have_to_pay_first),
-                                Toast.LENGTH_LONG,
+                                Toast.LENGTH_LONG
                             ).show()
                         }
                         Toast.makeText(
                             requireActivity(),
                             err.exception.getParsedError()?.message.orEmpty(),
-                            Toast.LENGTH_LONG,
+                            Toast.LENGTH_LONG
                         ).show()
                     }
-                },
+                }
             )
         }
     }
@@ -85,14 +85,14 @@ class ClassMaterialFragment : Fragment() {
                     val section = Section()
                     section.setHeader(
                         HeaderItemVideoChapter(it.name, it.totalDuration) { _ ->
-                        },
+                        }
                     )
                     val dataSection =
                         it.userModules?.map { userModuleData ->
                             DataItemVideoChapter(
                                 userModuleData.moduleData?.name,
                                 userModuleData.status,
-                                userModuleData.moduleData?.no,
+                                userModuleData.moduleData?.no
                             ) { _ ->
                                 sharedViewModel.getUserModule(item.courseId, userModuleData.id)
                             }

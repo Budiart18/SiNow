@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="Base.Theme.SiNow" parent="Theme.Material3.DayNight.NoActionBar">
@@ -30,11 +30,6 @@
         <item name="CustomChipChoiceStyle">@style/ChipCustomStyle</item>
         <item name="superBottomSheet_backgroundColor">@color/app_color_accent_dark</item>
 
-    </style>
-
-    <!-- Style for ShapeableImageView-->
-    <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
-        <item name="cornerSize">10%</item>
     </style>
 
     <style name="ChipCustomStyle" parent="@style/Widget.MaterialComponents.Chip.Choice">

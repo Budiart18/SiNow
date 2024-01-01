@@ -29,7 +29,7 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBuyPremiumCourseDialogBinding.inflate(inflater, container, false)
@@ -47,7 +47,7 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
 
     override fun onViewCreated(
         view: View,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
@@ -81,7 +81,7 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
                         binding.layoutState.tvError.text =
                             it.exception.getParsedError()?.message.orEmpty()
                     }
-                },
+                }
             )
         }
     }
@@ -95,7 +95,7 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
             binding.courseCard.tvCourseAuthor.text =
                 getString(
                     R.string.format_course_by,
-                    item.course?.courseBy,
+                    item.course?.courseBy
                 )
             binding.courseCard.tvCourseLevel.text =
                 item.course?.level?.replaceFirstChar {
@@ -104,12 +104,12 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
             binding.courseCard.tvCourseModules.text =
                 getString(
                     R.string.format_course_module,
-                    item.course?.totalModule,
+                    item.course?.totalModule
                 )
             binding.courseCard.tvCourseDuration.text =
                 getString(
                     R.string.format_course_duration,
-                    item.course?.totalDuration,
+                    item.course?.totalDuration
                 )
             binding.courseCard.tvBtnBuy.text = item.course?.price?.toDouble()?.toCurrencyFormat()
             binding.courseCard.ivPremium.isVisible = true
@@ -136,13 +136,13 @@ class BuyPremiumCourseDialogFragment : SuperBottomSheetFragment() {
                             it.exception.getParsedError()?.message.orEmpty(),
                             FancyToast.LENGTH_SHORT,
                             FancyToast.ERROR,
-                            false,
+                            false
                         ).show()
                         if (it.exception.httpCode == 400) {
                             navigateTolPaymentHistory()
                         }
                     }
-                },
+                }
             )
         }
     }

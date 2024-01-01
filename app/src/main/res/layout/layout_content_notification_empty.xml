@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loading_animation"
+        android:id="@+id/loading_animation_notification"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:visibility="gone"
