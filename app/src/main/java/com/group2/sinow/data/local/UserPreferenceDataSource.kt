@@ -14,8 +14,6 @@ interface UserPreferenceDataSource {
     fun getUserDarkModePrefFlow(): Flow<Boolean>
     suspend fun setUserDarkModePref(isUsingDarkMode: Boolean)
 
-    suspend fun clearUserPreferencesTheme()
-
     suspend fun setShouldShowIntroPage(isFirstTime: Boolean)
 
     fun getShouldShowIntroPage(): Flow<Boolean>
@@ -58,10 +56,6 @@ class UserPreferenceDataSourceImpl(private val preferenceHelper: PreferenceDataS
 
     override suspend fun setUserDarkModePref(isUsingDarkMode: Boolean) {
         return preferenceHelper.putPreference(PREF_USER_DARK_MODE, isUsingDarkMode)
-    }
-
-    override suspend fun clearUserPreferencesTheme() {
-        return preferenceHelper.removePreference(PREF_USER_DARK_MODE)
     }
 
     companion object {

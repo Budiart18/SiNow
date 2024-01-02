@@ -45,10 +45,12 @@ interface SinowDataSource {
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse
 
     suspend fun getCategories(): CategoriesResponse
+
     suspend fun getUserCourse(
         search: String? = null,
         progress: String? = null
     ): ClassesResponse
+
     suspend fun getCourses(
         search: String? = null,
         type: String? = null,
