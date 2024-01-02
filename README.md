@@ -17,7 +17,7 @@
 </p>
 
 ## Download
-Go to the [Releases](https://github.com/skydoves/Pokedex/releases) to download the latest APK.
+Go to the [Releases](https://drive.google.com/file/d/17GJWm37HXdl6Vr51SqYq5NMX1bis7-gV/view?usp=sharing) to download the latest APK.
 
 <img src="/previews/preview.gif" align="right" width="320"/>
 
@@ -35,15 +35,19 @@ Go to the [Releases](https://github.com/skydoves/Pokedex/releases) to download t
     - Repository Pattern
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit): Construct the REST APIs and paging network data.
 - [Gson](https://github.com/google/gson): A modern JSON library for Kotlin and Java.
+- [JsonToKotlinClass](https://github.com/wuseal/JsonToKotlinClass): Plugin for Kotlin to convert Json String into Kotlin data class code quickly
 - [ksp](https://github.com/google/ksp): Kotlin Symbol Processing API.
 - [Turbine](https://github.com/cashapp/turbine): A small testing library for kotlinx.coroutines Flow.
 - [Material-Components](https://github.com/material-components/material-components-android): Material design components for building ripple animation, and CardView.
-- [Glide](https://github.com/bumptech/glide): Loading images from network.
+- [Coil](https://github.com/coil-kt/coil): An image loading library for Android backed by Kotlin Coroutines.
+- [Exoplayer](https://developer.android.com/guide/topics/media/exoplayer): A media player is an app-level component that allows playback of video and audio files.
+- [Koin](https://insert-koin.io/docs/setup/koin/): A smart Kotlin dependency injection library to keep focused on app, not on tools.
+- [Groupie](https://github.com/lisawray/groupie): Helps display and manage complex RecyclerView layouts.
 - Custom Views
     - [SkeletonLayout](https://github.com/Faltenreich/SkeletonLayout): Implements the Skeleton View pattern and provides an easy way for other developers to enable it in their apps.
-    - [AndroidRibbon](https://github.com/skydoves/androidribbon): A simple way to implement a  beautiful ribbon with the shimmering on Android.
     - [FancyToast](https://github.com/Shashank02051997/FancyToast-Android): A library that takes the standard Android toast to the next level with a variety of styling options.
     - [SuperBottomSheet](https://github.com/andrefrsousa/SuperBottomSheet): Displays the bottom sheet in your app with the bonus of animating the status bar color and top rounded corners when scrolling.
+    - [LottieAndroid](https://github.com/airbnb/lottie-android): Show lottie animation in apps
 
 ## Architecture
 **SINOW** is based on the MVVM architecture and the Repository pattern, which follows the [Google's official architecture guidance](https://developer.android.com/topic/architecture).
