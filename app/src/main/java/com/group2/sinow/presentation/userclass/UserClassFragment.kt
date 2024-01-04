@@ -45,12 +45,21 @@ class UserClassFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchData()
         observeCourseList()
         setProgress()
         setupSearch()
         observeFilterData()
         refreshData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        searchQuery = null
+        selectedProgress = null
+        fetchData()
+        viewModel.resetFilter()
+        binding.searchBar.etSearchBar.text.clear()
+        binding.btnAll.isChecked = true
     }
 
     private fun fetchData() {

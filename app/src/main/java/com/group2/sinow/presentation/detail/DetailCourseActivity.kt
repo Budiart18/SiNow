@@ -108,7 +108,7 @@ class DetailCourseActivity : AppCompatActivity() {
         binding.clBtnBuy.isVisible = false
     }
 
-    fun changeOrientationToLandscape(shouldLandscape: Boolean) {
+    private fun changeOrientationToLandscape(shouldLandscape: Boolean) {
         requestedOrientation =
             if (shouldLandscape) {
                 ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -117,7 +117,7 @@ class DetailCourseActivity : AppCompatActivity() {
             }
     }
 
-    fun checkLandscapeOrientation(): Boolean {
+    private fun checkLandscapeOrientation(): Boolean {
         val orientation = resources.configuration.orientation
         return orientation == Configuration.ORIENTATION_LANDSCAPE
     }

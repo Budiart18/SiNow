@@ -46,4 +46,9 @@ class UserClassViewModel(private val repository: UserRepository) : ViewModel() {
     fun setSelectedProgress(progress: String) {
         _selectedProgress.value = progress
     }
+
+    fun resetFilter() {
+        _searchQuery.postValue("")
+        _selectedProgress.postValue(PROGRESS_ALL)
+    }
 }
