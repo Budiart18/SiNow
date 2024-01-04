@@ -4,6 +4,7 @@ import android.view.View
 import com.group2.sinow.R
 import com.group2.sinow.databinding.ItemHeaderClassMaterialBinding
 import com.group2.sinow.databinding.ItemListVideoChapterBinding
+import com.group2.sinow.utils.formatSecondsToMinutes
 import com.xwray.groupie.viewbinding.BindableItem
 
 class HeaderItemVideoChapter(
@@ -14,7 +15,8 @@ class HeaderItemVideoChapter(
     BindableItem<ItemHeaderClassMaterialBinding>() {
     override fun bind(viewBinding: ItemHeaderClassMaterialBinding, position: Int) {
         viewBinding.tvChapterMaterials.text = title
-        viewBinding.tvDuration.text = String.format("%d Menit", duration)
+        viewBinding.tvDuration.text = String.format("%d Menit",
+            duration?.let { formatSecondsToMinutes(it) })
         viewBinding.root.setOnClickListener { onHeaderClick.invoke(title.toString()) }
     }
 
