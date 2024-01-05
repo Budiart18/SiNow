@@ -17,7 +17,7 @@
 </p>
 
 ## Download
-Go to the [Releases](https://drive.google.com/file/d/17GJWm37HXdl6Vr51SqYq5NMX1bis7-gV/view?usp=sharing) to download the latest APK.
+Go to the [Releases](https://drive.google.com/file/d/1PjOkE_4GkZb84P9Fsi1In0mSHlQEY8wq/view?usp=sharing) to download the latest APK.
 
 <img src="/previews/preview.gif" align="right" width="320"/>
 
